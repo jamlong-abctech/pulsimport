@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>no.api.pulsimport</groupId>
+    <artifactId>pulsimport</artifactId>
+    <packaging>pom</packaging>
+    <version>0.5-SNAPSHOT</version>
+    <name>pulsimport</name>
+
+    <build>
+        <finalName>pulsimport-app</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+    <properties>
+        <commons-io.version>2.4</commons-io.version>
+        <commons.fileupload.version>1.2.2</commons.fileupload.version>
+        <httpclient.version>4.2.3</httpclient.version>
+        <xmlbeans.version>2.6.0</xmlbeans.version>
+        <quartz.scheduler.version>2.1.7</quartz.scheduler.version>
+        <flying.saucer.version>9.0.2</flying.saucer.version>
+
+        <admapper.version>3.14</admapper.version>
+        <apiproperties.version>3.22</apiproperties.version>
+        <atomizer.version>0.31</atomizer.version>
+        <corredor.version>0.61</corredor.version>
+        <datafetcher.version>2.4</datafetcher.version>
+        <director.version>1.7</director.version>
+        <hydra.version>2.0.19</hydra.version>
+        <iris.version>1.110</iris.version>
+        <meetix.version>0.17</meetix.version>
+        <obscura.version>2.1.4</obscura.version>
+        <pantera.version>0.15</pantera.version>
+        <pantheon.version>1.112</pantheon.version>
+        <relax.version>1.6.36</relax.version>
+        <zett.version>2.84</zett.version>
+        <!-- 1.8 is solr 3.4.x, below 1.7 is 3.1.x -->
+        <solr.version>1.34</solr.version>
+        <abertura.version>0.8</abertura.version>
+        <aws.version>1.18</aws.version>
+        <componada.version>2.97</componada.version>
+        <harbour.version>1.225</harbour.version>
+        <hanuman.version>0.30</hanuman.version>
+        <mittari.version>0.21</mittari.version>
+        <nifty.version>1.0</nifty.version>
+        <templator.version>1.9</templator.version>
+        <apollo.version>1.8</apollo.version>
+        <!-- Soon to be put in production. ATM: 2.0.4 -->
+        <janus.version>2.0.5</janus.version>
+        <pravda.version>0.5</pravda.version>
+        <apay.version>0.1.27</apay.version>
+        <meteo.version>0.3</meteo.version>
+        <amail.version>0.2</amail.version>
+
+        <springframework.3.2.version>3.2.4.RELEASE</springframework.3.2.version>
+        <!-- Spring is in 3.1.x as well, but needs to be evaluated before being activate for all projects. -->
+        <springframework.3.1.version>3.1.4.RELEASE</springframework.3.1.version>
+        <!-- Notice that springframework version 3.0.5 must be used with componada and seamstress
+        as spring 3.0.6 does not accept dots in locale -->
+        <springframework.version>3.0.6.RELEASE</springframework.version>
+        <!-- Notice group: org/springframework/security/spring-security-core/ -->
+        <springsecurity.version>3.0.7.RELEASE</springsecurity.version>
+        <!-- Mock is only in 2.0.8. The functionality is now contained in spring-test, and this is deprecated -->
+        <springframework.mock.version>2.0.8</springframework.mock.version>
+        <spring-data-mongodb.version>1.2.1.RELEASE</spring-data-mongodb.version>
+        <mongo-java-driver.version>2.11.3</mongo-java-driver.version>
+        <semispace.version>1.3.1</semispace.version>
+        <!-- Notice: The following 3 logging elements need to have synchronized versions -->
+        <slf4j.version>1.7.5</slf4j.version>
+        <logback.version>1.0.13</logback.version>
+        <logstash.version>1.2</logstash.version>
+        <!-- Log4j is deprecated. Need to keep it as a variable, in case of old deps.  -->
+        <log4j.version>1.2.16</log4j.version>
+        <jetty6.version>6.1.25</jetty6.version>
+        <jetty8.version>8.1.14.v20131031</jetty8.version>
+        <jetty.version>${jetty6.version}</jetty.version>
+        <!-- The servlet from jetty-8 distro does not change (yet)
+        Note: This parameter will be removed, as we are changing dependency to a
+        different package -->
+        <jetty8.servlet3.version>8.1.10.v20130312</jetty8.servlet3.version>
+        <jersey.version>1.1.5-ea-v20091019</jersey.version>
+        <jawr.version>3.3.3</jawr.version>
+        <junit.version>4.11</junit.version>
+        <aspectj.version>1.7.2</aspectj.version>
+        <mysql.connector.version>5.1.23</mysql.connector.version>
+        <hsqldb.version>2.3.1</hsqldb.version>
+        <freemarker.version>2.3.20</freemarker.version>
+        <commons-lang.version>2.6</commons-lang.version>
+        <commons-codec.version>1.8</commons-codec.version>
+        <xstream.version>1.4.5</xstream.version>
+        <!-- Retaining 2.10.x due to effort needed with regards to upgrade to 2.12.x -->
+        <camel.version>2.10.3</camel.version>
+        <mockito.version>1.9.5</mockito.version>
+        <joda.version>2.3</joda.version>
+        <cglib.version>2.2.2</cglib.version>
+        <terracotta-session.version>1.2.1</terracotta-session.version>
+        <terracotta-toolkit.version>4.1.0</terracotta-toolkit.version>
+        <!-- Notice: Ehcache needs to be in parallell with terracotta: Do NOT change version without being certain of what you do. -->
+        <ehcache.version>2.5.1</ehcache.version>
+        <resteasy.version>2.3.5.Final</resteasy.version>
+        <!-- We want to run the same version of the postgresql driver everywhere -->
+        <postgres.version>9.2-1003-jdbc4</postgres.version>
+        <easymock.version>3.2</easymock.version>
+        <!-- NB The liquibase-slf4j is a project that follows liquibase versions. Upgrade both when relevant -->
+        <liquibase.version>3.0.7</liquibase.version>
+        <liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
+
+        <quartz.scheduler.version>2.1.7</quartz.scheduler.version>
+        <gson.version>2.2.4</gson.version>
+        <jackson.version>2.2.3</jackson.version>
+
+        <!-- === Maven related properties ==== -->
+        <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+        <plexus.compiler.javac.version>2.2</plexus.compiler.javac.version>
+
+    </properties>
+    <dependencies>
+        <!-- ################################# -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.28</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <!-- Spring framework -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${springframework.3.2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${springframework.3.2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${springframework.3.2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${springframework.3.2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.3.2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${springframework.3.2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${springframework.3.2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${springframework.3.2.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${springframework.3.2.version}</version>
+        </dependency>
+
+        <!-- ################################# -->
+
+    </dependencies>
+
+</project>
