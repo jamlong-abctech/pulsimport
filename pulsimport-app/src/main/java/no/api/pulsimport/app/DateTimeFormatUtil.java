@@ -1,6 +1,8 @@
 package no.api.pulsimport.app;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
@@ -27,5 +29,11 @@ public final class DateTimeFormatUtil {
           //  log.warn("Cannot parse date " + dateText + ", error = " + e.getMessage());
             return null;
         }
+    }
+    public static DateTime parseDateTime(String dateText){
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        DateTime dateTime = formatter.parseDateTime(dateText);
+
+        return dateTime;
     }
 }

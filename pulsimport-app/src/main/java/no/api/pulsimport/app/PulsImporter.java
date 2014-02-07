@@ -11,7 +11,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+
+import no.api.pulsimport.app.bean.ArticleImportBean;
+import no.api.pulsimport.app.component.StatArticleXmlParserComponent;
 import no.api.pulsimport.app.dao.SiteDao;
+import no.api.pulsimport.app.exception.ComscoreXMLParseException;
 import no.api.pulsimport.app.model.SiteModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -52,9 +56,15 @@ public class PulsImporter {
         }
 
         try {
+            String siteCode="an";
             String responseStr = IOUtils.toString(is, "UTF-8");
-            System.out.println(responseStr);
+            StatArticleXmlParserComponent xmlParserComponent=new StatArticleXmlParserComponent();
+            ArticleImportBean articleImportBean=xmlParserComponent.retrieveArticleStatFromXml(responseStr,siteCode);
+
+
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ComscoreXMLParseException e) {
             e.printStackTrace();
         }
 

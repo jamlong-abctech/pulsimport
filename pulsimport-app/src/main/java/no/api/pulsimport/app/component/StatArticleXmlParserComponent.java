@@ -1,13 +1,14 @@
 package no.api.pulsimport.app.component;
 
 
-import no.api.pulsimport.app.StringCleaningUtil;
+import no.api.pulsimport.app.DateTimeFormatUtil;
 import no.api.pulsimport.app.bean.ArticleBean;
 import no.api.pulsimport.app.bean.ArticleImportBean;
 import no.api.pulsimport.app.bean.StatisticBean;
 import no.api.pulsimport.app.bean.StatisticByUrlBean;
 import no.api.pulsimport.app.exception.ComscoreXMLParseException;
-import org.apache.commons.lang.StringEscapeUtils;
+
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
 import javax.xml.stream.XMLEventReader;
@@ -24,15 +25,11 @@ import java.util.Stack;
 
 @Component
 
-
 public class StatArticleXmlParserComponent {
-    private static final String REST = "Rest";
-    private static final String TOTAL = "Total";
-    private static final String R_TAG = "r";
-    private static final String C_TAG = "c";
+    private static final String R_TAG = "row";
+    private static final String C_TAG = "field";
 
-    //TODO Tone.4/12/13, revise the business logic, improve unit test
-    public ArticleImportBean retrieveArticleStatFromXml(String xmlContent) throws ComscoreXMLParseException {
+    public ArticleImportBean retrieveArticleStatFromXml(String xmlContent,String siteCode) throws ComscoreXMLParseException {
 
         boolean isInitial = true;
         boolean isNewArticle = false;
@@ -61,7 +58,6 @@ public class StatArticleXmlParserComponent {
                     String startElementName = startElement.getName().getLocalPart();
                     if (!isNewArticle) {
                         if (startElementName.equals(C_TAG)) {
-                            // Keep CList data to create articleBean
                             cStack.push(inputEventReader.getElementText());
                         }
 
@@ -73,28 +69,26 @@ public class StatArticleXmlParserComponent {
 
                     if (endElementName.equals(R_TAG)) {
                         List<String> cList = new ArrayList<String>(cStack);
-
                         if (isInitial) {
                             articleBean = new ArticleBean();
-                            articleBean.setSiteCode(cList.get(0));
-                            articleBean.setArticleId(cList.get(1));
-                        }
+                            articleBean.setId(Long.parseLong(cList.get(0)));
+                            articleBean.setUniqueVisitor(Integer.parseInt(cList.get(1)));
+                            articleBean.setPageView(Integer.parseInt(cList.get(2)));
+                            articleBean.setSession(Integer.parseInt(cList.get(3)));
 
-                        if (!cList.get(0).equals(TOTAL)) {
-                            if (cList.get(1).equals(articleBean.getArticleId())) {
-                                isInitial = false;
-                                isNewArticle = false;
-                                createStatisticByUrl(articleBeanList, articleBean, statisticByUrlBeanList, statisticBean, cList);
-                            } else if (!cList.get(1).equals(TOTAL) && (!cList.get(1).equals(REST))) {
-                                articleBean = new ArticleBean();
-                                articleBean.setArticleId(cList.get(1));
-                                articleBean.setSiteCode(cList.get(0));
-                                statisticByUrlBeanList = new ArrayList<StatisticByUrlBean>();
-                                statisticBean = new StatisticBean();
-                                isNewArticle = true;
-                                continue;
+                            DateTime date;
+                            date = DateTimeFormatUtil.parseDateTime(cList.get(4));
+
+                            articleBean.setDate(date);
+                            articleBean.setArticleId(cList.get(5));
+                            articleBean.setArticleTitle(cList.get(6));
+                            articleBean.setArticleUrl(cList.get(7));
+                            articleBean.setSiteCode(siteCode);
+                            if(articleBean!=null){
+                                articleBeanList.add(articleBean);
                             }
                         }
+
                         // Clear stack to get new one
                         cStack.clear();
                     }
@@ -116,33 +110,5 @@ public class StatArticleXmlParserComponent {
         return articleImportBean;
     }
 
-    private void createStatisticByUrl(List<ArticleBean> articleBeanList, ArticleBean articleBean, List<StatisticByUrlBean> statisticByUrlBeanList, StatisticBean statisticBean, List<String> cList) {
-        if (!cList.get(3).equals(TOTAL)) {
-            StatisticByUrlBean statisticByUrlBean = new StatisticByUrlBean(
-                    StringEscapeUtils.unescapeHtml(cList.get(2)));
-
-            statisticByUrlBean.setTitle(StringCleaningUtil.unescapeHtmlAndCapitalizeAndReplaceDash(
-                    cList.get(3)));
-            statisticByUrlBean.setNumberOfUniqueVisitor(Integer.parseInt(cList.get(4)));
-            statisticByUrlBean.setNumberOfSession(Integer.parseInt((cList.get(5))));
-            statisticByUrlBean.setNumberOfPageView(Integer.parseInt((cList.get(6))));
-            statisticByUrlBean.setNumberOfMobileUniqueVisitor(Integer.parseInt(
-                    cList.get(7)));
-            statisticByUrlBean.setNumberOfMobileSession(Integer.parseInt((cList.get(8))));
-            statisticByUrlBean.setNumberOfMobilePageView(Integer.parseInt((cList.get(9))));
-            statisticByUrlBeanList.add(statisticByUrlBean);
-
-        } else if ((cList.get(2).equals(TOTAL) && (cList.get(3).equals(TOTAL)))) {
-            statisticBean.setNumberOfUniqueVisitor(Integer.parseInt((cList.get(4))));
-            statisticBean.setNumberOfSession(Integer.parseInt((cList.get(5))));
-            statisticBean.setNumberOfPageView(Integer.parseInt((cList.get(6))));
-            statisticBean.setNumberOfMobileUniqueVisitor(Integer.parseInt((cList.get(7))));
-            statisticBean.setNumberOfMobileSession(Integer.parseInt((cList.get(8))));
-            statisticBean.setNumberOfMobilePageView(Integer.parseInt((cList.get(9))));
-            articleBean.setTotalStatisticOfArticle(statisticBean);
-            articleBean.setStatisticByUrls(statisticByUrlBeanList);
-            articleBeanList.add(articleBean);
-        }
-    }
 
 }

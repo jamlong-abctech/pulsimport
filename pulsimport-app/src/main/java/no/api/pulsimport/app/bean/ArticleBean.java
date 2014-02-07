@@ -17,7 +17,7 @@ public class ArticleBean {
     private String articleId;
     private String articleTitle;
     private String articleUrl;
-    private String siteId;
+    private String siteCode;
 
     public Long getId() {
         return id;
@@ -83,12 +83,12 @@ public class ArticleBean {
         this.articleUrl = articleUrl;
     }
 
-    public String getSiteId() {
-        return siteId;
+    public String getSiteCode() {
+        return siteCode;
     }
 
-    public void setSiteId(String siteId) {
-        this.siteId = siteId;
+    public void setSiteCode(String siteCode) {
+        this.siteCode = siteCode;
     }
 
 }
