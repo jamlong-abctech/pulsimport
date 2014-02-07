@@ -43,7 +43,7 @@ public class PulsImporter {
         }
 
 
-        String mockFileClassPath = "table1.xml";
+        String mockFileClassPath = "stats_article_an.xml";
         InputStream is = new PulsImporter().getClass().getClassLoader().getResourceAsStream(mockFileClassPath);
 
         if (is == null) {
