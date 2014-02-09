@@ -54,13 +54,12 @@ public class SiteStatImportComponent {
         List<SiteModel> sites = siteDao.findByDevice(SiteDeviceEnum.DESKTOP);
 
         // for testing
-//        sites.clear();
-//        sites.add(siteDao.findByCode("glomdalen"));
-//        sites.add(siteDao.findByCode("rb"));
+        sites.clear();
+        sites.add(siteDao.findByCode("glomdalen"));
+        sites.add(siteDao.findByCode("rb"));
         // end
 
         for(SiteModel site : sites) {
-            List<SiteStatModel> combineStats = new ArrayList<>();
 
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
@@ -73,46 +72,15 @@ public class SiteStatImportComponent {
                 String desktopPlusExportName = baseExportedPath + "stats_total_" + site.getCode()+"+" + ".xml";
                 String mobileExportedName = baseExportedPath + "stats_total_m-" + site.getCode() + ".xml";
                 String mobilePlusExportedName = baseExportedPath + "stats_total_m-" + site.getCode()+"+" + ".xml";
-                Map<Long, SiteStatModel> combinedMap = new HashMap<>();
-                Map<Long, SiteStatModel> combinePlusMap = new HashMap<>();
-                SiteStatResultSet resultSetDesktop = parser.parseSiteStat(desktopExportName);
 
+                SiteStatResultSet resultSetDesktop = parser.parseSiteStat(desktopExportName);
                 SiteStatResultSet resultSetMobile = parser.parseSiteStat(mobileExportedName);
 
-
                 List<SiteStatModel> siteStatDesktopModels =  mapper.map(resultSetDesktop, desktopSite);
-
                 List<SiteStatModel> siteStatMobileModels =  mapper.map(resultSetMobile, mobileSite);
 
-                for(SiteStatModel statModel : siteStatDesktopModels) {
-                    combinedMap.put(statModel.getHour().getMillis(), statModel);
-                }
-
-                for(SiteStatModel statModel : siteStatMobileModels) {
-                    log.debug("Saving site stat data siteCode {}, hour {}", site.getCode(), statModel.getHour());
-                    if(combinedMap.get(statModel.getHour().getMillis()) == null) {
-                        SiteStatModel combineStat = new SiteStatModel();
-                        combineStat.setSite(combineSite);
-                        combineStat.setHour(statModel.getHour());
-                        combineStat.setUniqueVisitor(statModel.getUniqueVisitor());
-                        combineStat.setPageView(statModel.getPageView());
-                        combineStat.setVisit(statModel.getVisit());
-                        combineStat.setVideo(statModel.getVideo());
-
-                        combineStats.add(combineStat);
-                    } else {
-                        SiteStatModel statFromMap = combinedMap.get(statModel.getHour().getMillis());
-                        SiteStatModel combineStat = new SiteStatModel();
-                        combineStat.setSite(combineSite);
-                        combineStat.setHour(statFromMap.getHour());
-                        combineStat.setUniqueVisitor(statModel.getUniqueVisitor() + statFromMap.getUniqueVisitor());
-                        combineStat.setPageView(statModel.getPageView() + statFromMap.getPageView());
-                        combineStat.setVisit(statModel.getVisit() + statFromMap.getVisit());
-                        combineStat.setVideo(statModel.getVideo() + statFromMap.getVideo());
-
-                        combineStats.add(combineStat);
-                    }
-                }
+                List<SiteStatModel> combineStats = new ArrayList<>();
+                combineStats = calculateCombineStat(siteStatDesktopModels, siteStatMobileModels, combineSite);
 
 
                 siteStatDao.batchInsert(siteStatDesktopModels);
@@ -121,42 +89,14 @@ public class SiteStatImportComponent {
 
                 // Case of this site has paid content
                 if(desktopPlusSite != null) {
-                    List<SiteStatModel> combinePlusStats = new ArrayList<>();
                     SiteStatResultSet resultSetDesktopPlus = parser.parseSiteStat(desktopPlusExportName);
                     SiteStatResultSet resultSetMobilePlus = parser.parseSiteStat(mobilePlusExportedName);
 
                     List<SiteStatModel> siteStatDesktopPlusModels =  mapper.map(resultSetDesktopPlus, desktopPlusSite);
                     List<SiteStatModel> siteStatMobilePlusModels =  mapper.map(resultSetMobilePlus, mobilePlusSite);
 
-                    for(SiteStatModel statModel : siteStatDesktopPlusModels) {
-                        combinePlusMap.put(statModel.getHour().getMillis(), statModel);
-                    }
-
-                    for(SiteStatModel statModel : siteStatMobilePlusModels) {
-                        log.debug("Saving site stat data siteCode {}, hour {}", site.getCode(), statModel.getHour());
-                        if(combinePlusMap.get(statModel.getHour().getMillis()) == null) {
-                            SiteStatModel combineStat = new SiteStatModel();
-                            combineStat.setSite(combinePlusSite);
-                            combineStat.setHour(statModel.getHour());
-                            combineStat.setUniqueVisitor(statModel.getUniqueVisitor());
-                            combineStat.setPageView(statModel.getPageView());
-                            combineStat.setVisit(statModel.getVisit());
-                            combineStat.setVideo(statModel.getVideo());
-
-                            combineStats.add(combineStat);
-                        } else {
-                            SiteStatModel statFromMap = combinePlusMap.get(statModel.getHour().getMillis());
-                            SiteStatModel combineStat = new SiteStatModel();
-                            combineStat.setSite(combinePlusSite);
-                            combineStat.setHour(statFromMap.getHour());
-                            combineStat.setUniqueVisitor(statModel.getUniqueVisitor() + statFromMap.getUniqueVisitor());
-                            combineStat.setPageView(statModel.getPageView() + statFromMap.getPageView());
-                            combineStat.setVisit(statModel.getVisit() + statFromMap.getVisit());
-                            combineStat.setVideo(statModel.getVideo() + statFromMap.getVideo());
-
-                            combinePlusStats.add(combineStat);
-                        }
-                    }
+                    List<SiteStatModel> combinePlusStats = new ArrayList<>();
+                    combinePlusStats = calculateCombineStat(siteStatDesktopPlusModels, siteStatMobilePlusModels, combinePlusSite);
                     siteStatDao.batchInsert(siteStatDesktopPlusModels);
                     siteStatDao.batchInsert(siteStatMobilePlusModels);
                     siteStatDao.batchInsert(combinePlusStats);
@@ -167,5 +107,41 @@ public class SiteStatImportComponent {
 
         }
         log.debug("import sitestat finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
+    }
+
+    private List<SiteStatModel> calculateCombineStat(List<SiteStatModel> desktopList, List<SiteStatModel> mobileList,
+                                                     SiteModel combineSite) {
+        Map<Long, SiteStatModel> combinedMap = new HashMap<>();
+        List<SiteStatModel> combinedStat = new ArrayList<>();
+        for(SiteStatModel statModel : desktopList) {
+            combinedMap.put(statModel.getHour().getMillis(), statModel);
+        }
+
+        for(SiteStatModel statModel : mobileList) {
+            log.debug("Saving site stat data siteCode {}, hour {}", combineSite.getCode(), statModel.getHour());
+            if(combinedMap.get(statModel.getHour().getMillis()) == null) {
+                SiteStatModel combineStat = new SiteStatModel();
+                combineStat.setSite(combineSite);
+                combineStat.setHour(statModel.getHour());
+                combineStat.setUniqueVisitor(statModel.getUniqueVisitor());
+                combineStat.setPageView(statModel.getPageView());
+                combineStat.setVisit(statModel.getVisit());
+                combineStat.setVideo(statModel.getVideo());
+
+                combinedStat.add(combineStat);
+            } else {
+                SiteStatModel statFromMap = combinedMap.get(statModel.getHour().getMillis());
+                SiteStatModel combineStat = new SiteStatModel();
+                combineStat.setSite(combineSite);
+                combineStat.setHour(statFromMap.getHour());
+                combineStat.setUniqueVisitor(statModel.getUniqueVisitor() + statFromMap.getUniqueVisitor());
+                combineStat.setPageView(statModel.getPageView() + statFromMap.getPageView());
+                combineStat.setVisit(statModel.getVisit() + statFromMap.getVisit());
+                combineStat.setVideo(statModel.getVideo() + statFromMap.getVideo());
+
+                combinedStat.add(combineStat);
+            }
+        }
+        return combinedStat;
     }
 }
