@@ -2,13 +2,18 @@ package no.api.pulsimport.app.parser;
 
 
 import no.api.pulsimport.app.DateTimeFormatUtil;
-import no.api.pulsimport.app.bean.ArticleBean;
-import no.api.pulsimport.app.bean.ArticleImportBean;
+import no.api.pulsimport.app.bean.ArticleStatResultSet;
+import no.api.pulsimport.app.bean.SiteStatResultSet;
 import no.api.pulsimport.app.exception.ComscoreXMLParseException;
 
+import no.api.pulsimport.app.exception.ExportedDataNotFoundException;
+import org.apache.commons.io.IOUtils;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Component;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
@@ -16,17 +21,41 @@ import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
 @Component
-public class StatArticleXmlParserComponent {
+public class ArticleStatXmlParser {
+    public ArticleStatResultSet parseArticleStat(String exportedName) throws IOException {
+
+        ArticleStatResultSet resultSet = null;
+        try (InputStream is = new FileInputStream(exportedName)) {
+            JAXBContext jaxbContext = JAXBContext.newInstance(ArticleStatResultSet.class);
+
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+            resultSet = (ArticleStatResultSet) jaxbUnmarshaller.unmarshal(is);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            throw new ExportedDataNotFoundException("export file not found");
+        }
+
+        return resultSet;
+    }
+    /*
     private static final String R_TAG = "row";
     private static final String C_TAG = "field";
 
-    public ArticleImportBean retrieveArticleStatFromXml(String xmlContent,String siteCode) throws ComscoreXMLParseException {
+    public ArticleImportBean parseSiteStat(String xmlContent,String siteCode) throws ComscoreXMLParseException {
+
+
+
 
         boolean isInitial = true;
         boolean isNewArticle = false;
@@ -36,6 +65,18 @@ public class StatArticleXmlParserComponent {
         Stack<String> cStack = new Stack<String>();
 
         try {
+            InputStream is = new PulsImporter().getClass().getClassLoader().getResourceAsStream(mockFileClassPath);
+
+            if (is == null) {
+                String errorMsg = "Unknown report type, no mock file presented, " + mockFileClassPath;
+                return;
+            }
+
+            try {
+                String siteCode="an";
+                String responseStr = IOUtils.toString(is, "UTF-8");
+
+
 
             byte[] byteArray = xmlContent.getBytes("UTF-8");
             ByteArrayInputStream xmlStream = new ByteArrayInputStream(byteArray);
@@ -103,7 +144,9 @@ public class StatArticleXmlParserComponent {
 
         articleImportBean.setArticleBeans(articleBeanList);
         return articleImportBean;
+
     }
+    */
 
 
 }
