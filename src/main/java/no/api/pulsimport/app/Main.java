@@ -19,21 +19,21 @@ public class Main {
     private static final Logger log = LoggerFactory.getLogger(SiteStatImportComponent.class);
 
     /**
-     *
      * @param args args[0] : A location of exported file.
      */
-    public static void main(String [] args) {
+    public static void main(String[] args) {
 
         DateTime startTime = DateTime.now();
         log.debug("Starting main class for importing puls data");
         String defaultExportedPath = "/opt/puls/exported/";
+        String exportedFileLocation = "";
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/application-context.xml");
         SiteStatImportComponent component = (SiteStatImportComponent) context.getBean("siteStatImportComponent");
-        String exportedFileLocation = args[0];
-        if(StringUtils.isBlank(exportedFileLocation)) {
+        if (args == null || args.length == 0) {
             exportedFileLocation = defaultExportedPath;
         } else {
-            if(!exportedFileLocation.endsWith(File.separator)) {
+            exportedFileLocation = args[0];
+            if (!exportedFileLocation.endsWith(File.separator)) {
                 exportedFileLocation = exportedFileLocation + File.separator;
             }
         }
