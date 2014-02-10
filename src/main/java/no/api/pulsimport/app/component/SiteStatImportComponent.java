@@ -1,6 +1,7 @@
 package no.api.pulsimport.app.component;
 
 import no.api.pulsimport.app.bean.SiteStatResultSet;
+import no.api.pulsimport.app.dao.ReportSiteDao;
 import no.api.pulsimport.app.dao.SiteDao;
 import no.api.pulsimport.app.dao.SiteStatDao;
 import no.api.pulsimport.app.enumeration.SiteDeviceEnum;
@@ -46,11 +47,19 @@ public class SiteStatImportComponent {
     @Autowired
     private SiteStatMapper mapper;
 
+    @Autowired
+    private ReportSiteDao reportSiteDao;
+
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void importSiteStat() throws IOException {
         log.debug("Import siteStat started");
         DateTime startTime = DateTime.now();
 
+        Map<Long, SiteStatModel> amediaTotalDesktopMap = new HashMap<>();
+        Map<Long, SiteStatModel> amediaTotalMobileMap = new HashMap<>();
+
+        Map<Long, SiteStatModel> pulsTotalDesktopMap = new HashMap<>();
+        Map<Long, SiteStatModel> pulsTotalMobileMap = new HashMap<>();
         List<SiteModel> sites = siteDao.findByDevice(SiteDeviceEnum.DESKTOP);
 
         // for testing
@@ -84,6 +93,11 @@ public class SiteStatImportComponent {
                 siteStatDao.batchInsert(siteStatDesktopModels);
                 siteStatDao.batchInsert(siteStatMobileModels);
                 siteStatDao.batchInsert(combineStats);
+
+                //Calculate total report
+//                for(SiteStatModel stat ; siteStatDesktopModels) {
+//                    reportSiteDao.
+//                }
 
                 // Case of this site has paid content
                 if(desktopPlusSite != null) {
