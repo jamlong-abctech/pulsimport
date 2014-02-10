@@ -80,6 +80,10 @@ public class SiteStatDao {
                 new SiteStatRowMapper());
     }
 
+    public List<SiteStatModel>findPreviousDate(long siteId,DateTime asOf){
+        String sql = "SELECT id, uniquevisitor, pageview, visit, hour, video,site_id FROM sitestat WHERE site_id = ? and hour<=?";
+        return jdbcTemplate.query(sql, new Object[]{siteId,asOf.minusDays(1).getMillis()}, new SiteStatRowMapper());
+    }
 
     //TODO Tone.3/26/13, add unit test
     public List<SiteStatModel> findByDateAndSiteId(DateTime date, long siteId) {
