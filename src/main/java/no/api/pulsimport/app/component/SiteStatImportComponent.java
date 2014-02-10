@@ -1,6 +1,6 @@
 package no.api.pulsimport.app.component;
 
-import no.api.pulsimport.app.bean.SiteStatResultSet;
+import no.api.pulsimport.app.bean.StatResultSet;
 import no.api.pulsimport.app.dao.ReportSiteDao;
 import no.api.pulsimport.app.dao.SiteDao;
 import no.api.pulsimport.app.dao.SiteStatDao;
@@ -10,7 +10,7 @@ import no.api.pulsimport.app.mapper.SiteStatMapper;
 import no.api.pulsimport.app.model.ReportSiteModel;
 import no.api.pulsimport.app.model.SiteModel;
 import no.api.pulsimport.app.model.SiteStatModel;
-import no.api.pulsimport.app.parser.SiteStatXmlParser;
+import no.api.pulsimport.app.parser.ResultSetXmlParser;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,15 +34,13 @@ public class SiteStatImportComponent {
 
     private static final Logger log = LoggerFactory.getLogger(SiteStatImportComponent.class);
 
-    private static String baseExportedPath = "/opt/puls/exported/";
+    private static final String pulsTotalDesktopSiteCode = "pulstotal";
+    private static final String pulsTotalMobileSiteCode = "m-pulstotal";
+    private static final String pulsTotalCombineSiteCode = "c-pulstotal";
 
-    private static String pulsTotalDesktopSiteCode = "pulstotal";
-    private static String pulsTotalMobileSiteCode = "m-pulstotal";
-    private static String pulsTotalCombineSiteCode = "c-pulstotal";
-
-    private static String amediaTotalDesktopSiteCode = "amediatotal";
-    private static String amediaTotalMobileSiteCode = "m-amediatotal";
-    private static String amediaTotalCombineSiteCode = "c-amediatotal";
+    private static final String amediaTotalDesktopSiteCode = "amediatotal";
+    private static final String amediaTotalMobileSiteCode = "m-amediatotal";
+    private static final String amediaTotalCombineSiteCode = "c-amediatotal";
 
     @Autowired
     private SiteDao siteDao;
@@ -51,7 +49,7 @@ public class SiteStatImportComponent {
     private SiteStatDao siteStatDao;
 
     @Autowired
-    private SiteStatXmlParser parser;
+    private ResultSetXmlParser parser;
 
     @Autowired
     private SiteStatMapper mapper;
@@ -95,13 +93,13 @@ public class SiteStatImportComponent {
             SiteModel combineSite = siteDao.findByCode("c-"+site.getCode());
             SiteModel combinePlusSite = siteDao.findByCode("c-"+site.getCode()+"+");
             try {
-                String desktopExportName = baseExportedPath + "stats_total_" + site.getCode() + ".xml";
-                String desktopPlusExportName = baseExportedPath + "stats_total_" + site.getCode()+"+" + ".xml";
-                String mobileExportedName = baseExportedPath + "stats_total_m-" + site.getCode() + ".xml";
-                String mobilePlusExportedName = baseExportedPath + "stats_total_m-" + site.getCode()+"+" + ".xml";
+                String desktopExportName = exportFileLocation + "stats_total_" + site.getCode() + ".xml";
+                String desktopPlusExportName = exportFileLocation + "stats_total_" + site.getCode()+"+" + ".xml";
+                String mobileExportedName = exportFileLocation + "stats_total_m-" + site.getCode() + ".xml";
+                String mobilePlusExportedName = exportFileLocation + "stats_total_m-" + site.getCode()+"+" + ".xml";
 
-                SiteStatResultSet resultSetDesktop = parser.parseSiteStat(desktopExportName);
-                SiteStatResultSet resultSetMobile = parser.parseSiteStat(mobileExportedName);
+                StatResultSet resultSetDesktop = parser.parseSiteStat(desktopExportName);
+                StatResultSet resultSetMobile = parser.parseSiteStat(mobileExportedName);
 
                 List<SiteStatModel> siteStatDesktopModels =  mapper.map(resultSetDesktop, desktopSite);
                 List<SiteStatModel> siteStatMobileModels =  mapper.map(resultSetMobile, mobileSite);
@@ -196,15 +194,18 @@ public class SiteStatImportComponent {
                 }
                 //END Calculate total report for mobile
 
+                // ** paid contect(+site) NOT include in total report **
+
                 // Case of this site has paid content
                 if(desktopPlusSite != null) {
-                    SiteStatResultSet resultSetDesktopPlus = parser.parseSiteStat(desktopPlusExportName);
-                    SiteStatResultSet resultSetMobilePlus = parser.parseSiteStat(mobilePlusExportedName);
+                    StatResultSet resultSetDesktopPlus = parser.parseSiteStat(desktopPlusExportName);
+                    StatResultSet resultSetMobilePlus = parser.parseSiteStat(mobilePlusExportedName);
 
                     List<SiteStatModel> siteStatDesktopPlusModels =  mapper.map(resultSetDesktopPlus, desktopPlusSite);
                     List<SiteStatModel> siteStatMobilePlusModels =  mapper.map(resultSetMobilePlus, mobilePlusSite);
 
                     List<SiteStatModel> combinePlusStats = calculateCombineStat(siteStatDesktopPlusModels, siteStatMobilePlusModels, combinePlusSite);
+
                     siteStatDao.batchInsert(siteStatDesktopPlusModels);
                     siteStatDao.batchInsert(siteStatMobilePlusModels);
                     siteStatDao.batchInsert(combinePlusStats);

@@ -9,15 +9,15 @@ import java.util.List;
  */
 
 @XmlRootElement(name = "resultset")
-public class SiteStatResultSet {
-    private List<SiteStatRow> rows;
+public class StatResultSet {
+    private List<StatRow> rows;
 
-    public List<SiteStatRow> getRows() {
+    public List<StatRow> getRows() {
         return rows;
     }
 
     @XmlElement(name = "row")
-    public void setRows(List<SiteStatRow> rows) {
+    public void setRows(List<StatRow> rows) {
         this.rows = rows;
     }
 }

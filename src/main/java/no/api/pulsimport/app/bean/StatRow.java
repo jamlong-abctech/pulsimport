@@ -10,7 +10,7 @@ import java.util.List;
  */
 
 @XmlRootElement(name = "row")
-public class SiteStatRow {
+public class StatRow {
     private List<String> field;
 
     public List<String> getField() {

@@ -1,7 +1,7 @@
 package no.api.pulsimport.app;
 
-import no.api.pulsimport.app.component.ArticleImportComponent;
 import no.api.pulsimport.app.component.SiteStatImportComponent;
+import no.api.pulsimport.app.component.ArticleImportComponent;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -23,26 +23,26 @@ public class Main {
      *
      * @param args args[0] : A location of exported file.
      */
-    public static void main(String [] args) {
+    public static void main(String[] args) {
 
         DateTime startTime = DateTime.now();
         log.debug("Starting main class for importing puls data");
         String defaultExportedPath = "/opt/puls/exported/";
+        String exportedFileLocation = "";
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/application-context.xml");
         SiteStatImportComponent component = (SiteStatImportComponent) context.getBean("siteStatImportComponent");
         ArticleImportComponent articleComponent = (ArticleImportComponent) context.getBean("articleImportComponent");
-        String exportedFileLocation = args[0];
-        if(StringUtils.isBlank(exportedFileLocation)) {
+        if (args == null || args.length == 0) {
             exportedFileLocation = defaultExportedPath;
         } else {
-            if(!exportedFileLocation.endsWith(File.separator)) {
+            exportedFileLocation = args[0];
+            if (!exportedFileLocation.endsWith(File.separator)) {
                 exportedFileLocation = exportedFileLocation + File.separator;
             }
         }
         try {
             component.importSiteStat(exportedFileLocation);
             articleComponent.importArticleStat(exportedFileLocation);
-
         } catch (IOException e) {
             log.error("Importing error ", e);
         }
