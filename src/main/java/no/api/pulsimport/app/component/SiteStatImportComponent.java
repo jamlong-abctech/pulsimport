@@ -54,13 +54,13 @@ public class SiteStatImportComponent {
         List<SiteModel> sites = siteDao.findByDevice(SiteDeviceEnum.DESKTOP);
 
         // for testing
-        sites.clear();
-        sites.add(siteDao.findByCode("glomdalen"));
-        sites.add(siteDao.findByCode("rb"));
+        //sites.clear();
+        //sites.add(siteDao.findByCode("glomdalen"));
+        //sites.add(siteDao.findByCode("rb"));
         // end
 
         for(SiteModel site : sites) {
-
+            log.debug("Importing sitestat for {}", site.getCode());
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
             SiteModel mobileSite = siteDao.findByCode("m-"+site.getCode());
@@ -79,9 +79,7 @@ public class SiteStatImportComponent {
                 List<SiteStatModel> siteStatDesktopModels =  mapper.map(resultSetDesktop, desktopSite);
                 List<SiteStatModel> siteStatMobileModels =  mapper.map(resultSetMobile, mobileSite);
 
-                List<SiteStatModel> combineStats = new ArrayList<>();
-                combineStats = calculateCombineStat(siteStatDesktopModels, siteStatMobileModels, combineSite);
-
+                List<SiteStatModel> combineStats = calculateCombineStat(siteStatDesktopModels, siteStatMobileModels, combineSite);
 
                 siteStatDao.batchInsert(siteStatDesktopModels);
                 siteStatDao.batchInsert(siteStatMobileModels);
@@ -95,8 +93,7 @@ public class SiteStatImportComponent {
                     List<SiteStatModel> siteStatDesktopPlusModels =  mapper.map(resultSetDesktopPlus, desktopPlusSite);
                     List<SiteStatModel> siteStatMobilePlusModels =  mapper.map(resultSetMobilePlus, mobilePlusSite);
 
-                    List<SiteStatModel> combinePlusStats = new ArrayList<>();
-                    combinePlusStats = calculateCombineStat(siteStatDesktopPlusModels, siteStatMobilePlusModels, combinePlusSite);
+                    List<SiteStatModel> combinePlusStats = calculateCombineStat(siteStatDesktopPlusModels, siteStatMobilePlusModels, combinePlusSite);
                     siteStatDao.batchInsert(siteStatDesktopPlusModels);
                     siteStatDao.batchInsert(siteStatMobilePlusModels);
                     siteStatDao.batchInsert(combinePlusStats);
@@ -104,7 +101,6 @@ public class SiteStatImportComponent {
             } catch (ExportedDataNotFoundException e) {
                 log.warn("Not found exported data for site {} ", site.getCode());
             }
-
         }
         log.debug("import sitestat finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
     }
@@ -118,7 +114,6 @@ public class SiteStatImportComponent {
         }
 
         for(SiteStatModel statModel : mobileList) {
-            log.debug("Saving site stat data siteCode {}, hour {}", combineSite.getCode(), statModel.getHour());
             if(combinedMap.get(statModel.getHour().getMillis()) == null) {
                 SiteStatModel combineStat = new SiteStatModel();
                 combineStat.setSite(combineSite);
