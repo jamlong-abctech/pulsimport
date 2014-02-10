@@ -1,6 +1,6 @@
 package no.api.pulsimport.app.component;
 
-import no.api.pulsimport.app.bean.SiteStatResultSet;
+import no.api.pulsimport.app.bean.StatResultSet;
 import no.api.pulsimport.app.dao.ReportSiteDao;
 import no.api.pulsimport.app.dao.SiteDao;
 import no.api.pulsimport.app.dao.SiteStatDao;
@@ -10,7 +10,7 @@ import no.api.pulsimport.app.mapper.SiteStatMapper;
 import no.api.pulsimport.app.model.ReportSiteModel;
 import no.api.pulsimport.app.model.SiteModel;
 import no.api.pulsimport.app.model.SiteStatModel;
-import no.api.pulsimport.app.parser.SiteStatXmlParser;
+import no.api.pulsimport.app.parser.ResultSetXmlParser;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +49,7 @@ public class SiteStatImportComponent {
     private SiteStatDao siteStatDao;
 
     @Autowired
-    private SiteStatXmlParser parser;
+    private ResultSetXmlParser parser;
 
     @Autowired
     private SiteStatMapper mapper;
@@ -98,8 +98,8 @@ public class SiteStatImportComponent {
                 String mobileExportedName = exportFileLocation + "stats_total_m-" + site.getCode() + ".xml";
                 String mobilePlusExportedName = exportFileLocation + "stats_total_m-" + site.getCode()+"+" + ".xml";
 
-                SiteStatResultSet resultSetDesktop = parser.parseSiteStat(desktopExportName);
-                SiteStatResultSet resultSetMobile = parser.parseSiteStat(mobileExportedName);
+                StatResultSet resultSetDesktop = parser.parseSiteStat(desktopExportName);
+                StatResultSet resultSetMobile = parser.parseSiteStat(mobileExportedName);
 
                 List<SiteStatModel> siteStatDesktopModels =  mapper.map(resultSetDesktop, desktopSite);
                 List<SiteStatModel> siteStatMobileModels =  mapper.map(resultSetMobile, mobileSite);
@@ -198,8 +198,8 @@ public class SiteStatImportComponent {
 
                 // Case of this site has paid content
                 if(desktopPlusSite != null) {
-                    SiteStatResultSet resultSetDesktopPlus = parser.parseSiteStat(desktopPlusExportName);
-                    SiteStatResultSet resultSetMobilePlus = parser.parseSiteStat(mobilePlusExportedName);
+                    StatResultSet resultSetDesktopPlus = parser.parseSiteStat(desktopPlusExportName);
+                    StatResultSet resultSetMobilePlus = parser.parseSiteStat(mobilePlusExportedName);
 
                     List<SiteStatModel> siteStatDesktopPlusModels =  mapper.map(resultSetDesktopPlus, desktopPlusSite);
                     List<SiteStatModel> siteStatMobilePlusModels =  mapper.map(resultSetMobilePlus, mobilePlusSite);

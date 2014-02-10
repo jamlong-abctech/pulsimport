@@ -1,6 +1,6 @@
 package no.api.pulsimport.app.parser;
 
-import no.api.pulsimport.app.bean.SiteStatResultSet;
+import no.api.pulsimport.app.bean.StatResultSet;
 import no.api.pulsimport.app.exception.ExportedDataNotFoundException;
 import org.springframework.stereotype.Component;
 
@@ -17,17 +17,17 @@ import java.io.InputStream;
  */
 
 @Component
-public class SiteStatXmlParser {
+public class ResultSetXmlParser {
 
-    public SiteStatResultSet parseSiteStat(String exportedName) throws IOException {
+    public StatResultSet parseSiteStat(String exportedName) throws IOException {
 
         //InputStream is = this.getClass().getClassLoader().getResourceAsStream(exportedName);
-        SiteStatResultSet resultSet = null;
+        StatResultSet resultSet = null;
         try (InputStream is = new FileInputStream(exportedName)) {
-            JAXBContext jaxbContext = JAXBContext.newInstance(SiteStatResultSet.class);
+            JAXBContext jaxbContext = JAXBContext.newInstance(StatResultSet.class);
 
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            resultSet = (SiteStatResultSet) jaxbUnmarshaller.unmarshal(is);
+            resultSet = (StatResultSet) jaxbUnmarshaller.unmarshal(is);
         } catch (JAXBException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
