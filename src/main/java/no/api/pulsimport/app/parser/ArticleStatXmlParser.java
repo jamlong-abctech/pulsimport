@@ -3,7 +3,6 @@ package no.api.pulsimport.app.parser;
 
 import no.api.pulsimport.app.DateTimeFormatUtil;
 import no.api.pulsimport.app.bean.ArticleStatResultSet;
-import no.api.pulsimport.app.bean.SiteStatResultSet;
 import no.api.pulsimport.app.exception.ComscoreXMLParseException;
 
 import no.api.pulsimport.app.exception.ExportedDataNotFoundException;

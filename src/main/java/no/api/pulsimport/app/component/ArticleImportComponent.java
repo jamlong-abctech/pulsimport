@@ -81,9 +81,9 @@ public class ArticleImportComponent {
         SiteModel amediaTotalMobileSite = siteDao.findByCode(amediaTotalMobileSiteCode);
         SiteModel amediaTotalCombineleSite = siteDao.findByCode(amediaTotalCombineSiteCode);
 
-        int ii=0;
+        //int rows=0;
         for(SiteModel site : sites) {
-            if(ii<=10){
+        //    if(rows<=10){
             log.debug("Importing sitestat for {}", site.getCode());
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
@@ -228,8 +228,8 @@ public class ArticleImportComponent {
                 log.warn("Not found exported data for site {} ", site.getCode());
             }
 
-            }
-            ii++;
+           // }
+            //rows++;
         }
 
         List<ArticleStatModel> pulsTotalDesktopStatList = new ArrayList<>(pulsTotalDesktopMap.values());
