@@ -7,6 +7,7 @@ import no.api.pulsimport.app.dao.SiteStatDao;
 import no.api.pulsimport.app.enumeration.SiteDeviceEnum;
 import no.api.pulsimport.app.exception.ExportedDataNotFoundException;
 import no.api.pulsimport.app.mapper.SiteStatMapper;
+import no.api.pulsimport.app.model.ReportSiteModel;
 import no.api.pulsimport.app.model.SiteModel;
 import no.api.pulsimport.app.model.SiteStatModel;
 import no.api.pulsimport.app.parser.SiteStatXmlParser;
@@ -33,7 +34,15 @@ public class SiteStatImportComponent {
 
     private static final Logger log = LoggerFactory.getLogger(SiteStatImportComponent.class);
 
-    private static String baseExportedPath = "/usr/puls/exported/";
+    private static String baseExportedPath = "/opt/puls/exported/";
+
+    private static String pulsTotalDesktopSiteCode = "pulstotal";
+    private static String pulsTotalMobileSiteCode = "m-pulstotal";
+    private static String pulsTotalCombineSiteCode = "c-pulstotal";
+
+    private static String amediaTotalDesktopSiteCode = "amediatotal";
+    private static String amediaTotalMobileSiteCode = "m-amediatotal";
+    private static String amediaTotalCombineSiteCode = "c-amediatotal";
 
     @Autowired
     private SiteDao siteDao;
@@ -51,7 +60,7 @@ public class SiteStatImportComponent {
     private ReportSiteDao reportSiteDao;
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
-    public void importSiteStat() throws IOException {
+    public void importSiteStat(String exportFileLocation) throws IOException {
         log.debug("Import siteStat started");
         DateTime startTime = DateTime.now();
 
@@ -60,12 +69,21 @@ public class SiteStatImportComponent {
 
         Map<Long, SiteStatModel> pulsTotalDesktopMap = new HashMap<>();
         Map<Long, SiteStatModel> pulsTotalMobileMap = new HashMap<>();
+
         List<SiteModel> sites = siteDao.findByDevice(SiteDeviceEnum.DESKTOP);
 
+        SiteModel pulsTotalDesktopSite = siteDao.findByCode(pulsTotalDesktopSiteCode);
+        SiteModel pulsTotalMobileSite = siteDao.findByCode(pulsTotalMobileSiteCode);
+        SiteModel pulsTotalCombineleSite = siteDao.findByCode(pulsTotalCombineSiteCode);
+
+        SiteModel amediaTotalDesktopSite = siteDao.findByCode(amediaTotalDesktopSiteCode);
+        SiteModel amediaTotalMobileSite = siteDao.findByCode(amediaTotalMobileSiteCode);
+        SiteModel amediaTotalCombineleSite = siteDao.findByCode(amediaTotalCombineSiteCode);
+
         // for testing
-        //sites.clear();
-        //sites.add(siteDao.findByCode("glomdalen"));
-        //sites.add(siteDao.findByCode("rb"));
+//        sites.clear();
+//        sites.add(siteDao.findByCode("glomdalen"));
+//        sites.add(siteDao.findByCode("rb"));
         // end
 
         for(SiteModel site : sites) {
@@ -94,10 +112,89 @@ public class SiteStatImportComponent {
                 siteStatDao.batchInsert(siteStatMobileModels);
                 siteStatDao.batchInsert(combineStats);
 
-                //Calculate total report
-//                for(SiteStatModel stat ; siteStatDesktopModels) {
-//                    reportSiteDao.
-//                }
+                //Calculate total report for desktop
+                List<ReportSiteModel> reportSiteModelList = reportSiteDao.findBySiteId(site.getId());
+                boolean isIncludeBothReport = reportSiteModelList.size() > 1;
+                for(SiteStatModel eachStat : siteStatDesktopModels) {
+                    SiteStatModel statInMap = pulsTotalDesktopMap.get(eachStat.getHour().getMillis());
+                    if(statInMap == null) {
+                        SiteStatModel newStat = new SiteStatModel();
+                        newStat.setHour(eachStat.getHour());
+                        newStat.setUniqueVisitor(eachStat.getUniqueVisitor());
+                        newStat.setPageView(eachStat.getPageView());
+                        newStat.setVisit(eachStat.getVisit());
+                        newStat.setVideo(eachStat.getVideo());
+                        newStat.setSite(pulsTotalDesktopSite);
+
+                        pulsTotalDesktopMap.put(eachStat.getHour().getMillis(), newStat);
+                    } else {
+                        statInMap.setUniqueVisitor(statInMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
+                        statInMap.setPageView(statInMap.getPageView()+ eachStat.getPageView());
+                        statInMap.setVisit(statInMap.getVisit() + eachStat.getVisit());
+                        statInMap.setVideo(statInMap.getVideo() + eachStat.getVisit());
+                    }
+                    if(isIncludeBothReport) {
+                        SiteStatModel statInAmediaMap = amediaTotalDesktopMap.get(eachStat.getHour().getMillis());
+                        if(statInAmediaMap == null) {
+                            SiteStatModel newStat = new SiteStatModel();
+                            newStat.setHour(eachStat.getHour());
+                            newStat.setUniqueVisitor(eachStat.getUniqueVisitor());
+                            newStat.setPageView(eachStat.getPageView());
+                            newStat.setVisit(eachStat.getVisit());
+                            newStat.setVideo(eachStat.getVideo());
+                            newStat.setSite(amediaTotalDesktopSite);
+
+                            amediaTotalDesktopMap.put(eachStat.getHour().getMillis(), newStat);
+                        } else {
+                            statInAmediaMap.setUniqueVisitor(statInAmediaMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
+                            statInAmediaMap.setPageView(statInAmediaMap.getPageView()+ eachStat.getPageView());
+                            statInAmediaMap.setVisit(statInAmediaMap.getVisit() + eachStat.getVisit());
+                            statInAmediaMap.setVideo(statInAmediaMap.getVideo() + eachStat.getVisit());
+                        }
+                    }
+                }
+                //END Calculate total report for desktop
+
+                //Calculate total report for mobile
+                for(SiteStatModel eachStat : siteStatMobileModels) {
+                    SiteStatModel statInMap = pulsTotalMobileMap.get(eachStat.getHour().getMillis());
+                    if(statInMap == null) {
+                        SiteStatModel newStat = new SiteStatModel();
+                        newStat.setHour(eachStat.getHour());
+                        newStat.setUniqueVisitor(eachStat.getUniqueVisitor());
+                        newStat.setPageView(eachStat.getPageView());
+                        newStat.setVisit(eachStat.getVisit());
+                        newStat.setVideo(eachStat.getVideo());
+                        newStat.setSite(pulsTotalMobileSite);
+
+                        pulsTotalMobileMap.put(eachStat.getHour().getMillis(), newStat);
+                    } else {
+                        statInMap.setUniqueVisitor(statInMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
+                        statInMap.setPageView(statInMap.getPageView()+ eachStat.getPageView());
+                        statInMap.setVisit(statInMap.getVisit() + eachStat.getVisit());
+                        statInMap.setVideo(statInMap.getVideo() + eachStat.getVisit());
+                    }
+                    if(isIncludeBothReport) {
+                        SiteStatModel statInAmediaMap = amediaTotalMobileMap.get(eachStat.getHour().getMillis());
+                        if(statInAmediaMap == null) {
+                            SiteStatModel newStat = new SiteStatModel();
+                            newStat.setHour(eachStat.getHour());
+                            newStat.setUniqueVisitor(eachStat.getUniqueVisitor());
+                            newStat.setPageView(eachStat.getPageView());
+                            newStat.setVisit(eachStat.getVisit());
+                            newStat.setVideo(eachStat.getVideo());
+                            newStat.setSite(amediaTotalMobileSite);
+
+                            amediaTotalMobileMap.put(eachStat.getHour().getMillis(), newStat);
+                        } else {
+                            statInAmediaMap.setUniqueVisitor(statInAmediaMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
+                            statInAmediaMap.setPageView(statInAmediaMap.getPageView()+ eachStat.getPageView());
+                            statInAmediaMap.setVisit(statInAmediaMap.getVisit() + eachStat.getVisit());
+                            statInAmediaMap.setVideo(statInAmediaMap.getVideo() + eachStat.getVisit());
+                        }
+                    }
+                }
+                //END Calculate total report for mobile
 
                 // Case of this site has paid content
                 if(desktopPlusSite != null) {
@@ -116,6 +213,23 @@ public class SiteStatImportComponent {
                 log.warn("Not found exported data for site {} ", site.getCode());
             }
         }
+
+        List<SiteStatModel> pulsTotalDesktopStatList = new ArrayList<>(pulsTotalDesktopMap.values());
+        List<SiteStatModel> pulsTotalMobileStatList = new ArrayList<>(pulsTotalMobileMap.values());
+        List<SiteStatModel> pulsTotalCombineStatList = calculateCombineStat(pulsTotalDesktopStatList, pulsTotalMobileStatList, pulsTotalCombineleSite);
+
+        List<SiteStatModel> amediaTotalDesktopStatList = new ArrayList<>(amediaTotalDesktopMap.values());
+        List<SiteStatModel> amediaTotalMobileStatList = new ArrayList<>(amediaTotalMobileMap.values());
+        List<SiteStatModel> amediaTotalCombineStatList = calculateCombineStat(amediaTotalDesktopStatList, amediaTotalMobileStatList, amediaTotalCombineleSite);
+
+        siteStatDao.batchInsert(pulsTotalDesktopStatList);
+        siteStatDao.batchInsert(pulsTotalMobileStatList);
+        siteStatDao.batchInsert(pulsTotalCombineStatList);
+
+        siteStatDao.batchInsert(amediaTotalDesktopStatList);
+        siteStatDao.batchInsert(amediaTotalMobileStatList);
+        siteStatDao.batchInsert(amediaTotalCombineStatList);
+
         log.debug("import sitestat finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
     }
 

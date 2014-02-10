@@ -2,19 +2,22 @@ package no.api.pulsimport.app.dao;
 
 import no.api.pulsimport.app.enumeration.SiteDeviceEnum;
 import no.api.pulsimport.app.model.SiteModel;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 @Repository
 public class SiteDao {
+
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(SiteDao.class);
+
     @Autowired(required = false)
     private JdbcTemplate jdbcTemplate;
 
@@ -25,7 +28,7 @@ public class SiteDao {
                             new SiteRowMapper());
             return siteModel;
         } catch (EmptyResultDataAccessException e) {
-
+            log.debug("SiteModel not found for site code {}", code);
         }
 
         return null;
@@ -55,7 +58,6 @@ public class SiteDao {
 
         return res;
     }
-
 
 
     private static class SiteRowMapper implements RowMapper<SiteModel> {
