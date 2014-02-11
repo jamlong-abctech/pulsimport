@@ -1,7 +1,7 @@
 package no.api.pulsimport.app;
 
-import no.api.pulsimport.app.component.RecordSiteStatImportComponent;
 import no.api.pulsimport.app.component.SiteStatImportComponent;
+import no.api.pulsimport.app.component.ArticleImportComponent;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
@@ -20,6 +20,7 @@ public class Main {
     private static final Logger log = LoggerFactory.getLogger(SiteStatImportComponent.class);
 
     /**
+     *
      * @param args args[0] : A location of exported file.
      */
     public static void main(String[] args) {
@@ -30,7 +31,7 @@ public class Main {
         String exportedFileLocation = "";
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/application-context.xml");
         SiteStatImportComponent component = (SiteStatImportComponent) context.getBean("siteStatImportComponent");
-        RecordSiteStatImportComponent recordSiteStatComponent = (RecordSiteStatImportComponent) context.getBean("recordSiteStatImportComponent");
+        ArticleImportComponent articleComponent = (ArticleImportComponent) context.getBean("articleImportComponent");
         if (args == null || args.length == 0) {
             exportedFileLocation = defaultExportedPath;
         } else {
@@ -40,9 +41,8 @@ public class Main {
             }
         }
         try {
-            //component.importSiteStat(exportedFileLocation);
-            recordSiteStatComponent.importRecordSiteStat(exportedFileLocation);
-            //TODO : Import article
+            component.importSiteStat(exportedFileLocation);
+            articleComponent.importArticleStat(exportedFileLocation);
         } catch (IOException e) {
             log.error("Importing error ", e);
         }
