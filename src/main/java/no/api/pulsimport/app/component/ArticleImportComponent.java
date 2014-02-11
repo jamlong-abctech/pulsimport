@@ -84,6 +84,8 @@ public class ArticleImportComponent {
         //int rows=0;
         for(SiteModel site : sites) {
         //    if(rows<=10){
+//        for(int i=0;i<=3; i++){
+//            SiteModel site = sites.get(i);
             log.debug("Importing sitestat for {}", site.getCode());
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");

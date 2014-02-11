@@ -5,7 +5,10 @@ import no.api.pulsimport.app.enumeration.SiteDeviceEnum;
 import no.api.pulsimport.app.model.ArticleStatModel;
 import no.api.pulsimport.app.model.ArticleStatModel;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -26,7 +29,7 @@ import java.util.List;
 @Repository
 public class ArticleStatDao {
 
-    //private static final Logger log = LoggerFactory.getLogger(ArticleStatDao.class);
+    private static final Logger log = LoggerFactory.getLogger(ArticleStatDao.class);
 
     @Autowired(required = false)
     private JdbcTemplate jdbcTemplate;
@@ -63,6 +66,16 @@ public class ArticleStatDao {
             return articleStatModelList.size();
         }
         });
+    }
+
+    public Long findFirstDateTime() {
+        String sql = "SELECT MIN(date) FROM articlestat ";
+        return jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
+    public Long findLastDateTime() {
+        String sql = "SELECT MAX(date) FROM articlestat ";
+        return jdbcTemplate.queryForObject(sql, Long.class);
     }
 
     public ArticleStatModel findByDateArticleIdAndSiteId(DateTime date, String articleId, Long siteId) {
@@ -103,19 +116,35 @@ public class ArticleStatDao {
     public ArticleStatModel findHighestUniqueVisitorByDateAndSite(long siteId, DateTime uniqueDate) {
         String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
                 " FROM articlestat WHERE site_id = ? AND date >= ? AND date < ? ORDER BY uniquevisitor DESC LIMIT 1";
-        return jdbcTemplate.queryForObject(sql, new Object[]{siteId, uniqueDate.getMillis(), uniqueDate.plusDays(1).getMillis()}, new ArticleStatRowMapper());
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, uniqueDate.getMillis(), uniqueDate.plusDays(1).getMillis()}, new ArticleStatRowMapper());
+        }catch (EmptyResultDataAccessException e) {
+            log.debug("ArticleStatModel not found for siteId : {}", siteId);
+            return null;
+        }
+
     }
 
     public ArticleStatModel findHighestPageViewByDateAndSite(long siteId, DateTime pageViewDate) {
         String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
                 " FROM articlestat WHERE site_id = ? AND date >= ? AND date < ? ORDER BY pageview DESC LIMIT 1";
-        return jdbcTemplate.queryForObject(sql, new Object[]{siteId, pageViewDate.getMillis(), pageViewDate.plusDays(1).getMillis()}, new ArticleStatRowMapper());
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, pageViewDate.getMillis(), pageViewDate.plusDays(1).getMillis()}, new ArticleStatRowMapper());
+        }catch (EmptyResultDataAccessException e) {
+            log.debug("ArticleStatModel not found for siteId : {}", siteId);
+            return null;
+        }
     }
 
     public ArticleStatModel findHighestVisitByDateAndSite(long siteId, DateTime visitDate) {
         String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
                 " FROM articlestat WHERE site_id = ? AND date >= ? AND date < ? ORDER BY visit DESC LIMIT 1";
-        return jdbcTemplate.queryForObject(sql, new Object[]{siteId, visitDate.getMillis(), visitDate.plusDays(1).getMillis()}, new ArticleStatRowMapper());
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, visitDate.getMillis(), visitDate.plusDays(1).getMillis()}, new ArticleStatRowMapper());
+        }catch (EmptyResultDataAccessException e) {
+            log.debug("ArticleStatModel not found for siteId : {}", siteId);
+            return null;
+        }
     }
 
     private ArticleStatModel update(ArticleStatModel model) {
