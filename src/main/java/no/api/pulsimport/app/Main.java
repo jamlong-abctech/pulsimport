@@ -5,7 +5,6 @@ import no.api.pulsimport.app.component.CalculateRecordArticleStatDayComponent;
 import no.api.pulsimport.app.component.CalculateRecordSiteStatComponent;
 import no.api.pulsimport.app.component.SiteStatImportComponent;
 import no.api.pulsimport.app.component.ArticleImportComponent;
-import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -47,12 +46,12 @@ public class Main {
             }
         }
         try {
-            //component.importSiteStat(exportedFileLocation);
-            //articleComponent.importArticleStat(exportedFileLocation);
+            component.importSiteStat(exportedFileLocation);
+            articleComponent.importArticleStat(exportedFileLocation);
             calculateRecordSiteStatComponent.calculateSiteStatRecord();
             articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
             calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
-        } catch (RuntimeException e) {
+        } catch (IOException e) {
             log.error("Importing error ", e);
         }
         log.debug("Import ALL data finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
