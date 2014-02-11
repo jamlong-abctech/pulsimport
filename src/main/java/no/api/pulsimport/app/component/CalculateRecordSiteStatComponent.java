@@ -12,10 +12,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Created by tum on 2/11/14.
  */
 
 @Component
@@ -32,7 +33,7 @@ public class CalculateRecordSiteStatComponent {
 
     private static final Logger log = LoggerFactory.getLogger(CalculateRecordSiteStatComponent.class);
 
-    public void calculateSiteStatRecord () {
+    public void calculateSiteStatRecord() {
         Long firstDayInLong = siteStatDao.findFirstDateTime();
         Long lastDayInLong = siteStatDao.findLastDateTime();
         DateTime firstDay = new DateTime(firstDayInLong);
@@ -48,12 +49,12 @@ public class CalculateRecordSiteStatComponent {
         }
     }
 
-    private void calculateRecordForSiteStat(DateTime aDay){
+    public void calculateRecordForSiteStat(DateTime aDay){
 
         List<SiteModel> siteModelList = siteDao.findAllSite();
 
-        for(SiteModel siteModel: siteModelList) {
-            log.debug("Calculating record for sitestat site code : {} , date : {}", siteModel.getCode(), aDay);
+        for(SiteModel siteModel: siteModelList){
+            log.debug("Calculating site stats for site : {}, date : {}", siteModel.getCode(), aDay);
             SiteStatModel latestHourModel = siteStatDao.findLatestHourByDate(siteModel.getId(), aDay);
             List<SiteStatModel> yesterdaySiteStat = siteStatDao.findByDateAndSiteId(aDay, siteModel.getId());
 

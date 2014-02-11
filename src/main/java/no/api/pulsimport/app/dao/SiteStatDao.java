@@ -2,6 +2,8 @@ package no.api.pulsimport.app.dao;
 
 import no.api.pulsimport.app.model.SiteStatModel;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
@@ -24,7 +26,7 @@ import java.util.List;
 @Repository
 public class SiteStatDao {
 
-    //private static final Logger log = LoggerFactory.getLogger(SiteStatDao.class);
+    private static final Logger log = LoggerFactory.getLogger(SiteStatDao.class);
 
     @Autowired(required = false)
     private JdbcTemplate jdbcTemplate;
@@ -81,10 +83,15 @@ public class SiteStatDao {
             return jdbcTemplate.queryForObject(sql, new Object[]{siteId, asOf.getMillis(), asOf.plusDays(1).getMillis()},
                 new SiteStatRowMapper());
         } catch (EmptyResultDataAccessException e) {
+            log.debug("SiteStatModel not found for siteId : {}, date : {}", siteId, asOf);
             return null;
         }
     }
 
+    public List<SiteStatModel>findPreviousDate(long siteId,DateTime asOf){
+        String sql = "SELECT id, uniquevisitor, pageview, visit, hour, video,site_id FROM sitestat WHERE site_id = ? and hour<=?";
+        return jdbcTemplate.query(sql, new Object[]{siteId,asOf.minusDays(1).getMillis()}, new SiteStatRowMapper());
+    }
 
     //TODO Tone.3/26/13, add unit test
     public List<SiteStatModel> findByDateAndSiteId(DateTime date, long siteId) {
