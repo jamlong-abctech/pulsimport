@@ -49,7 +49,7 @@ public class Main {
             //component.importSiteStat(exportedFileLocation);
             //articleComponent.importArticleStat(exportedFileLocation);
             calculateRecordSiteStatComponent.calculateSiteStatRecord();
-            articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();;
+            articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
         } catch (RuntimeException e) {
             log.error("Importing error ", e);
         }
