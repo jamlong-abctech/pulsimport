@@ -62,7 +62,7 @@ public class ArticleImportComponent {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void importArticleStat(String exportFileLocation) throws IOException {
-        log.debug("Import siteStat started");
+        log.debug("Import Article Stat Started");
         DateTime startTime = DateTime.now();
 
         Map<String, ArticleStatModel> amediaTotalDesktopMap = new HashMap<>();
@@ -84,9 +84,7 @@ public class ArticleImportComponent {
         //int rows=0;
         for(SiteModel site : sites) {
         //    if(rows<=10){
-//        for(int i=0;i<=3; i++){
-//            SiteModel site = sites.get(i);
-            log.debug("Importing sitestat for {}", site.getCode());
+            log.debug("Importing articlestat for {}", site.getCode());
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
             SiteModel mobileSite = siteDao.findByCode("m-"+site.getCode());
@@ -99,6 +97,20 @@ public class ArticleImportComponent {
                 String mobileExportedName = exportFileLocation + "stats_article_m-" + site.getCode() + ".xml";
                 String mobilePlusExportedName = exportFileLocation + "stats_article_m-" + site.getCode()+"+" + ".xml";
 
+                int mb = 1024*1024;
+                //Getting the runtime reference from system
+                Runtime runtime = Runtime.getRuntime();
+                log.info("##### Heap utilization statistics [MB] #####");
+                //Print used memory
+                log.info("Used Memory:"
+                        + (runtime.totalMemory() - runtime.freeMemory()) / mb);
+                //Print free memory
+                log.info("Free Memory:"
+                        + runtime.freeMemory() / mb);
+                //Print total available memory
+                log.info("Total Memory:" + runtime.totalMemory() / mb);
+                //Print Maximum available memory
+                log.info("Max Memory:" + runtime.maxMemory() / mb);
 
                 ArticleStatResultSet resultSetDesktop = parser.parseArticleStat(desktopExportName);
                 ArticleStatResultSet resultSetMobile = parser.parseArticleStat(mobileExportedName);
@@ -229,9 +241,6 @@ public class ArticleImportComponent {
             } catch (ExportedDataNotFoundException e) {
                 log.warn("Not found exported data for site {} ", site.getCode());
             }
-
-           // }
-            //rows++;
         }
 
         List<ArticleStatModel> pulsTotalDesktopStatList = new ArrayList<>(pulsTotalDesktopMap.values());
