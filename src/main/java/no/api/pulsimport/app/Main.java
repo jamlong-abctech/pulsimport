@@ -1,5 +1,6 @@
 package no.api.pulsimport.app;
 
+import no.api.pulsimport.app.component.CalculateRecordSiteStatComponent;
 import no.api.pulsimport.app.component.SiteStatImportComponent;
 import no.api.pulsimport.app.component.ArticleImportComponent;
 import org.apache.commons.lang.StringUtils;
@@ -32,6 +33,7 @@ public class Main {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/application-context.xml");
         SiteStatImportComponent component = (SiteStatImportComponent) context.getBean("siteStatImportComponent");
         ArticleImportComponent articleComponent = (ArticleImportComponent) context.getBean("articleImportComponent");
+        CalculateRecordSiteStatComponent calculateRecordSiteStatComponent = (CalculateRecordSiteStatComponent) context.getBean("calculateRecordSiteStatComponent");
         if (args == null || args.length == 0) {
             exportedFileLocation = defaultExportedPath;
         } else {
@@ -41,9 +43,10 @@ public class Main {
             }
         }
         try {
-            component.importSiteStat(exportedFileLocation);
-            articleComponent.importArticleStat(exportedFileLocation);
-        } catch (IOException e) {
+            //component.importSiteStat(exportedFileLocation);
+            //articleComponent.importArticleStat(exportedFileLocation);
+            calculateRecordSiteStatComponent.calculateSiteStatRecord();
+        } catch (RuntimeException e) {
             log.error("Importing error ", e);
         }
         log.debug("Import ALL data finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());

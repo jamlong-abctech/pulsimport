@@ -3,6 +3,7 @@ package no.api.pulsimport.app.dao;
 import no.api.pulsimport.app.model.SiteStatModel;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -76,8 +77,12 @@ public class SiteStatDao {
 
     public SiteStatModel findLatestHourByDate(long siteId, DateTime asOf){
         String sql = "SELECT id, uniquevisitor, pageview, visit, hour, video,site_id FROM sitestat WHERE site_id = ? AND hour >= ? AND hour < ? ORDER BY hour DESC LIMIT 1";
-        return jdbcTemplate.queryForObject(sql, new Object[]{siteId, asOf.getMillis(), asOf.plusDays(1).getMillis()},
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, asOf.getMillis(), asOf.plusDays(1).getMillis()},
                 new SiteStatRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
 
@@ -89,6 +94,16 @@ public class SiteStatDao {
                 .query(sql, new Object[]{date.withMillisOfDay(0).getMillis(),
                         date.plusDays(1).withMillisOfDay(0).getMillis(), siteId}, new SiteStatRowMapper());
         return res;
+    }
+
+    public Long findFirstDateTime() {
+        String sql = "SELECT MIN(hour) FROM sitestat ";
+        return jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
+    public Long findLastDateTime() {
+        String sql = "SELECT MAX(hour) FROM sitestat ";
+        return jdbcTemplate.queryForObject(sql, Long.class);
     }
 
     private SiteStatModel insertSiteStat(SiteStatModel model) {
