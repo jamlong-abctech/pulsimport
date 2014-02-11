@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -35,6 +36,29 @@ public class RecordSiteStatDao {
         } else {
             return insertRecordSiteStat(model);
         }
+    }
+
+    public void batchInsert(final List<RecordSiteStatModel> recordSiteStatModelList) {
+        String sql = "INSERT INTO recordsitestat (uniquevisitor, uniquevisitordate, " +
+                "pageview, pageviewdate, visit, visitdate, site_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                RecordSiteStatModel model = recordSiteStatModelList.get(i);
+                ps.setInt(1, model.getUniqueVisitor());
+                ps.setLong(2, model.getUniqueVisitorDate().getMillis());
+                ps.setInt(3, model.getPageView());
+                ps.setLong(4, model.getPageViewDate().getMillis());
+                ps.setInt(5,model.getVisit());
+                ps.setLong(6,model.getVisitDate().getMillis());
+                ps.setLong(7, model.getSite().getId());
+            }
+
+            @Override
+            public int getBatchSize() {
+                return recordSiteStatModelList.size();
+            }
+        });
     }
 
     public RecordSiteStatModel findById(Long id) {

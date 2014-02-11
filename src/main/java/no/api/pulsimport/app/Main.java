@@ -1,5 +1,6 @@
 package no.api.pulsimport.app;
 
+import no.api.pulsimport.app.component.RecordSiteStatImportComponent;
 import no.api.pulsimport.app.component.SiteStatImportComponent;
 import org.apache.commons.lang.StringUtils;
 import org.joda.time.DateTime;
@@ -29,6 +30,7 @@ public class Main {
         String exportedFileLocation = "";
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/application-context.xml");
         SiteStatImportComponent component = (SiteStatImportComponent) context.getBean("siteStatImportComponent");
+        RecordSiteStatImportComponent recordSiteStatComponent = (RecordSiteStatImportComponent) context.getBean("recordSiteStatImportComponent");
         if (args == null || args.length == 0) {
             exportedFileLocation = defaultExportedPath;
         } else {
@@ -38,7 +40,8 @@ public class Main {
             }
         }
         try {
-            component.importSiteStat(exportedFileLocation);
+            //component.importSiteStat(exportedFileLocation);
+            recordSiteStatComponent.importRecordSiteStat(exportedFileLocation);
             //TODO : Import article
         } catch (IOException e) {
             log.error("Importing error ", e);
