@@ -6,6 +6,7 @@ import no.api.pulsimport.app.model.ArticleStatModel;
 import no.api.pulsimport.app.model.ArticleStatModel;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -203,22 +204,35 @@ public class ArticleStatDao {
     public TotalOfArticleBean getTotalOfUniqueVisitor(Long siteId) {
         String sql = "SELECT articleid, SUM(uniquevisitor) AS total" +
                 " FROM articlestat WHERE site_id = ? GROUP BY articleid  ORDER BY total DESC LIMIT 1 ";
-        TotalOfArticleBean totalOfArticleBean = jdbcTemplate.queryForObject(sql, new Object[]{siteId}, new TotalOfArticleRowMapper(siteId));
-        return totalOfArticleBean;
+        try {
+            return  jdbcTemplate.queryForObject(sql, new Object[]{siteId}, new TotalOfArticleRowMapper(siteId));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+
+        }
+
     }
 
     public TotalOfArticleBean getTotalOfPageView(Long siteId) {
         String sql = "SELECT articleid,  SUM(pageview) AS total " +
                 "FROM articlestat WHERE site_id = ?  GROUP BY articleid ORDER BY total DESC LIMIT 1 ";
-        TotalOfArticleBean totalOfArticleBean = jdbcTemplate.queryForObject(sql, new Object[]{siteId}, new TotalOfArticleRowMapper(siteId));
-        return totalOfArticleBean;
+        try {
+            return  jdbcTemplate.queryForObject(sql, new Object[]{siteId}, new TotalOfArticleRowMapper(siteId));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+
+        }
     }
 
     public TotalOfArticleBean getTotalOfVisitor(Long siteId) {
         String sql = "SELECT articleid, SUM(visit) AS total " +
                 "FROM articlestat WHERE site_id = ? GROUP BY articleid ORDER BY total DESC LIMIT 1 ";
-        TotalOfArticleBean totalOfArticleBean = jdbcTemplate.queryForObject(sql, new Object[]{siteId}, new TotalOfArticleRowMapper(siteId));
-        return totalOfArticleBean;
+        try {
+            return   jdbcTemplate.queryForObject(sql, new Object[]{siteId}, new TotalOfArticleRowMapper(siteId));
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+
+        }
     }
 
 

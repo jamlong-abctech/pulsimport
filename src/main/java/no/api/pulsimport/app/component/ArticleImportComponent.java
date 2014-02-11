@@ -62,7 +62,7 @@ public class ArticleImportComponent {
 
     @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void importArticleStat(String exportFileLocation) throws IOException {
-        log.debug("Import siteStat started");
+        log.debug("Import Article Stat Started");
         DateTime startTime = DateTime.now();
 
         Map<String, ArticleStatModel> amediaTotalDesktopMap = new HashMap<>();
@@ -73,6 +73,7 @@ public class ArticleImportComponent {
 
         List<SiteModel> sites = siteDao.findByDevice(SiteDeviceEnum.DESKTOP);
 
+
         SiteModel pulsTotalDesktopSite = siteDao.findByCode(pulsTotalDesktopSiteCode);
         SiteModel pulsTotalMobileSite = siteDao.findByCode(pulsTotalMobileSiteCode);
         SiteModel pulsTotalCombineleSite = siteDao.findByCode(pulsTotalCombineSiteCode);
@@ -81,10 +82,10 @@ public class ArticleImportComponent {
         SiteModel amediaTotalMobileSite = siteDao.findByCode(amediaTotalMobileSiteCode);
         SiteModel amediaTotalCombineleSite = siteDao.findByCode(amediaTotalCombineSiteCode);
 
-        //int rows=0;
-        for(SiteModel site : sites) {
-        //    if(rows<=10){
-            log.debug("Importing sitestat for {}", site.getCode());
+        //for(SiteModel site : sites) {
+        for(int i=0;i<sites.size();i++) {
+            SiteModel site=sites.get(i);
+            log.debug("Importing articlestat for {}", site.getCode());
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
             SiteModel mobileSite = siteDao.findByCode("m-"+site.getCode());
@@ -92,10 +93,27 @@ public class ArticleImportComponent {
             SiteModel combineSite = siteDao.findByCode("c-"+site.getCode());
             SiteModel combinePlusSite = siteDao.findByCode("c-"+site.getCode()+"+");
             try {
+
+
                 String desktopExportName = exportFileLocation + "stats_article_" + site.getCode() + ".xml";
                 String desktopPlusExportName = exportFileLocation + "stats_article_" + site.getCode()+"+" + ".xml";
                 String mobileExportedName = exportFileLocation + "stats_article_m-" + site.getCode() + ".xml";
                 String mobilePlusExportedName = exportFileLocation + "stats_article_m-" + site.getCode()+"+" + ".xml";
+
+                int mb = 1024*1024;
+                //Getting the runtime reference from system
+                Runtime runtime = Runtime.getRuntime();
+                log.info("##### Heap utilization statistics [MB] #####");
+                //Print used memory
+                log.info("Used Memory:"
+                        + (runtime.totalMemory() - runtime.freeMemory()) / mb);
+                //Print free memory
+                log.info("Free Memory:"
+                        + runtime.freeMemory() / mb);
+                //Print total available memory
+                log.info("Total Memory:" + runtime.totalMemory() / mb);
+                //Print Maximum available memory
+                log.info("Max Memory:" + runtime.maxMemory() / mb);
 
 
                 ArticleStatResultSet resultSetDesktop = parser.parseArticleStat(desktopExportName);
@@ -110,6 +128,8 @@ public class ArticleImportComponent {
                 articleStatDao.batchInsert(articleStatDesktopModels);
                 articleStatDao.batchInsert(articleStatMobileModels);
                 articleStatDao.batchInsert(combineStats);
+
+
 
                 //Calculate total report for desktop
                 List<ReportSiteModel> reportSiteModelList = reportSiteDao.findBySiteId(site.getId());
@@ -209,9 +229,11 @@ public class ArticleImportComponent {
                         }
                     }
                 }
+
                 //END Calculate total report for mobile
 
                 // Case of this site has paid content
+
                 if(desktopPlusSite != null) {
                     ArticleStatResultSet resultSetDesktopPlus = parser.parseArticleStat(desktopPlusExportName);
                     ArticleStatResultSet resultSetMobilePlus = parser.parseArticleStat(mobilePlusExportedName);
@@ -224,12 +246,10 @@ public class ArticleImportComponent {
                     articleStatDao.batchInsert(articleStatMobilePlusModels);
                     articleStatDao.batchInsert(combinePlusStats);
                 }
+
             } catch (ExportedDataNotFoundException e) {
                 log.warn("Not found exported data for site {} ", site.getCode());
             }
-
-           // }
-            //rows++;
         }
 
         List<ArticleStatModel> pulsTotalDesktopStatList = new ArrayList<>(pulsTotalDesktopMap.values());
