@@ -3,6 +3,7 @@ package no.api.pulsimport.app.parser;
 
 import no.api.pulsimport.app.DateTimeFormatUtil;
 import no.api.pulsimport.app.bean.ArticleStatResultSet;
+import no.api.pulsimport.app.bean.ArticleStatRow;
 import no.api.pulsimport.app.exception.ComscoreXMLParseException;
 
 import no.api.pulsimport.app.exception.ExportedDataNotFoundException;
@@ -13,18 +14,11 @@ import org.springframework.stereotype.Component;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.*;
 import javax.xml.stream.events.EndElement;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -33,20 +27,40 @@ import java.util.Stack;
 public class ArticleStatXmlParser {
     public ArticleStatResultSet parseArticleStat(String exportedName) throws IOException {
 
-        ArticleStatResultSet resultSet = null;
-        try (InputStream is = new FileInputStream(exportedName)) {
-            JAXBContext jaxbContext = JAXBContext.newInstance(ArticleStatResultSet.class);
-
+        ArticleStatResultSet resultSet = new ArticleStatResultSet();
+        XMLInputFactory xif = XMLInputFactory.newInstance();
+        XMLStreamReader xsr = null;
+        try {
+            xsr = xif.createXMLStreamReader(new FileReader(exportedName));
+            xsr.nextTag(); // Advance to statements element
+            JAXBContext jaxbContext = JAXBContext.newInstance(ArticleStatRow.class);
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-            resultSet = (ArticleStatResultSet) jaxbUnmarshaller.unmarshal(is);
-        } catch (JAXBException e) {
+            //resultSet = (ArticleStatResultSet) jaxbUnmarshaller.unmarshal(xsr);
+            List<ArticleStatRow> rowList = new ArrayList<>();
+            while(xsr.nextTag() == XMLStreamConstants.START_ELEMENT) {
+                ArticleStatRow aRow = (ArticleStatRow) jaxbUnmarshaller.unmarshal(xsr);
+                rowList.add(aRow);
+            }
+            resultSet.setRows(rowList);
+        } catch (XMLStreamException e) {
             e.printStackTrace();
         } catch (FileNotFoundException e) {
             throw new ExportedDataNotFoundException("export file not found");
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(xsr != null) {
+                    xsr.close();
+                }
+            } catch (XMLStreamException e) {
+                e.printStackTrace();
+            }
         }
 
         return resultSet;
     }
+
     /*
     private static final String R_TAG = "row";
     private static final String C_TAG = "field";

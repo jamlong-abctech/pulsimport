@@ -46,11 +46,11 @@ public class Main {
             }
         }
         try {
-            component.importSiteStat(exportedFileLocation);
+            //component.importSiteStat(exportedFileLocation);
             articleComponent.importArticleStat(exportedFileLocation);
-            calculateRecordSiteStatComponent.calculateSiteStatRecord();
-            articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
-            calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
+            //calculateRecordSiteStatComponent.calculateSiteStatRecord();
+            //articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
+            //calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
         } catch (IOException e) {
             log.error("Importing error ", e);
         }
