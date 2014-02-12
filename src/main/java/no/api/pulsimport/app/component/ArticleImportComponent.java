@@ -81,9 +81,7 @@ public class ArticleImportComponent {
         SiteModel amediaTotalMobileSite = siteDao.findByCode(amediaTotalMobileSiteCode);
         SiteModel amediaTotalCombineleSite = siteDao.findByCode(amediaTotalCombineSiteCode);
 
-        //int rows=0;
         for(SiteModel site : sites) {
-        //    if(rows<=10){
             log.debug("Importing articlestat for {}", site.getCode());
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
@@ -112,6 +110,7 @@ public class ArticleImportComponent {
                 //Print Maximum available memory
                 log.info("Max Memory:" + runtime.maxMemory() / mb);
 
+                System.gc();
                 ArticleStatResultSet resultSetDesktop = parser.parseArticleStat(desktopExportName);
                 ArticleStatResultSet resultSetMobile = parser.parseArticleStat(mobileExportedName);
 
@@ -168,9 +167,9 @@ public class ArticleImportComponent {
                             statInAmediaMap.setUniqueVisitor(statInAmediaMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
                             statInAmediaMap.setPageView(statInAmediaMap.getPageView()+ eachStat.getPageView());
                             statInAmediaMap.setVisit(statInAmediaMap.getVisit() + eachStat.getVisit());
-                            statInMap.setArticleId(statInMap.getArticleId());
-                            statInMap.setArticleTitle(statInMap.getArticleTitle());
-                            statInMap.setArticleUrl(statInMap.getArticleUrl());
+                            statInAmediaMap.setArticleId(statInAmediaMap.getArticleId());
+                            statInAmediaMap.setArticleTitle(statInAmediaMap.getArticleTitle());
+                            statInAmediaMap.setArticleUrl(statInAmediaMap.getArticleUrl());
                         }
                     }
                 }
@@ -217,9 +216,9 @@ public class ArticleImportComponent {
                             statInAmediaMap.setUniqueVisitor(statInAmediaMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
                             statInAmediaMap.setPageView(statInAmediaMap.getPageView()+ eachStat.getPageView());
                             statInAmediaMap.setVisit(statInAmediaMap.getVisit() + eachStat.getVisit());
-                            statInMap.setArticleId(statInMap.getArticleId());
-                            statInMap.setArticleTitle(statInMap.getArticleTitle());
-                            statInMap.setArticleUrl(statInMap.getArticleUrl());
+                            statInAmediaMap.setArticleId(statInAmediaMap.getArticleId());
+                            statInAmediaMap.setArticleTitle(statInAmediaMap.getArticleTitle());
+                            statInAmediaMap.setArticleUrl(statInAmediaMap.getArticleUrl());
                         }
                     }
                 }
@@ -238,9 +237,29 @@ public class ArticleImportComponent {
                     articleStatDao.batchInsert(articleStatMobilePlusModels);
                     articleStatDao.batchInsert(combinePlusStats);
                 }
+
+               resultSetDesktop =null;
+               resultSetMobile = null;
+               articleStatDesktopModels =  null;
+               articleStatMobileModels =  null;
+               combineStats = null;
+               reportSiteModelList = null;
+               System.gc();
+
+
+
             } catch (ExportedDataNotFoundException e) {
                 log.warn("Not found exported data for site {} ", site.getCode());
             }
+
+            desktopSite = null;
+            desktopPlusSite = null;
+            mobileSite =null;
+            mobilePlusSite = null;
+            combineSite = null;
+            combinePlusSite = null;
+            System.gc();
+
         }
 
         List<ArticleStatModel> pulsTotalDesktopStatList = new ArrayList<>(pulsTotalDesktopMap.values());
