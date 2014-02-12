@@ -47,7 +47,7 @@ public class ArticleStatDao {
         }
     }
 
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
     public void batchInsert(final List<ArticleStatModel> articleStatModelList) {
     String sql = "INSERT INTO articlestat (uniquevisitor, pageview, visit, date,articleid, articletitle,articleurl,site_id) VALUES (?, ?, ?, ?,?, ?,?,?)";
     jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
