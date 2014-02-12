@@ -34,6 +34,7 @@ public class CalculateRecordSiteStatComponent {
     private static final Logger log = LoggerFactory.getLogger(CalculateRecordSiteStatComponent.class);
 
     public void calculateSiteStatRecord() {
+        log.info("Starting calculateSiteStatRecord");
         Long firstDayInLong = siteStatDao.findFirstDateTime();
         Long lastDayInLong = siteStatDao.findLastDateTime();
         DateTime firstDay = new DateTime(firstDayInLong);
@@ -47,6 +48,7 @@ public class CalculateRecordSiteStatComponent {
                 shouldContinue = false;
             }
         }
+        log.info("calculateSiteStatRecord finished");
     }
 
     public void calculateRecordForSiteStat(DateTime aDay){

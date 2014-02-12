@@ -28,7 +28,7 @@ public class Main {
     public static void main(String[] args) {
 
         DateTime startTime = DateTime.now();
-        log.debug("Starting main class for importing puls data");
+        log.info("Starting main class for importing puls data");
         String defaultExportedPath = "/opt/puls/exported/";
         String exportedFileLocation = "";
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/application-context.xml");
@@ -46,7 +46,7 @@ public class Main {
             }
         }
         try {
-            siteStatImportComponent.importSiteStat(exportedFileLocation);
+            //siteStatImportComponent.importSiteStat(exportedFileLocation);
             articleComponent.importArticleStat(exportedFileLocation);
             calculateRecordSiteStatComponent.calculateSiteStatRecord();
             calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
@@ -54,6 +54,6 @@ public class Main {
         } catch (IOException e) {
             log.error("Importing error ", e);
         }
-        log.debug("Import ALL data finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
+        log.info("Import ALL data finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
     }
 }

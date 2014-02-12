@@ -5,7 +5,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
- * Created by tum on 2/9/2014 AD.
+ *
  */
 
 @XmlRootElement(name = "resultset")

@@ -25,14 +25,12 @@ public class CalculateRecordArticleStatAllTimeComponent {
     @Autowired
     private RecordArticleStatAllTimeDao recordArticleStatAllTimeDao;
 
-    @Autowired
-    private SiteStatDao siteStatDao;
-
 
     @Autowired
     private SiteDao siteDao;
 
     public void calculateRecordForArticleStatAllTime() {
+        log.info("Starting calculateRecordForArticleStatAllTime");
         List<SiteModel> siteModelList = siteDao.findAllSite();
 
         for (SiteModel siteModel : siteModelList) {
@@ -115,8 +113,6 @@ public class CalculateRecordArticleStatAllTimeComponent {
                 }
             }
         }
-
+        log.info("calculateRecordForArticleStatAllTime finish");
     }
-
-
 }

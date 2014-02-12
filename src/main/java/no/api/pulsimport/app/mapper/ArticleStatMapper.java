@@ -2,8 +2,8 @@ package no.api.pulsimport.app.mapper;
 
 import no.api.pulsimport.app.DateTimeFormatUtil;
 import no.api.pulsimport.app.StringCleaningUtil;
-import no.api.pulsimport.app.bean.ArticleStatResultSet;
-import no.api.pulsimport.app.bean.ArticleStatRow;
+import no.api.pulsimport.app.bean.StatResultSet;
+import no.api.pulsimport.app.bean.StatRow;
 import no.api.pulsimport.app.model.ArticleStatModel;
 import no.api.pulsimport.app.model.SiteModel;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -19,10 +19,10 @@ import java.util.List;
 @Component
 public class ArticleStatMapper {
 
-    public List<ArticleStatModel> map(ArticleStatResultSet resultset, SiteModel siteModel) {
+    public List<ArticleStatModel> map(StatResultSet resultset, SiteModel siteModel) {
         List<ArticleStatModel> articleStatModels = new ArrayList<>();
-        List<ArticleStatRow> articleStatRows = resultset.getRows();
-        for(ArticleStatRow eachRow : articleStatRows) {
+        List<StatRow> articleStatRows = resultset.getRows();
+        for(StatRow eachRow : articleStatRows) {
             ArticleStatModel articleStatModel = new ArticleStatModel();
 
             articleStatModel.setUniqueVisitor(Integer.parseInt(eachRow.getField().get(1)));
@@ -34,11 +34,9 @@ public class ArticleStatMapper {
             articleStatModel.setArticleUrl(StringEscapeUtils.unescapeHtml(eachRow.getField().get(7)));
             articleStatModel.setSite(siteModel);
 
-
             articleStatModels.add(articleStatModel);
         }
 
         return articleStatModels;
     }
-
 }

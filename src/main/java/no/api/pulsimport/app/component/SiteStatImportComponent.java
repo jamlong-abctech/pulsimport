@@ -16,8 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,12 +76,6 @@ public class SiteStatImportComponent {
         SiteModel amediaTotalMobileSite = siteDao.findByCode(amediaTotalMobileSiteCode);
         SiteModel amediaTotalCombineleSite = siteDao.findByCode(amediaTotalCombineSiteCode);
 
-        // for testing
-//        sites.clear();
-//        sites.add(siteDao.findByCode("glomdalen"));
-//        sites.add(siteDao.findByCode("rb"));
-        // end
-
         for(SiteModel site : sites) {
             log.debug("Importing sitestat for {}", site.getCode());
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
@@ -98,16 +90,22 @@ public class SiteStatImportComponent {
                 String mobileExportedName = exportFileLocation + "stats_total_m-" + site.getCode() + ".xml";
                 String mobilePlusExportedName = exportFileLocation + "stats_total_m-" + site.getCode()+"+" + ".xml";
 
-                StatResultSet resultSetDesktop = parser.parseSiteStat(desktopExportName);
-                StatResultSet resultSetMobile = parser.parseSiteStat(mobileExportedName);
+                StatResultSet resultSetDesktop = parser.parseStat(desktopExportName);
+                StatResultSet resultSetMobile = parser.parseStat(mobileExportedName);
 
+                log.info("Mapping xml object to data model for desktopSite");
                 List<SiteStatModel> siteStatDesktopModels =  mapper.map(resultSetDesktop, desktopSite);
+                log.info("Mapping xml object to data model for mobileSite");
                 List<SiteStatModel> siteStatMobileModels =  mapper.map(resultSetMobile, mobileSite);
 
+                log.info("Calculating combine site");
                 List<SiteStatModel> combineStats = calculateCombineStat(siteStatDesktopModels, siteStatMobileModels, combineSite);
 
+                log.info("Inserting desktop site statistic size {}", siteStatDesktopModels.size());
                 siteStatDao.batchInsert(siteStatDesktopModels);
+                log.info("Inserting mobile site statistic size {}", siteStatDesktopModels.size());
                 siteStatDao.batchInsert(siteStatMobileModels);
+                log.info("Inserting combine site statistic size {}", siteStatDesktopModels.size());
                 siteStatDao.batchInsert(combineStats);
 
                 //Calculate total report for desktop
@@ -198,16 +196,19 @@ public class SiteStatImportComponent {
 
                 // Case of this site has paid content
                 if(desktopPlusSite != null) {
-                    StatResultSet resultSetDesktopPlus = parser.parseSiteStat(desktopPlusExportName);
-                    StatResultSet resultSetMobilePlus = parser.parseSiteStat(mobilePlusExportedName);
+                    StatResultSet resultSetDesktopPlus = parser.parseStat(desktopPlusExportName);
+                    StatResultSet resultSetMobilePlus = parser.parseStat(mobilePlusExportedName);
 
                     List<SiteStatModel> siteStatDesktopPlusModels =  mapper.map(resultSetDesktopPlus, desktopPlusSite);
                     List<SiteStatModel> siteStatMobilePlusModels =  mapper.map(resultSetMobilePlus, mobilePlusSite);
 
                     List<SiteStatModel> combinePlusStats = calculateCombineStat(siteStatDesktopPlusModels, siteStatMobilePlusModels, combinePlusSite);
 
+                    log.info("Inserting pad desktop site statistic size {}", siteStatDesktopPlusModels.size());
                     siteStatDao.batchInsert(siteStatDesktopPlusModels);
+                    log.info("Inserting pad mobile site statistic size {}", siteStatMobilePlusModels.size());
                     siteStatDao.batchInsert(siteStatMobilePlusModels);
+                    log.info("Inserting pad combine site statistic size {}", combinePlusStats.size());
                     siteStatDao.batchInsert(combinePlusStats);
                 }
             } catch (ExportedDataNotFoundException e) {
@@ -223,12 +224,18 @@ public class SiteStatImportComponent {
         List<SiteStatModel> amediaTotalMobileStatList = new ArrayList<>(amediaTotalMobileMap.values());
         List<SiteStatModel> amediaTotalCombineStatList = calculateCombineStat(amediaTotalDesktopStatList, amediaTotalMobileStatList, amediaTotalCombineleSite);
 
+        log.info("Inserting puls total desktop site statistic size {}", pulsTotalDesktopStatList.size());
         siteStatDao.batchInsert(pulsTotalDesktopStatList);
+        log.info("Inserting puls total mobile site statistic size {}", pulsTotalMobileStatList.size());
         siteStatDao.batchInsert(pulsTotalMobileStatList);
+        log.info("Inserting puls total combine site statistic size {}", pulsTotalCombineStatList.size());
         siteStatDao.batchInsert(pulsTotalCombineStatList);
 
+        log.info("Inserting amedia total desktop site statistic size {}", pulsTotalDesktopStatList.size());
         siteStatDao.batchInsert(amediaTotalDesktopStatList);
+        log.info("Inserting amedia total mobile site statistic size {}", pulsTotalDesktopStatList.size());
         siteStatDao.batchInsert(amediaTotalMobileStatList);
+        log.info("Inserting amedia total combine site statistic size {}", pulsTotalDesktopStatList.size());
         siteStatDao.batchInsert(amediaTotalCombineStatList);
 
         log.debug("import sitestat finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
