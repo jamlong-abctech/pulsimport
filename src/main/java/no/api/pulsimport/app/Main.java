@@ -46,7 +46,7 @@ public class Main {
             }
         }
         try {
-            //siteStatImportComponent.importSiteStat(exportedFileLocation);
+            siteStatImportComponent.importSiteStat(exportedFileLocation);
             articleComponent.importArticleStat(exportedFileLocation);
             calculateRecordSiteStatComponent.calculateSiteStatRecord();
             calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
