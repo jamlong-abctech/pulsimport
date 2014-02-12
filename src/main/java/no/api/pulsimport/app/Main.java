@@ -32,7 +32,7 @@ public class Main {
         String defaultExportedPath = "/opt/puls/exported/";
         String exportedFileLocation = "";
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/application-context.xml");
-        SiteStatImportComponent component = (SiteStatImportComponent) context.getBean("siteStatImportComponent");
+        SiteStatImportComponent siteStatImportComponent = (SiteStatImportComponent) context.getBean("siteStatImportComponent");
         ArticleImportComponent articleComponent = (ArticleImportComponent) context.getBean("articleImportComponent");
         CalculateRecordSiteStatComponent calculateRecordSiteStatComponent = (CalculateRecordSiteStatComponent) context.getBean("calculateRecordSiteStatComponent");
         CalculateRecordArticleStatAllTimeComponent articleRecordArticleAllTimeComponent = (CalculateRecordArticleStatAllTimeComponent) context.getBean("calculateRecordArticleStatAllTimeComponent");
@@ -46,11 +46,11 @@ public class Main {
             }
         }
         try {
-            //component.importSiteStat(exportedFileLocation);
+            siteStatImportComponent.importSiteStat(exportedFileLocation);
             articleComponent.importArticleStat(exportedFileLocation);
-            //calculateRecordSiteStatComponent.calculateSiteStatRecord();
-            //articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
-            //calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
+            calculateRecordSiteStatComponent.calculateSiteStatRecord();
+            calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
+            articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
         } catch (IOException e) {
             log.error("Importing error ", e);
         }
