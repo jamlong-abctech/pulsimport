@@ -65,11 +65,6 @@ public class ArticleImportComponent {
         log.debug("Import Article Stat Started");
         DateTime startTime = DateTime.now();
 
-        Map<String, ArticleStatModel> amediaTotalDesktopMap = new HashMap<>();
-        Map<String, ArticleStatModel> amediaTotalMobileMap = new HashMap<>();
-
-        Map<String, ArticleStatModel> pulsTotalDesktopMap = new HashMap<>();
-        Map<String, ArticleStatModel> pulsTotalMobileMap = new HashMap<>();
 
         List<SiteModel> sites = siteDao.findByDevice(SiteDeviceEnum.DESKTOP);
 
@@ -89,6 +84,14 @@ public class ArticleImportComponent {
             SiteModel mobilePlusSite = siteDao.findByCode("m-"+site.getCode()+"+");
             SiteModel combineSite = siteDao.findByCode("c-"+site.getCode());
             SiteModel combinePlusSite = siteDao.findByCode("c-"+site.getCode()+"+");
+
+            Map<String, ArticleStatModel> amediaTotalDesktopMap = new HashMap<>();
+            Map<String, ArticleStatModel> amediaTotalMobileMap = new HashMap<>();
+
+            Map<String, ArticleStatModel> pulsTotalDesktopMap = new HashMap<>();
+            Map<String, ArticleStatModel> pulsTotalMobileMap = new HashMap<>();
+
+
             try {
                 String desktopExportName = exportFileLocation + "stats_article_" + site.getCode() + ".xml";
                 String desktopPlusExportName = exportFileLocation + "stats_article_" + site.getCode()+"+" + ".xml";
@@ -128,8 +131,10 @@ public class ArticleImportComponent {
                 List<ReportSiteModel> reportSiteModelList = reportSiteDao.findBySiteId(site.getId());
                 boolean isIncludeBothReport = reportSiteModelList.size() > 1;
                 for(ArticleStatModel eachStat : articleStatDesktopModels) {
-                    ArticleStatModel statInMap = pulsTotalDesktopMap.get(eachStat.getDate().getMillis()+","+eachStat.getArticleId());
-                    if(statInMap == null) {
+                    log.debug("Importing articlestat for TotalDesktopSite in article{}", eachStat.getArticleId());
+                    ArticleStatModel statInDB=articleStatDao.findByDateArticleIdAndSiteId(eachStat.getDate(), eachStat.getArticleId(),  pulsTotalDesktopSite.getId());
+                    //ArticleStatModel statInMap = pulsTotalDesktopMap.get(eachStat.getDate().getMillis()+","+eachStat.getArticleId());
+                    if(statInDB == null) {
                         ArticleStatModel newStat = new ArticleStatModel();
                         newStat.setDate(eachStat.getDate());
                         newStat.setUniqueVisitor(eachStat.getUniqueVisitor());
@@ -139,19 +144,25 @@ public class ArticleImportComponent {
                         newStat.setArticleTitle(eachStat.getArticleTitle());
                         newStat.setArticleUrl(eachStat.getArticleUrl());
                         newStat.setSite(pulsTotalDesktopSite);
-
                         pulsTotalDesktopMap.put(eachStat.getDate().getMillis()+","+eachStat.getArticleId(), newStat);
                     } else {
-                        statInMap.setUniqueVisitor(statInMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
-                        statInMap.setPageView(statInMap.getPageView()+ eachStat.getPageView());
-                        statInMap.setVisit(statInMap.getVisit() + eachStat.getVisit());
-                        statInMap.setArticleId(statInMap.getArticleId());
-                        statInMap.setArticleTitle(statInMap.getArticleTitle());
-                        statInMap.setArticleUrl(statInMap.getArticleUrl());
+                        statInDB.setUniqueVisitor(statInDB.getUniqueVisitor() + eachStat.getUniqueVisitor());
+                        statInDB.setPageView(statInDB.getPageView()+ eachStat.getPageView());
+                        statInDB.setVisit(statInDB.getVisit() + eachStat.getVisit());
+                        statInDB.setArticleId(statInDB.getArticleId());
+                        statInDB.setArticleTitle(statInDB.getArticleTitle());
+                        statInDB.setArticleUrl(statInDB.getArticleUrl());
+                        articleStatDao.update(statInDB);
+                        //pulsTotalDesktopMap.put(eachStat.getDate().getMillis()+","+eachStat.getArticleId(), statInDB);
                     }
+
+
+
                     if(isIncludeBothReport) {
-                        ArticleStatModel statInAmediaMap = amediaTotalDesktopMap.get(eachStat.getDate().getMillis()+","+eachStat.getArticleId());
-                        if(statInAmediaMap == null) {
+                        log.debug("Importing articlestat for pulsTotalDesktopSite in article{}", eachStat.getArticleId());
+                        ArticleStatModel statInAmediaDB=articleStatDao.findByDateArticleIdAndSiteId(eachStat.getDate(), eachStat.getArticleId(),  amediaTotalDesktopSite.getId());
+                        //ArticleStatModel statInAmediaMap = amediaTotalDesktopMap.get(eachStat.getDate().getMillis()+","+eachStat.getArticleId());
+                        if(statInAmediaDB == null) {
                             ArticleStatModel newStat = new ArticleStatModel();
                             newStat.setDate(eachStat.getDate());
                             newStat.setUniqueVisitor(eachStat.getUniqueVisitor());
@@ -161,24 +172,27 @@ public class ArticleImportComponent {
                             newStat.setArticleTitle(eachStat.getArticleTitle());
                             newStat.setArticleUrl(eachStat.getArticleUrl());
                             newStat.setSite(amediaTotalDesktopSite);
-
                             amediaTotalDesktopMap.put(eachStat.getDate().getMillis()+","+eachStat.getArticleId(), newStat);
                         } else {
-                            statInAmediaMap.setUniqueVisitor(statInAmediaMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
-                            statInAmediaMap.setPageView(statInAmediaMap.getPageView()+ eachStat.getPageView());
-                            statInAmediaMap.setVisit(statInAmediaMap.getVisit() + eachStat.getVisit());
-                            statInAmediaMap.setArticleId(statInAmediaMap.getArticleId());
-                            statInAmediaMap.setArticleTitle(statInAmediaMap.getArticleTitle());
-                            statInAmediaMap.setArticleUrl(statInAmediaMap.getArticleUrl());
+                            statInAmediaDB.setUniqueVisitor(statInAmediaDB.getUniqueVisitor() + eachStat.getUniqueVisitor());
+                            statInAmediaDB.setPageView(statInAmediaDB.getPageView()+ eachStat.getPageView());
+                            statInAmediaDB.setVisit(statInAmediaDB.getVisit() + eachStat.getVisit());
+                            statInAmediaDB.setArticleId(statInAmediaDB.getArticleId());
+                            statInAmediaDB.setArticleTitle(statInAmediaDB.getArticleTitle());
+                            statInAmediaDB.setArticleUrl(statInAmediaDB.getArticleUrl());
+                            articleStatDao.update(statInAmediaDB);
                         }
                     }
                 }
                 //END Calculate total report for desktop
 
                 //Calculate total report for mobile
+
                 for(ArticleStatModel eachStat : articleStatMobileModels) {
-                    ArticleStatModel statInMap = pulsTotalMobileMap.get(eachStat.getDate().getMillis()+","+eachStat.getArticleId());
-                    if(statInMap == null) {
+                    log.debug("Importing articlestat for TotalMobileSite in article{}", eachStat.getArticleId());
+                    ArticleStatModel statInMobileDB=articleStatDao.findByDateArticleIdAndSiteId(eachStat.getDate(), eachStat.getArticleId(),  pulsTotalMobileSite.getId());
+                    //ArticleStatModel statInMap = pulsTotalMobileMap.get(eachStat.getDate().getMillis()+","+eachStat.getArticleId());
+                    if(statInMobileDB == null) {
                         ArticleStatModel newStat = new ArticleStatModel();
                         newStat.setDate(eachStat.getDate());
                         newStat.setUniqueVisitor(eachStat.getUniqueVisitor());
@@ -188,19 +202,20 @@ public class ArticleImportComponent {
                         newStat.setArticleTitle(eachStat.getArticleTitle());
                         newStat.setArticleUrl(eachStat.getArticleUrl());
                         newStat.setSite(pulsTotalMobileSite);
-
                         pulsTotalMobileMap.put(eachStat.getDate().getMillis()+","+eachStat.getArticleId(), newStat);
                     } else {
-                        statInMap.setUniqueVisitor(statInMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
-                        statInMap.setPageView(statInMap.getPageView()+ eachStat.getPageView());
-                        statInMap.setVisit(statInMap.getVisit() + eachStat.getVisit());
-                        statInMap.setArticleId(statInMap.getArticleId());
-                        statInMap.setArticleTitle(statInMap.getArticleTitle());
-                        statInMap.setArticleUrl(statInMap.getArticleUrl());
+                        statInMobileDB.setUniqueVisitor(statInMobileDB.getUniqueVisitor() + eachStat.getUniqueVisitor());
+                        statInMobileDB.setPageView(statInMobileDB.getPageView()+ eachStat.getPageView());
+                        statInMobileDB.setVisit(statInMobileDB.getVisit() + eachStat.getVisit());
+                        statInMobileDB.setArticleId(statInMobileDB.getArticleId());
+                        statInMobileDB.setArticleTitle(statInMobileDB.getArticleTitle());
+                        statInMobileDB.setArticleUrl(statInMobileDB.getArticleUrl());
+                        articleStatDao.update(statInMobileDB);
                     }
                     if(isIncludeBothReport) {
-                        ArticleStatModel statInAmediaMap = amediaTotalMobileMap.get(eachStat.getDate().getMillis()+","+eachStat.getArticleId());
-                        if(statInAmediaMap == null) {
+                        ArticleStatModel statInMobileAmediaDB=articleStatDao.findByDateArticleIdAndSiteId(eachStat.getDate(), eachStat.getArticleId(),  amediaTotalMobileSite.getId()) ;
+                        //ArticleStatModel statInAmediaMap = amediaTotalMobileMap.get(eachStat.getDate().getMillis()+","+eachStat.getArticleId());
+                        if(statInMobileAmediaDB == null) {
                             ArticleStatModel newStat = new ArticleStatModel();
                             newStat.setDate(eachStat.getDate());
                             newStat.setUniqueVisitor(eachStat.getUniqueVisitor());
@@ -213,12 +228,13 @@ public class ArticleImportComponent {
 
                             amediaTotalMobileMap.put(eachStat.getDate().getMillis()+","+eachStat.getArticleId(), newStat);
                         } else {
-                            statInAmediaMap.setUniqueVisitor(statInAmediaMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
-                            statInAmediaMap.setPageView(statInAmediaMap.getPageView()+ eachStat.getPageView());
-                            statInAmediaMap.setVisit(statInAmediaMap.getVisit() + eachStat.getVisit());
-                            statInAmediaMap.setArticleId(statInAmediaMap.getArticleId());
-                            statInAmediaMap.setArticleTitle(statInAmediaMap.getArticleTitle());
-                            statInAmediaMap.setArticleUrl(statInAmediaMap.getArticleUrl());
+                            statInMobileAmediaDB.setUniqueVisitor(statInMobileAmediaDB.getUniqueVisitor() + eachStat.getUniqueVisitor());
+                            statInMobileAmediaDB.setPageView(statInMobileAmediaDB.getPageView()+ eachStat.getPageView());
+                            statInMobileAmediaDB.setVisit(statInMobileAmediaDB.getVisit() + eachStat.getVisit());
+                            statInMobileAmediaDB.setArticleId(statInMobileAmediaDB.getArticleId());
+                            statInMobileAmediaDB.setArticleTitle(statInMobileAmediaDB.getArticleTitle());
+                            statInMobileAmediaDB.setArticleUrl(statInMobileAmediaDB.getArticleUrl());
+                            articleStatDao.update(statInMobileAmediaDB);
                         }
                     }
                 }
@@ -252,31 +268,45 @@ public class ArticleImportComponent {
                 log.warn("Not found exported data for site {} ", site.getCode());
             }
 
+            List<ArticleStatModel> pulsTotalDesktopStatList = new ArrayList<>(pulsTotalDesktopMap.values());
+            List<ArticleStatModel> pulsTotalMobileStatList = new ArrayList<>(pulsTotalMobileMap.values());
+            List<ArticleStatModel> pulsTotalCombineStatList = calculateCombineStat(pulsTotalDesktopStatList, pulsTotalMobileStatList, pulsTotalCombineleSite);
+
+            List<ArticleStatModel> amediaTotalDesktopStatList = new ArrayList<>(amediaTotalDesktopMap.values());
+            List<ArticleStatModel> amediaTotalMobileStatList = new ArrayList<>(amediaTotalMobileMap.values());
+            List<ArticleStatModel> amediaTotalCombineStatList = calculateCombineStat(amediaTotalDesktopStatList, amediaTotalMobileStatList, amediaTotalCombineleSite);
+
+            articleStatDao.batchInsert(pulsTotalDesktopStatList);
+            articleStatDao.batchInsert(pulsTotalMobileStatList);
+            articleStatDao.batchInsert(pulsTotalCombineStatList);
+
+            articleStatDao.batchInsert(amediaTotalDesktopStatList);
+            articleStatDao.batchInsert(amediaTotalMobileStatList);
+            articleStatDao.batchInsert(amediaTotalCombineStatList);
+
+            log.debug("Importing articlestat finish in site {}", site.getCode());
             desktopSite = null;
             desktopPlusSite = null;
             mobileSite =null;
             mobilePlusSite = null;
             combineSite = null;
             combinePlusSite = null;
+            pulsTotalDesktopMap=null;
+            pulsTotalMobileMap=null;
+            amediaTotalDesktopMap=null;
+            amediaTotalMobileMap=null;
+            pulsTotalDesktopStatList=null;
+            pulsTotalMobileStatList=null;
+            pulsTotalCombineStatList=null;
+
+            amediaTotalDesktopStatList=null;
+            amediaTotalMobileStatList=null;
+            amediaTotalCombineStatList=null;
             System.gc();
 
         }
 
-        List<ArticleStatModel> pulsTotalDesktopStatList = new ArrayList<>(pulsTotalDesktopMap.values());
-        List<ArticleStatModel> pulsTotalMobileStatList = new ArrayList<>(pulsTotalMobileMap.values());
-        List<ArticleStatModel> pulsTotalCombineStatList = calculateCombineStat(pulsTotalDesktopStatList, pulsTotalMobileStatList, pulsTotalCombineleSite);
 
-        List<ArticleStatModel> amediaTotalDesktopStatList = new ArrayList<>(amediaTotalDesktopMap.values());
-        List<ArticleStatModel> amediaTotalMobileStatList = new ArrayList<>(amediaTotalMobileMap.values());
-        List<ArticleStatModel> amediaTotalCombineStatList = calculateCombineStat(amediaTotalDesktopStatList, amediaTotalMobileStatList, amediaTotalCombineleSite);
-
-        articleStatDao.batchInsert(pulsTotalDesktopStatList);
-        articleStatDao.batchInsert(pulsTotalMobileStatList);
-        articleStatDao.batchInsert(pulsTotalCombineStatList);
-
-        articleStatDao.batchInsert(amediaTotalDesktopStatList);
-        articleStatDao.batchInsert(amediaTotalMobileStatList);
-        articleStatDao.batchInsert(amediaTotalCombineStatList);
 
         log.debug("import articlestat finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
 

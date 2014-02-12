@@ -15,6 +15,8 @@ import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -45,6 +47,7 @@ public class ArticleStatDao {
         }
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void batchInsert(final List<ArticleStatModel> articleStatModelList) {
     String sql = "INSERT INTO articlestat (uniquevisitor, pageview, visit, date,articleid, articletitle,articleurl,site_id) VALUES (?, ?, ?, ?,?, ?,?,?)";
     jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
@@ -82,10 +85,14 @@ public class ArticleStatDao {
         String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
                 " FROM articlestat WHERE date = ? AND articleid = ? AND site_id = ?";
 
-        ArticleStatModel model = jdbcTemplate
-                .queryForObject(sql, new Object[]{date.getMillis(), articleId, siteId}, new ArticleStatRowMapper());
 
-        return model;
+        try {
+            return  jdbcTemplate
+                    .queryForObject(sql, new Object[]{date.getMillis(), articleId, siteId}, new ArticleStatRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+
+        }
     }
 
     /*
@@ -147,7 +154,7 @@ public class ArticleStatDao {
         }
     }
 
-    private ArticleStatModel update(ArticleStatModel model) {
+    public ArticleStatModel update(ArticleStatModel model) {
         String sql = "UPDATE articlestat SET uniquevisitor = ?, pageview = ?, visit = ?, date = ?, articleid = ?," +
                 " articletitle = ?, site_id = ? WHERE id = ?";
 
