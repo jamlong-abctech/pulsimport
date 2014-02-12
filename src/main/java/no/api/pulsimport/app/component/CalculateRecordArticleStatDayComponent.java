@@ -38,7 +38,7 @@ public class CalculateRecordArticleStatDayComponent {
         while (shouldContinue) {
             calculateRecordForArticleStat(currentDay);
             currentDay = currentDay.plusDays(1);
-            if (currentDay == lastDay.toDateMidnight().toDateTime()) {
+            if (currentDay.getMillis() == lastDay.toDateMidnight().toDateTime().getMillis()) {
                 shouldContinue = false;
             }
         }
