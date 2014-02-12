@@ -29,6 +29,7 @@ public class CalculateRecordArticleStatDayComponent {
     private RecordArticleStatDayDao recordArticleStatDayDao;
 
     public void calculateArticleStatDauRecord() {
+        log.debug("Starting calculateArticleStatDauRecord");
         Long firstDayInLong = articleStatDao.findFirstDateTime();
         Long lastDayInLong = articleStatDao.findLastDateTime();
         DateTime firstDay = new DateTime(firstDayInLong);
@@ -42,6 +43,7 @@ public class CalculateRecordArticleStatDayComponent {
                 shouldContinue = false;
             }
         }
+        log.debug("calculateArticleStatDauRecord finished");
     }
 
     public void calculateRecordForArticleStat(DateTime aDay){
