@@ -60,7 +60,7 @@ public class ArticleImportComponent {
     @Autowired
     private ReportSiteDao reportSiteDao;
 
-    @Transactional(propagation = Propagation.REQUIRED, readOnly = false)
+    //@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void importArticleStat(String exportFileLocation) throws IOException {
         log.debug("Import Article Stat Started");
         DateTime startTime = DateTime.now();
