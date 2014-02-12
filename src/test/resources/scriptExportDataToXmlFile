@@ -1,373 +1,374 @@
 #!/bin/bash
 #Script to export mysql to xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `records`'> /home/ni/tmp/xml/records.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `site`'> /home/ni/tmp/xml/site.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `site_midl`'> /home/ni/tmp/xml/site_midl.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_aasavis`'> /home/ni/tmp/xml/stats_article_aasavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_aktuell`'> /home/ni/tmp/xml/stats_article_aktuell.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_amta`'> /home/ni/tmp/xml/stats_article_amta.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_an`'> /home/ni/tmp/xml/stats_article_an.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_arbeidsmanden`'> /home/ni/tmp/xml/stats_article_arbeidsmanden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_auraavis`'> /home/ni/tmp/xml/stats_article_auraavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_austagderblad`'> /home/ni/tmp/xml/stats_article_austagderblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_avisa-hordaland`'> /home/ni/tmp/xml/stats_article_avisa-hordaland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_avisnavn`'>/home/ni/tmp/xml/stats_article_avisnavn.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_ba`'> /home/ni/tmp/xml/stats_article_ba.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_bladet`'> /home/ni/tmp/xml/stats_article_bladet.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_blv`'> /home/ni/tmp/xml/stats_article_blv.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_budstikka`'> /home/ni/tmp/xml/stats_article_budstikka.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_budstikka+`'> /home/ni/tmp/xml/stats_article_budstikka+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_bygdeposten`'> /home/ni/tmp/xml/stats_article_bygdeposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_demokraten`'> /home/ni/tmp/xml/stats_article_demokraten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_dittoslo`'> /home/ni/tmp/xml/stats_article_dittoslo.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_dt`'> /home/ni/tmp/xml/stats_article_dt.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_dt+`'> /home/ni/tmp/xml/stats_article_dt+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_eikeravis`'> /home/ni/tmp/xml/stats_article_eikeravis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_enebakkavis`'> /home/ni/tmp/xml/stats_article_enebakkavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_eub`'> /home/ni/tmp/xml/stats_article_eub.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_fagbladet`'> /home/ni/tmp/xml/stats_article_fagbladet.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_fb`'> /home/ni/tmp/xml/stats_article_fb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_fd`'> /home/ni/tmp/xml/stats_article_fd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_finnmarken`'> /home/ni/tmp/xml/stats_article_finnmarken.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_firda`'> /home/ni/tmp/xml/stats_article_firda.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_firdaposten`'> /home/ni/tmp/xml/stats_article_firdaposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_fontene`'> /home/ni/tmp/xml/stats_article_fontene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_fremover`'> /home/ni/tmp/xml/stats_article_fremover.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_frifagbevegelse`'> /home/ni/tmp/xml/stats_article_frifagbevegelse.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_gd`'> /home/ni/tmp/xml/stats_article_gd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_gjengangeren`'> /home/ni/tmp/xml/stats_article_gjengangeren.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_glomdalen`'> /home/ni/tmp/xml/stats_article_glomdalen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_glomdalen+`'> /home/ni/tmp/xml/stats_article_glomdalen+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_hadeland`'> /home/ni/tmp/xml/stats_article_hadeland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_hahalden`'> /home/ni/tmp/xml/stats_article_hahalden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_hardanger-folkeblad`'> /home/ni/tmp/xml/stats_article_hardanger-folkeblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_havis`'> /home/ni/tmp/xml/stats_article_havis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_hblad`'> /home/ni/tmp/xml/stats_article_hblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_helgeland-arbeiderblad`'> /home/ni/tmp/xml/stats_article_helgeland-arbeiderblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_hknytt`'> /home/ni/tmp/xml/stats_article_hknytt.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_indre`'> /home/ni/tmp/xml/stats_article_indre.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_jarlsbergavis`'> /home/ni/tmp/xml/stats_article_jarlsbergavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_kampanje`'> /home/ni/tmp/xml/stats_article_kampanje.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_kv`'> /home/ni/tmp/xml/stats_article_kv.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_kvinnheringen`'> /home/ni/tmp/xml/stats_article_kvinnheringen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_laagendalsposten`'> /home/ni/tmp/xml/stats_article_laagendalsposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_lierposten`'> /home/ni/tmp/xml/stats_article_lierposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_lofot-tidende`'> /home/ni/tmp/xml/stats_article_lofot-tidende.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_lofotposten`'> /home/ni/tmp/xml/stats_article_lofotposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-aasavis`'> /home/ni/tmp/xml/stats_article_m-aasavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-aktuell`'> /home/ni/tmp/xml/stats_article_m-aktuell.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-amta`'> /home/ni/tmp/xml/stats_article_m-amta.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-an`'> /home/ni/tmp/xml/stats_article_m-an.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-arbeidsmanden`'> /home/ni/tmp/xml/stats_article_m-arbeidsmanden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-auraavis`'> /home/ni/tmp/xml/stats_article_m-auraavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-austagderblad`'> /home/ni/tmp/xml/stats_article_m-austagderblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-avisa-hordaland`'> /home/ni/tmp/xml/stats_article_m-avisa-hordaland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-avisnavn`'> /home/ni/tmp/xml/stats_article_m-avisnavn.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-ba`'> /home/ni/tmp/xml/stats_article_m-ba.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-bladet`'> /home/ni/tmp/xml/stats_article_m-bladet.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-blv`'> /home/ni/tmp/xml/stats_article_m-blv.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-budstikka`'> /home/ni/tmp/xml/stats_article_m-budstikka.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-budstikka+`'> /home/ni/tmp/xml/stats_article_m-budstikka+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-bygdeposten`'> /home/ni/tmp/xml/stats_article_m-bygdeposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-demokraten`'> /home/ni/tmp/xml/stats_article_m-demokraten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-dittoslo`'> /home/ni/tmp/xml/stats_article_m-dittoslo.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-dt`'> /home/ni/tmp/xml/stats_article_m-dt.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-dt+`'> /home/ni/tmp/xml/stats_article_m-dt+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-eikeravis`'> /home/ni/tmp/xml/stats_article_m-eikeravis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-enebakkavis`'> /home/ni/tmp/xml/stats_article_m-enebakkavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-eub`'> /home/ni/tmp/xml/stats_article_m-eub.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-fagbladet`'> /home/ni/tmp/xml/stats_article_m-fagbladet.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-fb`'> /home/ni/tmp/xml/stats_article_m-fb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-fd`'> /home/ni/tmp/xml/stats_article_m-fd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-finnmarken`'> /home/ni/tmp/xml/stats_article_m-finnmarken.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-firda`'> /home/ni/tmp/xml/stats_article_m-firda.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-firdaposten`'> /home/ni/tmp/xml/stats_article_m-firdaposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-fontene`'> /home/ni/tmp/xml/stats_article_m-fontene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-fremover`'> /home/ni/tmp/xml/stats_article_m-fremover.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-frifagbevegelse`'> /home/ni/tmp/xml/stats_article_m-frifagbevegelse.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-gd`'> /home/ni/tmp/xml/stats_article_m-gd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-gjengangeren`'> /home/ni/tmp/xml/stats_article_m-gjengangeren.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-glomdalen`'> /home/ni/tmp/xml/stats_article_m-glomdalen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-glomdalen+`'> /home/ni/tmp/xml/stats_article_m-glomdalen+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-hadeland`'> /home/ni/tmp/xml/stats_article_m-hadeland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-hahalden`'> /home/ni/tmp/xml/stats_article_m-hahalden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-hardanger-folkeblad`'> /home/ni/tmp/xml/stats_article_m-hardanger-folkeblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-havis`'> /home/ni/tmp/xml/stats_article_m-havis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-hblad`'> /home/ni/tmp/xml/stats_article_m-hblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-helgeland-arbeiderblad`'> /home/ni/tmp/xml/stats_article_m-helgeland-arbeiderblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-hknytt`'> /home/ni/tmp/xml/stats_article_m-hknytt.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-indre`'> /home/ni/tmp/xml/stats_article_m-indre.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-jarlsbergavis`'> /home/ni/tmp/xml/stats_article_m-jarlsbergavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-kampanje`'> /home/ni/tmp/xml/stats_article_m-kampanje.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-kv`'> /home/ni/tmp/xml/stats_article_m-kv.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-kvinnheringen`'> /home/ni/tmp/xml/stats_article_m-kvinnheringen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-laagendalsposten`'> /home/ni/tmp/xml/stats_article_m-laagendalsposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-lierposten`'> /home/ni/tmp/xml/stats_article_m-lierposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-lofot-tidende`'> /home/ni/tmp/xml/stats_article_m-lofot-tidende.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-lofotposten`'> /home/ni/tmp/xml/stats_article_m-lofotposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-magasinett`'> /home/ni/tmp/xml/stats_article_m-magasinett.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-mb`'> /home/ni/tmp/xml/stats_article_m-mb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-mossavis`'> /home/ni/tmp/xml/stats_article_m-mossavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-namdalsavisa`'> /home/ni/tmp/xml/stats_article_m-namdalsavisa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-nettverk1`'> /home/ni/tmp/xml/stats_article_m-nettverk1.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-nordhordland`'> /home/ni/tmp/xml/stats_article_m-nordhordland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-nordlys`'> /home/ni/tmp/xml/stats_article_m-nordlys.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-oa`'> /home/ni/tmp/xml/stats_article_m-oa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-oblad`'> /home/ni/tmp/xml/stats_article_m-oblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-oblad+`'> /home/ni/tmp/xml/stats_article_m-oblad+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-op`'> /home/ni/tmp/xml/stats_article_m-op.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-opdalingen`'> /home/ni/tmp/xml/stats_article_m-opdalingen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-ostlendingen`'> /home/ni/tmp/xml/stats_article_m-ostlendingen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-oyene`'> /home/ni/tmp/xml/stats_article_m-oyene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-pd`'> /home/ni/tmp/xml/stats_article_m-pd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-polkaposten`'> /home/ni/tmp/xml/stats_article_m-polkaposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-r-a`'> /home/ni/tmp/xml/stats_article_m-r-a.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-ranablad`'> /home/ni/tmp/xml/stats_article_m-ranablad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-rb`'> /home/ni/tmp/xml/stats_article_m-rb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-retten`'> /home/ni/tmp/xml/stats_article_m-retten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-rha`'> /home/ni/tmp/xml/stats_article_m-rha.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-ringblad`'> /home/ni/tmp/xml/stats_article_m-ringblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-rogalandsavis`'> /home/ni/tmp/xml/stats_article_m-rogalandsavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-sa`'> /home/ni/tmp/xml/stats_article_m-sa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-sandeavis`'> /home/ni/tmp/xml/stats_article_m-sandeavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-sb`'> /home/ni/tmp/xml/stats_article_m-sb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-sb+`'> /home/ni/tmp/xml/stats_article_m-sb+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-siste`'> /home/ni/tmp/xml/stats_article_m-siste.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-smaalenene`'> /home/ni/tmp/xml/stats_article_m-smaalenene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-sognavis`'> /home/ni/tmp/xml/stats_article_m-sognavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-svelviksposten`'> /home/ni/tmp/xml/stats_article_m-svelviksposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-ta`'> /home/ni/tmp/xml/stats_article_m-ta.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-tb`'> /home/ni/tmp/xml/stats_article_m-tb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-tb+`'> /home/ni/tmp/xml/stats_article_m-tb+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-telen`'> /home/ni/tmp/xml/stats_article_m-telen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-tk`'> /home/ni/tmp/xml/stats_article_m-tk.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-tvedestrandsposten`'> /home/ni/tmp/xml/stats_article_m-tvedestrandsposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-varden`'> /home/ni/tmp/xml/stats_article_m-varden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-vestbyavis`'> /home/ni/tmp/xml/stats_article_m-vestbyavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-zett`'> /home/ni/tmp/xml/stats_article_m-zett.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_magasinett`'> /home/ni/tmp/xml/stats_article_magasinett.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_mb`'> /home/ni/tmp/xml/stats_article_mb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_mossavis`'> /home/ni/tmp/xml/stats_article_mossavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_namdalsavisa`'> /home/ni/tmp/xml/stats_article_namdalsavisa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_nettverk1`'> /home/ni/tmp/xml/stats_article_nettverk1.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_nordhordland`'> /home/ni/tmp/xml/stats_article_nordhordland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_nordlys`'> /home/ni/tmp/xml/stats_article_nordlys.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_oa`'> /home/ni/tmp/xml/stats_article_oa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_oblad`'> /home/ni/tmp/xml/stats_article_oblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_oblad+`'> /home/ni/tmp/xml/stats_article_oblad+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_op`'> /home/ni/tmp/xml/stats_article_op.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_opdalingen`'> /home/ni/tmp/xml/stats_article_opdalingen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_ostlendingen`'> /home/ni/tmp/xml/stats_article_ostlendingen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_oyene`'> /home/ni/tmp/xml/stats_article_oyene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_pd`'> /home/ni/tmp/xml/stats_article_pd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_polkaposten`'> /home/ni/tmp/xml/stats_article_polkaposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_r-a`'> /home/ni/tmp/xml/stats_article_r-a.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_ranablad`'> /home/ni/tmp/xml/stats_article_ranablad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_rb`'> /home/ni/tmp/xml/stats_article_rb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_retten`'> /home/ni/tmp/xml/stats_article_retten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_rha`'> /home/ni/tmp/xml/stats_article_rha.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_ringblad`'> /home/ni/tmp/xml/stats_article_ringblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_rogalandsavis`'> /home/ni/tmp/xml/stats_article_rogalandsavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_sa`'> /home/ni/tmp/xml/stats_article_sa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_sandeavis`'> /home/ni/tmp/xml/stats_article_sandeavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_sb`'> /home/ni/tmp/xml/stats_article_sb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_sb+`'> /home/ni/tmp/xml/stats_article_sb+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_siste`'> /home/ni/tmp/xml/stats_article_siste.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_smaalenene`'> /home/ni/tmp/xml/stats_article_smaalenene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_sognavis`'> /home/ni/tmp/xml/stats_article_sognavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_svelviksposten`'> /home/ni/tmp/xml/stats_article_svelviksposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_ta`'> /home/ni/tmp/xml/stats_article_ta.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_tb`'> /home/ni/tmp/xml/stats_article_tb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_tb+`'> /home/ni/tmp/xml/stats_article_tb+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_telen`'> /home/ni/tmp/xml/stats_article_telen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_tk`'> /home/ni/tmp/xml/stats_article_tk.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_tvedestrandsposten`'> /home/ni/tmp/xml/stats_article_tvedestrandsposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_varden`'> /home/ni/tmp/xml/stats_article_varden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_vestbyavis`'> /home/ni/tmp/xml/stats_article_vestbyavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_zett`'> /home/ni/tmp/xml/stats_article_zett.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_aasavis`'> /home/ni/tmp/xml/stats_total_aasavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_aktuell`'> /home/ni/tmp/xml/stats_total_aktuell.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_amedia`'> /home/ni/tmp/xml/stats_total_amedia.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_amta`'> /home/ni/tmp/xml/stats_total_amta.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_an`'> /home/ni/tmp/xml/stats_total_an.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_arbeidsmanden`'> /home/ni/tmp/xml/stats_total_arbeidsmanden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_auraavis`'> /home/ni/tmp/xml/stats_total_auraavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_austagderblad`'> /home/ni/tmp/xml/stats_total_austagderblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_avisa-hordaland`'> /home/ni/tmp/xml/stats_total_avisa-hordaland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_avisnavn`'> /home/ni/tmp/xml/stats_total_avisnavn.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_ba`'> /home/ni/tmp/xml/stats_total_ba.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_bladet`'> /home/ni/tmp/xml/stats_total_bladet.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_blv`'> /home/ni/tmp/xml/stats_total_blv.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_budstikka`'> /home/ni/tmp/xml/stats_total_budstikka.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_budstikka+`'> /home/ni/tmp/xml/stats_total_budstikka+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_bygdeposten`'> /home/ni/tmp/xml/stats_total_bygdeposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_demokraten`'> /home/ni/tmp/xml/stats_total_demokraten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_dittoslo`'> /home/ni/tmp/xml/stats_total_dittoslo.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_dt`'> /home/ni/tmp/xml/stats_total_dt.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_dt+`'> /home/ni/tmp/xml/stats_total_dt+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_eikeravis`'> /home/ni/tmp/xml/stats_total_eikeravis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_enebakkavis`'> /home/ni/tmp/xml/stats_total_enebakkavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_eub`'> /home/ni/tmp/xml/stats_total_eub.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_fagbladet`'> /home/ni/tmp/xml/stats_total_fagbladet.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_fb`'> /home/ni/tmp/xml/stats_total_fb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_fd`'> /home/ni/tmp/xml/stats_total_fd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_finnmarken`'> /home/ni/tmp/xml/stats_total_finnmarken.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_firda`'> /home/ni/tmp/xml/stats_total_firda.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_firdaposten`'> /home/ni/tmp/xml/stats_total_firdaposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_fontene`'> /home/ni/tmp/xml/stats_total_fontene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_fremover`'> /home/ni/tmp/xml/stats_total_fremover.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_frifagbevegelse`'> /home/ni/tmp/xml/stats_total_frifagbevegelse.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_gd`'> /home/ni/tmp/xml/stats_total_gd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_gjengangeren`'> /home/ni/tmp/xml/stats_total_gjengangeren.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_glomdalen`'> /home/ni/tmp/xml/stats_total_glomdalen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_glomdalen+`'> /home/ni/tmp/xml/stats_total_glomdalen+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_hadeland`'> /home/ni/tmp/xml/stats_total_hadeland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_hahalden`'> /home/ni/tmp/xml/stats_total_hahalden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_hardanger-folkeblad`'> /home/ni/tmp/xml/stats_total_hardanger-folkeblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_havis`'> /home/ni/tmp/xml/stats_total_havis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_hblad`'> /home/ni/tmp/xml/stats_total_hblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_helgeland-arbeiderblad`'> /home/ni/tmp/xml/stats_total_helgeland-arbeiderblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_hknytt`'> /home/ni/tmp/xml/stats_total_hknytt.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_indre`'> /home/ni/tmp/xml/stats_total_indre.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_jarlsbergavis`'> /home/ni/tmp/xml/stats_total_jarlsbergavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_kampanje`'> /home/ni/tmp/xml/stats_total_kampanje.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_kv`'> /home/ni/tmp/xml/stats_total_kv.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_kvinnheringen`'> /home/ni/tmp/xml/stats_total_kvinnheringen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_laagendalsposten`'> /home/ni/tmp/xml/stats_total_laagendalsposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_lierposten`'> /home/ni/tmp/xml/stats_total_lierposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_lofot-tidende`'> /home/ni/tmp/xml/stats_total_lofot-tidende.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_lofotposten`'> /home/ni/tmp/xml/stats_total_lofotposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-aasavis`'> /home/ni/tmp/xml/stats_total_m-aasavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-aktuell`'> /home/ni/tmp/xml/stats_total_m-aktuell.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-amedia`'> /home/ni/tmp/xml/stats_total_m-amedia.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-amta`'> /home/ni/tmp/xml/stats_total_m-amta.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-an`'> /home/ni/tmp/xml/stats_total_m-an.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-arbeidsmanden`'> /home/ni/tmp/xml/stats_total_m-arbeidsmanden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-auraavis`'> /home/ni/tmp/xml/stats_total_m-auraavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-austagderblad`'> /home/ni/tmp/xml/stats_total_m-austagderblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-avisa-hordaland`'> /home/ni/tmp/xml/stats_total_m-avisa-hordaland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-avisnavn`'> /home/ni/tmp/xml/stats_total_m-avisnavn.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-ba`'> /home/ni/tmp/xml/stats_total_m-ba.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-bladet`'> /home/ni/tmp/xml/stats_total_m-bladet.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-blv`'> /home/ni/tmp/xml/stats_total_m-blv.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-budstikka`'> /home/ni/tmp/xml/stats_total_m-budstikka.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-budstikka+`'> /home/ni/tmp/xml/stats_total_m-budstikka+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-bygdeposten`'> /home/ni/tmp/xml/stats_total_m-bygdeposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-demokraten`'> /home/ni/tmp/xml/stats_total_m-demokraten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-dittoslo`'> /home/ni/tmp/xml/stats_total_m-dittoslo.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-dt`'> /home/ni/tmp/xml/stats_total_m-dt.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-dt+`'> /home/ni/tmp/xml/stats_total_m-dt+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-eikeravis`'> /home/ni/tmp/xml/stats_total_m-eikeravis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-enebakkavis`'> /home/ni/tmp/xml/stats_total_m-enebakkavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-eub`'> /home/ni/tmp/xml/stats_total_m-eub.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-fagbladet`'> /home/ni/tmp/xml/stats_total_m-fagbladet.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-fb`'> /home/ni/tmp/xml/stats_total_m-fb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-fd`'> /home/ni/tmp/xml/stats_total_m-fd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-finnmarken`'> /home/ni/tmp/xml/stats_total_m-finnmarken.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-firda`'> /home/ni/tmp/xml/stats_total_m-firda.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-firdaposten`'> /home/ni/tmp/xml/stats_total_m-firdaposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-fontene`'> /home/ni/tmp/xml/stats_total_m-fontene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-fremover`'> /home/ni/tmp/xml/stats_total_m-fremover.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-frifagbevegelse`'> /home/ni/tmp/xml/stats_total_m-frifagbevegelse.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-gd`'> /home/ni/tmp/xml/stats_total_m-gd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-gjengangeren`'> /home/ni/tmp/xml/stats_total_m-gjengangeren.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-glomdalen`'> /home/ni/tmp/xml/stats_total_m-glomdalen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-glomdalen+`'> /home/ni/tmp/xml/stats_total_m-glomdalen+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-hadeland`'> /home/ni/tmp/xml/stats_total_m-hadeland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-hahalden`'> /home/ni/tmp/xml/stats_total_m-hahalden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-hardanger-folkeblad`'> /home/ni/tmp/xml/stats_total_m-hardanger-folkeblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-havis`'> /home/ni/tmp/xml/stats_total_m-havis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-hblad`'> /home/ni/tmp/xml/stats_total_m-hblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-helgeland-arbeiderblad`'> /home/ni/tmp/xml/stats_total_m-helgeland-arbeiderblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-hknytt`'> /home/ni/tmp/xml/stats_total_m-hknytt.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-indre`'> /home/ni/tmp/xml/stats_total_m-indre.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-jarlsbergavis`'> /home/ni/tmp/xml/stats_total_m-jarlsbergavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-kampanje`'> /home/ni/tmp/xml/stats_total_m-kampanje.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-kv`'> /home/ni/tmp/xml/stats_total_m-kv.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-kvinnheringen`'> /home/ni/tmp/xml/stats_total_m-kvinnheringen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-laagendalsposten`'> /home/ni/tmp/xml/stats_total_m-laagendalsposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-lierposten`'> /home/ni/tmp/xml/stats_total_m-lierposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-lofot-tidende`'> /home/ni/tmp/xml/stats_total_m-lofot-tidende.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-lofotposten`'> /home/ni/tmp/xml/stats_total_m-lofotposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-magasinett`'> /home/ni/tmp/xml/stats_total_m-magasinett.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-mb`'> /home/ni/tmp/xml/stats_total_m-mb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-mossavis`'> /home/ni/tmp/xml/stats_total_m-mossavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-namdalsavisa`'> /home/ni/tmp/xml/stats_total_m-namdalsavisa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-nettverk1`'> /home/ni/tmp/xml/stats_total_m-nettverk1.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-nordhordland`'> /home/ni/tmp/xml/stats_total_m-nordhordland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-nordlys`'> /home/ni/tmp/xml/stats_total_m-nordlys.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-oa`'> /home/ni/tmp/xml/stats_total_m-oa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-oblad`'> /home/ni/tmp/xml/stats_total_m-oblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-oblad+`'> /home/ni/tmp/xml/stats_total_m-oblad+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-op`'> /home/ni/tmp/xml/stats_total_m-op.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-opdalingen`'> /home/ni/tmp/xml/stats_total_m-opdalingen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-ostlendingen`'> /home/ni/tmp/xml/stats_total_m-ostlendingen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-oyene`'> /home/ni/tmp/xml/stats_total_m-oyene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-pd`'> /home/ni/tmp/xml/stats_total_m-pd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-polkaposten`'> /home/ni/tmp/xml/stats_total_m-polkaposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-r-a`'> /home/ni/tmp/xml/stats_total_m-r-a.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-ranablad`'> /home/ni/tmp/xml/stats_total_m-ranablad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-rb`'> /home/ni/tmp/xml/stats_total_m-rb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-retten`'> /home/ni/tmp/xml/stats_total_m-retten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-rha`'> /home/ni/tmp/xml/stats_total_m-rha.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-ringblad`'> /home/ni/tmp/xml/stats_total_m-ringblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-rogalandsavis`'> /home/ni/tmp/xml/stats_total_m-rogalandsavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-sa`'> /home/ni/tmp/xml/stats_total_m-sa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-sandeavis`'> /home/ni/tmp/xml/stats_total_m-sandeavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-sb`'> /home/ni/tmp/xml/stats_total_m-sb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-sb+`'> /home/ni/tmp/xml/stats_total_m-sb+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-siste`'> /home/ni/tmp/xml/stats_total_m-siste.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-smaalenene`'> /home/ni/tmp/xml/stats_total_m-smaalenene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-sognavis`'> /home/ni/tmp/xml/stats_total_m-sognavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-svelviksposten`'> /home/ni/tmp/xml/stats_total_m-svelviksposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-ta`'> /home/ni/tmp/xml/stats_total_m-ta.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-tb`'> /home/ni/tmp/xml/stats_total_m-tb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-tb+`'> /home/ni/tmp/xml/stats_total_m-tb+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-telen`'> /home/ni/tmp/xml/stats_total_m-telen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-tk`'> /home/ni/tmp/xml/stats_total_m-tk.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-tvedestrandsposten`'> /home/ni/tmp/xml/stats_total_m-tvedestrandsposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-varden`'> /home/ni/tmp/xml/stats_total_m-varden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-vestbyavis`'> /home/ni/tmp/xml/stats_total_m-vestbyavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-zett`'> /home/ni/tmp/xml/stats_total_m-zett.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_magasinett`'> /home/ni/tmp/xml/stats_total_magasinett.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_mb`'> /home/ni/tmp/xml/stats_total_mb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_mossavis`'> /home/ni/tmp/xml/stats_total_mossavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_namdalsavisa`'> /home/ni/tmp/xml/stats_total_namdalsavisa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_nettverk1`'> /home/ni/tmp/xml/stats_total_nettverk1.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_nordhordland`'> /home/ni/tmp/xml/stats_total_nordhordland.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_nordlys`'> /home/ni/tmp/xml/stats_total_nordlys.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_oa`'> /home/ni/tmp/xml/stats_total_oa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_oblad`'> /home/ni/tmp/xml/stats_total_oblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_oblad+`'> /home/ni/tmp/xml/stats_total_oblad+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_op`'> /home/ni/tmp/xml/stats_total_op.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_opdalingen`'> /home/ni/tmp/xml/stats_total_opdalingen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_ostlendingen`'> /home/ni/tmp/xml/stats_total_ostlendingen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_oyene`'> /home/ni/tmp/xml/stats_total_oyene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_pd`'> /home/ni/tmp/xml/stats_total_pd.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_polkaposten`'> /home/ni/tmp/xml/stats_total_polkaposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_r-a`'> /home/ni/tmp/xml/stats_total_r-a.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_ranablad`'> /home/ni/tmp/xml/stats_total_ranablad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_rb`'> /home/ni/tmp/xml/stats_total_rb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_retten`'> /home/ni/tmp/xml/stats_total_retten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_rha`'> /home/ni/tmp/xml/stats_total_rha.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_ringblad`'> /home/ni/tmp/xml/stats_total_ringblad.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_rogalandsavis`'> /home/ni/tmp/xml/stats_total_rogalandsavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_sa`'> /home/ni/tmp/xml/stats_total_sa.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_sandeavis`'> /home/ni/tmp/xml/stats_total_sandeavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_sb`'> /home/ni/tmp/xml/stats_total_sb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_sb+`'> /home/ni/tmp/xml/stats_total_sb+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_siste`'> /home/ni/tmp/xml/stats_total_siste.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_smaalenene`'> /home/ni/tmp/xml/stats_total_smaalenene.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_sognavis`'> /home/ni/tmp/xml/stats_total_sognavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_svelviksposten`'> /home/ni/tmp/xml/stats_total_svelviksposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_ta`'> /home/ni/tmp/xml/stats_total_ta.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_tb`'> /home/ni/tmp/xml/stats_total_tb.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_tb+`'> /home/ni/tmp/xml/stats_total_tb+.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_telen`'> /home/ni/tmp/xml/stats_total_telen.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_tk`'> /home/ni/tmp/xml/stats_total_tk.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_tvedestrandsposten`'> /home/ni/tmp/xml/stats_total_tvedestrandsposten.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_varden`'> /home/ni/tmp/xml/stats_total_varden.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_vestbyavis`'> /home/ni/tmp/xml/stats_total_vestbyavis.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_zett`'> /home/ni/tmp/xml/stats_total_zett.xml
-mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `timestamp`'> /home/ni/tmp/xml/timestamp.xml
+mkdir -p -m 777 ./exported/
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `records`'> ./exported/records.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `site`'> ./exported/site.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `site_midl`'> ./exported/site_midl.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_aasavis`'> ./exported/stats_article_aasavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_aktuell`'> ./exported/stats_article_aktuell.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_amta`'> ./exported/stats_article_amta.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_an`'> ./exported/stats_article_an.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_arbeidsmanden`'> ./exported/stats_article_arbeidsmanden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_auraavis`'> ./exported/stats_article_auraavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_austagderblad`'> ./exported/stats_article_austagderblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_avisa-hordaland`'> ./exported/stats_article_avisa-hordaland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_avisnavn`'>./exported/stats_article_avisnavn.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_ba`'> ./exported/stats_article_ba.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_bladet`'> ./exported/stats_article_bladet.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_blv`'> ./exported/stats_article_blv.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_budstikka`'> ./exported/stats_article_budstikka.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_budstikka+`'> ./exported/stats_article_budstikka+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_bygdeposten`'> ./exported/stats_article_bygdeposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_demokraten`'> ./exported/stats_article_demokraten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_dittoslo`'> ./exported/stats_article_dittoslo.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_dt`'> ./exported/stats_article_dt.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_dt+`'> ./exported/stats_article_dt+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_eikeravis`'> ./exported/stats_article_eikeravis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_enebakkavis`'> ./exported/stats_article_enebakkavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_eub`'> ./exported/stats_article_eub.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_fagbladet`'> ./exported/stats_article_fagbladet.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_fb`'> ./exported/stats_article_fb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_fd`'> ./exported/stats_article_fd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_finnmarken`'> ./exported/stats_article_finnmarken.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_firda`'> ./exported/stats_article_firda.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_firdaposten`'> ./exported/stats_article_firdaposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_fontene`'> ./exported/stats_article_fontene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_fremover`'> ./exported/stats_article_fremover.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_frifagbevegelse`'> ./exported/stats_article_frifagbevegelse.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_gd`'> ./exported/stats_article_gd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_gjengangeren`'> ./exported/stats_article_gjengangeren.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_glomdalen`'> ./exported/stats_article_glomdalen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_glomdalen+`'> ./exported/stats_article_glomdalen+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_hadeland`'> ./exported/stats_article_hadeland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_hahalden`'> ./exported/stats_article_hahalden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_hardanger-folkeblad`'> ./exported/stats_article_hardanger-folkeblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_havis`'> ./exported/stats_article_havis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_hblad`'> ./exported/stats_article_hblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_helgeland-arbeiderblad`'> ./exported/stats_article_helgeland-arbeiderblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_hknytt`'> ./exported/stats_article_hknytt.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_indre`'> ./exported/stats_article_indre.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_jarlsbergavis`'> ./exported/stats_article_jarlsbergavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_kampanje`'> ./exported/stats_article_kampanje.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_kv`'> ./exported/stats_article_kv.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_kvinnheringen`'> ./exported/stats_article_kvinnheringen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_laagendalsposten`'> ./exported/stats_article_laagendalsposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_lierposten`'> ./exported/stats_article_lierposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_lofot-tidende`'> ./exported/stats_article_lofot-tidende.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_lofotposten`'> ./exported/stats_article_lofotposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-aasavis`'> ./exported/stats_article_m-aasavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-aktuell`'> ./exported/stats_article_m-aktuell.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-amta`'> ./exported/stats_article_m-amta.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-an`'> ./exported/stats_article_m-an.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-arbeidsmanden`'> ./exported/stats_article_m-arbeidsmanden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-auraavis`'> ./exported/stats_article_m-auraavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-austagderblad`'> ./exported/stats_article_m-austagderblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-avisa-hordaland`'> ./exported/stats_article_m-avisa-hordaland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-avisnavn`'> ./exported/stats_article_m-avisnavn.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-ba`'> ./exported/stats_article_m-ba.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-bladet`'> ./exported/stats_article_m-bladet.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-blv`'> ./exported/stats_article_m-blv.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-budstikka`'> ./exported/stats_article_m-budstikka.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-budstikka+`'> ./exported/stats_article_m-budstikka+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-bygdeposten`'> ./exported/stats_article_m-bygdeposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-demokraten`'> ./exported/stats_article_m-demokraten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-dittoslo`'> ./exported/stats_article_m-dittoslo.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-dt`'> ./exported/stats_article_m-dt.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-dt+`'> ./exported/stats_article_m-dt+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-eikeravis`'> ./exported/stats_article_m-eikeravis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-enebakkavis`'> ./exported/stats_article_m-enebakkavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-eub`'> ./exported/stats_article_m-eub.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-fagbladet`'> ./exported/stats_article_m-fagbladet.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-fb`'> ./exported/stats_article_m-fb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-fd`'> ./exported/stats_article_m-fd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-finnmarken`'> ./exported/stats_article_m-finnmarken.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-firda`'> ./exported/stats_article_m-firda.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-firdaposten`'> ./exported/stats_article_m-firdaposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-fontene`'> ./exported/stats_article_m-fontene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-fremover`'> ./exported/stats_article_m-fremover.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-frifagbevegelse`'> ./exported/stats_article_m-frifagbevegelse.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-gd`'> ./exported/stats_article_m-gd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-gjengangeren`'> ./exported/stats_article_m-gjengangeren.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-glomdalen`'> ./exported/stats_article_m-glomdalen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-glomdalen+`'> ./exported/stats_article_m-glomdalen+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-hadeland`'> ./exported/stats_article_m-hadeland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-hahalden`'> ./exported/stats_article_m-hahalden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-hardanger-folkeblad`'> ./exported/stats_article_m-hardanger-folkeblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-havis`'> ./exported/stats_article_m-havis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-hblad`'> ./exported/stats_article_m-hblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-helgeland-arbeiderblad`'> ./exported/stats_article_m-helgeland-arbeiderblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-hknytt`'> ./exported/stats_article_m-hknytt.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-indre`'> ./exported/stats_article_m-indre.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-jarlsbergavis`'> ./exported/stats_article_m-jarlsbergavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-kampanje`'> ./exported/stats_article_m-kampanje.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-kv`'> ./exported/stats_article_m-kv.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-kvinnheringen`'> ./exported/stats_article_m-kvinnheringen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-laagendalsposten`'> ./exported/stats_article_m-laagendalsposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-lierposten`'> ./exported/stats_article_m-lierposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-lofot-tidende`'> ./exported/stats_article_m-lofot-tidende.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-lofotposten`'> ./exported/stats_article_m-lofotposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-magasinett`'> ./exported/stats_article_m-magasinett.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-mb`'> ./exported/stats_article_m-mb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-mossavis`'> ./exported/stats_article_m-mossavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-namdalsavisa`'> ./exported/stats_article_m-namdalsavisa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-nettverk1`'> ./exported/stats_article_m-nettverk1.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-nordhordland`'> ./exported/stats_article_m-nordhordland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-nordlys`'> ./exported/stats_article_m-nordlys.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-oa`'> ./exported/stats_article_m-oa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-oblad`'> ./exported/stats_article_m-oblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-oblad+`'> ./exported/stats_article_m-oblad+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-op`'> ./exported/stats_article_m-op.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-opdalingen`'> ./exported/stats_article_m-opdalingen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-ostlendingen`'> ./exported/stats_article_m-ostlendingen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-oyene`'> ./exported/stats_article_m-oyene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-pd`'> ./exported/stats_article_m-pd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-polkaposten`'> ./exported/stats_article_m-polkaposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-r-a`'> ./exported/stats_article_m-r-a.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-ranablad`'> ./exported/stats_article_m-ranablad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-rb`'> ./exported/stats_article_m-rb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-retten`'> ./exported/stats_article_m-retten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-rha`'> ./exported/stats_article_m-rha.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-ringblad`'> ./exported/stats_article_m-ringblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-rogalandsavis`'> ./exported/stats_article_m-rogalandsavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-sa`'> ./exported/stats_article_m-sa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-sandeavis`'> ./exported/stats_article_m-sandeavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-sb`'> ./exported/stats_article_m-sb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-sb+`'> ./exported/stats_article_m-sb+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-siste`'> ./exported/stats_article_m-siste.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-smaalenene`'> ./exported/stats_article_m-smaalenene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-sognavis`'> ./exported/stats_article_m-sognavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-svelviksposten`'> ./exported/stats_article_m-svelviksposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-ta`'> ./exported/stats_article_m-ta.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-tb`'> ./exported/stats_article_m-tb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-tb+`'> ./exported/stats_article_m-tb+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-telen`'> ./exported/stats_article_m-telen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-tk`'> ./exported/stats_article_m-tk.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-tvedestrandsposten`'> ./exported/stats_article_m-tvedestrandsposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-varden`'> ./exported/stats_article_m-varden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-vestbyavis`'> ./exported/stats_article_m-vestbyavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_m-zett`'> ./exported/stats_article_m-zett.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_magasinett`'> ./exported/stats_article_magasinett.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_mb`'> ./exported/stats_article_mb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_mossavis`'> ./exported/stats_article_mossavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_namdalsavisa`'> ./exported/stats_article_namdalsavisa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_nettverk1`'> ./exported/stats_article_nettverk1.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_nordhordland`'> ./exported/stats_article_nordhordland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_nordlys`'> ./exported/stats_article_nordlys.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_oa`'> ./exported/stats_article_oa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_oblad`'> ./exported/stats_article_oblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_oblad+`'> ./exported/stats_article_oblad+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_op`'> ./exported/stats_article_op.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_opdalingen`'> ./exported/stats_article_opdalingen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_ostlendingen`'> ./exported/stats_article_ostlendingen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_oyene`'> ./exported/stats_article_oyene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_pd`'> ./exported/stats_article_pd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_polkaposten`'> ./exported/stats_article_polkaposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_r-a`'> ./exported/stats_article_r-a.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_ranablad`'> ./exported/stats_article_ranablad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_rb`'> ./exported/stats_article_rb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_retten`'> ./exported/stats_article_retten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_rha`'> ./exported/stats_article_rha.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `stats_article_ringblad`'> ./exported/stats_article_ringblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_rogalandsavis`'> ./exported/stats_article_rogalandsavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_sa`'> ./exported/stats_article_sa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_sandeavis`'> ./exported/stats_article_sandeavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_sb`'> ./exported/stats_article_sb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_sb+`'> ./exported/stats_article_sb+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_siste`'> ./exported/stats_article_siste.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_smaalenene`'> ./exported/stats_article_smaalenene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_sognavis`'> ./exported/stats_article_sognavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_svelviksposten`'> ./exported/stats_article_svelviksposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_ta`'> ./exported/stats_article_ta.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_tb`'> ./exported/stats_article_tb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_tb+`'> ./exported/stats_article_tb+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_telen`'> ./exported/stats_article_telen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_tk`'> ./exported/stats_article_tk.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_tvedestrandsposten`'> ./exported/stats_article_tvedestrandsposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_varden`'> ./exported/stats_article_varden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_vestbyavis`'> ./exported/stats_article_vestbyavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_article_zett`'> ./exported/stats_article_zett.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_aasavis`'> ./exported/stats_total_aasavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_aktuell`'> ./exported/stats_total_aktuell.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_amedia`'> ./exported/stats_total_amedia.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_amta`'> ./exported/stats_total_amta.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_an`'> ./exported/stats_total_an.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_arbeidsmanden`'> ./exported/stats_total_arbeidsmanden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_auraavis`'> ./exported/stats_total_auraavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_austagderblad`'> ./exported/stats_total_austagderblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_avisa-hordaland`'> ./exported/stats_total_avisa-hordaland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_avisnavn`'> ./exported/stats_total_avisnavn.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_ba`'> ./exported/stats_total_ba.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_bladet`'> ./exported/stats_total_bladet.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_blv`'> ./exported/stats_total_blv.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_budstikka`'> ./exported/stats_total_budstikka.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_budstikka+`'> ./exported/stats_total_budstikka+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_bygdeposten`'> ./exported/stats_total_bygdeposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_demokraten`'> ./exported/stats_total_demokraten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_dittoslo`'> ./exported/stats_total_dittoslo.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_dt`'> ./exported/stats_total_dt.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_dt+`'> ./exported/stats_total_dt+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_eikeravis`'> ./exported/stats_total_eikeravis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_enebakkavis`'> ./exported/stats_total_enebakkavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_eub`'> ./exported/stats_total_eub.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_fagbladet`'> ./exported/stats_total_fagbladet.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_fb`'> ./exported/stats_total_fb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_fd`'> ./exported/stats_total_fd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_finnmarken`'> ./exported/stats_total_finnmarken.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_firda`'> ./exported/stats_total_firda.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_firdaposten`'> ./exported/stats_total_firdaposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_fontene`'> ./exported/stats_total_fontene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_fremover`'> ./exported/stats_total_fremover.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_frifagbevegelse`'> ./exported/stats_total_frifagbevegelse.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_gd`'> ./exported/stats_total_gd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_gjengangeren`'> ./exported/stats_total_gjengangeren.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_glomdalen`'> ./exported/stats_total_glomdalen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_glomdalen+`'> ./exported/stats_total_glomdalen+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_hadeland`'> ./exported/stats_total_hadeland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_hahalden`'> ./exported/stats_total_hahalden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_hardanger-folkeblad`'> ./exported/stats_total_hardanger-folkeblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_havis`'> ./exported/stats_total_havis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_hblad`'> ./exported/stats_total_hblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_helgeland-arbeiderblad`'> ./exported/stats_total_helgeland-arbeiderblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_hknytt`'> ./exported/stats_total_hknytt.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_indre`'> ./exported/stats_total_indre.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_jarlsbergavis`'> ./exported/stats_total_jarlsbergavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_kampanje`'> ./exported/stats_total_kampanje.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_kv`'> ./exported/stats_total_kv.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_kvinnheringen`'> ./exported/stats_total_kvinnheringen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_laagendalsposten`'> ./exported/stats_total_laagendalsposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_lierposten`'> ./exported/stats_total_lierposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_lofot-tidende`'> ./exported/stats_total_lofot-tidende.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_lofotposten`'> ./exported/stats_total_lofotposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-aasavis`'> ./exported/stats_total_m-aasavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-aktuell`'> ./exported/stats_total_m-aktuell.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-amedia`'> ./exported/stats_total_m-amedia.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-amta`'> ./exported/stats_total_m-amta.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-an`'> ./exported/stats_total_m-an.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-arbeidsmanden`'> ./exported/stats_total_m-arbeidsmanden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-auraavis`'> ./exported/stats_total_m-auraavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-austagderblad`'> ./exported/stats_total_m-austagderblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-avisa-hordaland`'> ./exported/stats_total_m-avisa-hordaland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-avisnavn`'> ./exported/stats_total_m-avisnavn.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-ba`'> ./exported/stats_total_m-ba.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-bladet`'> ./exported/stats_total_m-bladet.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-blv`'> ./exported/stats_total_m-blv.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-budstikka`'> ./exported/stats_total_m-budstikka.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-budstikka+`'> ./exported/stats_total_m-budstikka+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-bygdeposten`'> ./exported/stats_total_m-bygdeposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-demokraten`'> ./exported/stats_total_m-demokraten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-dittoslo`'> ./exported/stats_total_m-dittoslo.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-dt`'> ./exported/stats_total_m-dt.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-dt+`'> ./exported/stats_total_m-dt+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-eikeravis`'> ./exported/stats_total_m-eikeravis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-enebakkavis`'> ./exported/stats_total_m-enebakkavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-eub`'> ./exported/stats_total_m-eub.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-fagbladet`'> ./exported/stats_total_m-fagbladet.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-fb`'> ./exported/stats_total_m-fb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-fd`'> ./exported/stats_total_m-fd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-finnmarken`'> ./exported/stats_total_m-finnmarken.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-firda`'> ./exported/stats_total_m-firda.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-firdaposten`'> ./exported/stats_total_m-firdaposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-fontene`'> ./exported/stats_total_m-fontene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-fremover`'> ./exported/stats_total_m-fremover.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-frifagbevegelse`'> ./exported/stats_total_m-frifagbevegelse.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-gd`'> ./exported/stats_total_m-gd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-gjengangeren`'> ./exported/stats_total_m-gjengangeren.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-glomdalen`'> ./exported/stats_total_m-glomdalen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-glomdalen+`'> ./exported/stats_total_m-glomdalen+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-hadeland`'> ./exported/stats_total_m-hadeland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-hahalden`'> ./exported/stats_total_m-hahalden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-hardanger-folkeblad`'> ./exported/stats_total_m-hardanger-folkeblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-havis`'> ./exported/stats_total_m-havis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-hblad`'> ./exported/stats_total_m-hblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-helgeland-arbeiderblad`'> ./exported/stats_total_m-helgeland-arbeiderblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-hknytt`'> ./exported/stats_total_m-hknytt.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-indre`'> ./exported/stats_total_m-indre.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-jarlsbergavis`'> ./exported/stats_total_m-jarlsbergavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-kampanje`'> ./exported/stats_total_m-kampanje.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-kv`'> ./exported/stats_total_m-kv.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-kvinnheringen`'> ./exported/stats_total_m-kvinnheringen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-laagendalsposten`'> ./exported/stats_total_m-laagendalsposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-lierposten`'> ./exported/stats_total_m-lierposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-lofot-tidende`'> ./exported/stats_total_m-lofot-tidende.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-lofotposten`'> ./exported/stats_total_m-lofotposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-magasinett`'> ./exported/stats_total_m-magasinett.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-mb`'> ./exported/stats_total_m-mb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-mossavis`'> ./exported/stats_total_m-mossavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-namdalsavisa`'> ./exported/stats_total_m-namdalsavisa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-nettverk1`'> ./exported/stats_total_m-nettverk1.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-nordhordland`'> ./exported/stats_total_m-nordhordland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-nordlys`'> ./exported/stats_total_m-nordlys.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-oa`'> ./exported/stats_total_m-oa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-oblad`'> ./exported/stats_total_m-oblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-oblad+`'> ./exported/stats_total_m-oblad+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-op`'> ./exported/stats_total_m-op.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-opdalingen`'> ./exported/stats_total_m-opdalingen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-ostlendingen`'> ./exported/stats_total_m-ostlendingen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-oyene`'> ./exported/stats_total_m-oyene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-pd`'> ./exported/stats_total_m-pd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-polkaposten`'> ./exported/stats_total_m-polkaposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-r-a`'> ./exported/stats_total_m-r-a.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-ranablad`'> ./exported/stats_total_m-ranablad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-rb`'> ./exported/stats_total_m-rb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-retten`'> ./exported/stats_total_m-retten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-rha`'> ./exported/stats_total_m-rha.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-ringblad`'> ./exported/stats_total_m-ringblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-rogalandsavis`'> ./exported/stats_total_m-rogalandsavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-sa`'> ./exported/stats_total_m-sa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-sandeavis`'> ./exported/stats_total_m-sandeavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-sb`'> ./exported/stats_total_m-sb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-sb+`'> ./exported/stats_total_m-sb+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-siste`'> ./exported/stats_total_m-siste.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-smaalenene`'> ./exported/stats_total_m-smaalenene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-sognavis`'> ./exported/stats_total_m-sognavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-svelviksposten`'> ./exported/stats_total_m-svelviksposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-ta`'> ./exported/stats_total_m-ta.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-tb`'> ./exported/stats_total_m-tb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-tb+`'> ./exported/stats_total_m-tb+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-telen`'> ./exported/stats_total_m-telen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-tk`'> ./exported/stats_total_m-tk.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-tvedestrandsposten`'> ./exported/stats_total_m-tvedestrandsposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-varden`'> ./exported/stats_total_m-varden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-vestbyavis`'> ./exported/stats_total_m-vestbyavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_m-zett`'> ./exported/stats_total_m-zett.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_magasinett`'> ./exported/stats_total_magasinett.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_mb`'> ./exported/stats_total_mb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_mossavis`'> ./exported/stats_total_mossavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_namdalsavisa`'> ./exported/stats_total_namdalsavisa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_nettverk1`'> ./exported/stats_total_nettverk1.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_nordhordland`'> ./exported/stats_total_nordhordland.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_nordlys`'> ./exported/stats_total_nordlys.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_oa`'> ./exported/stats_total_oa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_oblad`'> ./exported/stats_total_oblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_oblad+`'> ./exported/stats_total_oblad+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_op`'> ./exported/stats_total_op.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_opdalingen`'> ./exported/stats_total_opdalingen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_ostlendingen`'> ./exported/stats_total_ostlendingen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_oyene`'> ./exported/stats_total_oyene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_pd`'> ./exported/stats_total_pd.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_polkaposten`'> ./exported/stats_total_polkaposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_r-a`'> ./exported/stats_total_r-a.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_ranablad`'> ./exported/stats_total_ranablad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_rb`'> ./exported/stats_total_rb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_retten`'> ./exported/stats_total_retten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_rha`'> ./exported/stats_total_rha.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_ringblad`'> ./exported/stats_total_ringblad.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_rogalandsavis`'> ./exported/stats_total_rogalandsavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_sa`'> ./exported/stats_total_sa.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_sandeavis`'> ./exported/stats_total_sandeavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_sb`'> ./exported/stats_total_sb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_sb+`'> ./exported/stats_total_sb+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_siste`'> ./exported/stats_total_siste.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_smaalenene`'> ./exported/stats_total_smaalenene.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_sognavis`'> ./exported/stats_total_sognavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_svelviksposten`'> ./exported/stats_total_svelviksposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_ta`'> ./exported/stats_total_ta.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_tb`'> ./exported/stats_total_tb.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_tb+`'> ./exported/stats_total_tb+.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_telen`'> ./exported/stats_total_telen.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_tk`'> ./exported/stats_total_tk.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_tvedestrandsposten`'> ./exported/stats_total_tvedestrandsposten.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_varden`'> ./exported/stats_total_varden.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_vestbyavis`'> ./exported/stats_total_vestbyavis.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM`stats_total_zett`'> ./exported/stats_total_zett.xml
+mysql -uroot -ppingu123 pulsphp --xml -e 'SELECT * FROM `timestamp`'> ./exported/timestamp.xml
 
