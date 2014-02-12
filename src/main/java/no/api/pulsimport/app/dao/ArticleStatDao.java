@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,25 +50,25 @@ public class ArticleStatDao {
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
     public void batchInsert(final List<ArticleStatModel> articleStatModelList) {
-    String sql = "INSERT INTO articlestat (uniquevisitor, pageview, visit, date,articleid, articletitle,articleurl,site_id) VALUES (?, ?, ?, ?,?, ?,?,?)";
-    jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
-        @Override
-        public void setValues(PreparedStatement ps, int i) throws SQLException {
-            ArticleStatModel model = articleStatModelList.get(i);
-            ps.setInt(1, model.getUniqueVisitor());
-            ps.setInt(2, model.getPageView());
-            ps.setInt(3, model.getVisit());
-            ps.setLong(4, model.getDate().getMillis());
-            ps.setString(5,model.getArticleId());
-            ps.setString(6, model.getArticleTitle());
-            ps.setString(7, model.getArticleUrl());
-            ps.setLong(8, model.getSite().getId());
-        }
+        String sql = "INSERT INTO articlestat (uniquevisitor, pageview, visit, date,articleid, articletitle,articleurl,site_id) VALUES (?, ?, ?, ?,?, ?,?,?)";
+        jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
+            @Override
+            public void setValues(PreparedStatement ps, int i) throws SQLException {
+                ArticleStatModel model = articleStatModelList.get(i);
+                ps.setInt(1, model.getUniqueVisitor());
+                ps.setInt(2, model.getPageView());
+                ps.setInt(3, model.getVisit());
+                ps.setLong(4, model.getDate().getMillis());
+                ps.setString(5,model.getArticleId());
+                ps.setString(6, model.getArticleTitle());
+                ps.setString(7, model.getArticleUrl());
+                ps.setLong(8, model.getSite().getId());
+            }
 
-        @Override
-        public int getBatchSize() {
-            return articleStatModelList.size();
-        }
+            @Override
+            public int getBatchSize() {
+                return articleStatModelList.size();
+            }
         });
     }
 

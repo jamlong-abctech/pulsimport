@@ -54,6 +54,9 @@ public class ArticleImportComponent {
 
         List<SiteModel> sites = siteDao.findByDevice(SiteDeviceEnum.DESKTOP);
 
+//        sites.clear();
+//        sites.add(siteDao.findByCode("varden")); //This site has duplicate key
+
         //int rows=0;
         for (SiteModel site : sites) {
             //    if(rows<=10){

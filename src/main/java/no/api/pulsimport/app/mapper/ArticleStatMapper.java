@@ -9,8 +9,7 @@ import no.api.pulsimport.app.model.SiteModel;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -20,8 +19,9 @@ import java.util.List;
 public class ArticleStatMapper {
 
     public List<ArticleStatModel> map(StatResultSet resultset, SiteModel siteModel) {
-        List<ArticleStatModel> articleStatModels = new ArrayList<>();
+        //List<ArticleStatModel> articleStatModels = new ArrayList<>();
         List<StatRow> articleStatRows = resultset.getRows();
+        Map<String, ArticleStatModel> statRowMap = new HashMap<>();
         for(StatRow eachRow : articleStatRows) {
             ArticleStatModel articleStatModel = new ArticleStatModel();
 
@@ -33,10 +33,17 @@ public class ArticleStatMapper {
             articleStatModel.setArticleTitle( StringCleaningUtil.unescapeHtmlAndCapitalizeAndReplaceDash(eachRow.getField().get(6)));
             articleStatModel.setArticleUrl(StringEscapeUtils.unescapeHtml(eachRow.getField().get(7)));
             articleStatModel.setSite(siteModel);
+            String aKey = articleStatModel.getArticleId()+articleStatModel.getDate().getMillis();
+            ArticleStatModel fromMap = statRowMap.get(aKey);
+            if(fromMap != null) {
+                statRowMap.remove(aKey);
+            }
+            statRowMap.put(aKey, articleStatModel);
 
-            articleStatModels.add(articleStatModel);
+            //articleStatModels.add(articleStatModel);
         }
 
+        List<ArticleStatModel> articleStatModels = new ArrayList<>(statRowMap.values());
         return articleStatModels;
     }
 }
