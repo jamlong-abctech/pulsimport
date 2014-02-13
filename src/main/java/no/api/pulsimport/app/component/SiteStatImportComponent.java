@@ -127,7 +127,7 @@ public class SiteStatImportComponent {
                         statInMap.setUniqueVisitor(statInMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
                         statInMap.setPageView(statInMap.getPageView()+ eachStat.getPageView());
                         statInMap.setVisit(statInMap.getVisit() + eachStat.getVisit());
-                        statInMap.setVideo(statInMap.getVideo() + eachStat.getVisit());
+                        statInMap.setVideo(statInMap.getVideo() + eachStat.getVideo());
                     }
                     if(isIncludeBothReport) {
                         SiteStatModel statInAmediaMap = amediaTotalDesktopMap.get(eachStat.getHour().getMillis());
@@ -145,7 +145,7 @@ public class SiteStatImportComponent {
                             statInAmediaMap.setUniqueVisitor(statInAmediaMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
                             statInAmediaMap.setPageView(statInAmediaMap.getPageView()+ eachStat.getPageView());
                             statInAmediaMap.setVisit(statInAmediaMap.getVisit() + eachStat.getVisit());
-                            statInAmediaMap.setVideo(statInAmediaMap.getVideo() + eachStat.getVisit());
+                            statInAmediaMap.setVideo(statInAmediaMap.getVideo() + eachStat.getVideo());
                         }
                     }
                 }
@@ -168,7 +168,7 @@ public class SiteStatImportComponent {
                         statInMap.setUniqueVisitor(statInMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
                         statInMap.setPageView(statInMap.getPageView()+ eachStat.getPageView());
                         statInMap.setVisit(statInMap.getVisit() + eachStat.getVisit());
-                        statInMap.setVideo(statInMap.getVideo() + eachStat.getVisit());
+                        statInMap.setVideo(statInMap.getVideo() + eachStat.getVideo());
                     }
                     if(isIncludeBothReport) {
                         SiteStatModel statInAmediaMap = amediaTotalMobileMap.get(eachStat.getHour().getMillis());
@@ -186,13 +186,14 @@ public class SiteStatImportComponent {
                             statInAmediaMap.setUniqueVisitor(statInAmediaMap.getUniqueVisitor() + eachStat.getUniqueVisitor());
                             statInAmediaMap.setPageView(statInAmediaMap.getPageView()+ eachStat.getPageView());
                             statInAmediaMap.setVisit(statInAmediaMap.getVisit() + eachStat.getVisit());
-                            statInAmediaMap.setVideo(statInAmediaMap.getVideo() + eachStat.getVisit());
+                            statInAmediaMap.setVideo(statInAmediaMap.getVideo() + eachStat.getVideo());
                         }
                     }
                 }
                 //END Calculate total report for mobile
 
                 // ** paid contect(+site) NOT include in total report **
+
 
                 // Case of this site has paid content
                 if(desktopPlusSite != null) {
