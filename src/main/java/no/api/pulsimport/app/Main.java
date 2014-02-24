@@ -1,10 +1,6 @@
 package no.api.pulsimport.app;
 
-import no.api.pulsimport.app.component.CalculateRecordArticleStatAllTimeComponent;
-import no.api.pulsimport.app.component.CalculateRecordArticleStatDayComponent;
-import no.api.pulsimport.app.component.CalculateRecordSiteStatComponent;
-import no.api.pulsimport.app.component.SiteStatImportComponent;
-import no.api.pulsimport.app.component.ArticleImportComponent;
+import no.api.pulsimport.app.component.*;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +33,7 @@ public class Main {
         CalculateRecordSiteStatComponent calculateRecordSiteStatComponent = (CalculateRecordSiteStatComponent) context.getBean("calculateRecordSiteStatComponent");
         CalculateRecordArticleStatAllTimeComponent articleRecordArticleAllTimeComponent = (CalculateRecordArticleStatAllTimeComponent) context.getBean("calculateRecordArticleStatAllTimeComponent");
         CalculateRecordArticleStatDayComponent calculateRecordArticleStatDayComponent = (CalculateRecordArticleStatDayComponent) context.getBean("calculateRecordArticleStatDayComponent");
+        ImportRecordComponent importRecordComponent = (ImportRecordComponent) context.getBean("importRecordComponent");
         if (args == null || args.length == 0) {
             exportedFileLocation = defaultExportedPath;
         } else {
@@ -46,12 +43,13 @@ public class Main {
             }
         }
         try {
-            siteStatImportComponent.importSiteStat(exportedFileLocation);
-            articleComponent.importArticleStat(exportedFileLocation);
-            calculateRecordSiteStatComponent.calculateSiteStatRecord();
+            //importRecordComponent.importRecords(exportedFileLocation);
+            //siteStatImportComponent.importSiteStat(exportedFileLocation);
+            //articleComponent.importArticleStat(exportedFileLocation);
+            //calculateRecordSiteStatComponent.calculateSiteStatRecord();
             calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
-            articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
-        } catch (IOException e) {
+            //articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
+        } catch (Exception e) {
             log.error("Importing error ", e);
         }
         log.info("Import ALL data finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());

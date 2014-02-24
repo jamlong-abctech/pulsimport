@@ -91,6 +91,17 @@ public class SiteStatDao {
         }
     }
 
+    public SiteStatModel findLatestHourOlderByDate(long siteId, DateTime asOf){
+        String sql = "SELECT id, uniquevisitor, pageview, visit, hour, video,site_id FROM sitestat WHERE site_id = ? AND hour < ? ORDER BY hour DESC LIMIT 1";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, asOf.getMillis()},
+                    new SiteStatRowMapper());
+        } catch (EmptyResultDataAccessException e) {
+            log.debug("SiteStatModel not found for siteId : {}, date : {}", siteId, asOf);
+            return null;
+        }
+    }
+
     public List<SiteStatModel>findPreviousDate(long siteId,DateTime asOf){
         String sql = "SELECT id, uniquevisitor, pageview, visit, hour, video,site_id FROM sitestat WHERE site_id = ? and hour<=?";
         return jdbcTemplate.query(sql, new Object[]{siteId,asOf.minusDays(1).getMillis()}, new SiteStatRowMapper());

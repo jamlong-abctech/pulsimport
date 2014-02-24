@@ -133,6 +133,18 @@ public class ArticleStatDao {
 
     }
 
+    public ArticleStatModel findHighestUniqueVisitorOlderDateAndSite(long siteId, DateTime uniqueDate) {
+        String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
+                " FROM articlestat WHERE site_id = ?  AND date < ? ORDER BY uniquevisitor DESC LIMIT 1";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, uniqueDate.getMillis()}, new ArticleStatRowMapper());
+        }catch (EmptyResultDataAccessException e) {
+            log.debug("ArticleStatModel not found for siteId : {}", siteId);
+            return null;
+        }
+
+    }
+
     public ArticleStatModel findHighestPageViewByDateAndSite(long siteId, DateTime pageViewDate) {
         String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
                 " FROM articlestat WHERE site_id = ? AND date >= ? AND date < ? ORDER BY pageview DESC LIMIT 1";
@@ -144,11 +156,22 @@ public class ArticleStatDao {
         }
     }
 
-    public ArticleStatModel findHighestVisitByDateAndSite(long siteId, DateTime visitDate) {
+    public ArticleStatModel findHighestPageViewOlderByDateAndSite(long siteId, DateTime pageViewDate) {
         String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
-                " FROM articlestat WHERE site_id = ? AND date >= ? AND date < ? ORDER BY visit DESC LIMIT 1";
+                " FROM articlestat WHERE site_id = ? AND date < ? ORDER BY pageview DESC LIMIT 1";
         try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, visitDate.getMillis(), visitDate.plusDays(1).getMillis()}, new ArticleStatRowMapper());
+            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, pageViewDate.getMillis()}, new ArticleStatRowMapper());
+        }catch (EmptyResultDataAccessException e) {
+            log.debug("ArticleStatModel not found for siteId : {}", siteId);
+            return null;
+        }
+    }
+
+    public ArticleStatModel findHighestVisitOlderByDateAndSite(long siteId, DateTime visitDate) {
+        String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
+                " FROM articlestat WHERE site_id = ? AND date < ? ORDER BY visit DESC LIMIT 1";
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, visitDate.getMillis()}, new ArticleStatRowMapper());
         }catch (EmptyResultDataAccessException e) {
             log.debug("ArticleStatModel not found for siteId : {}", siteId);
             return null;

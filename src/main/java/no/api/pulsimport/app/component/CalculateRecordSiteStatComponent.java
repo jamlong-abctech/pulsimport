@@ -40,6 +40,7 @@ public class CalculateRecordSiteStatComponent {
         DateTime firstDay = new DateTime(firstDayInLong);
         DateTime lastDay = new DateTime(lastDayInLong);
         DateTime currentDay = firstDay;
+        calculateRecordForSiteStat(lastDay.plusDays(1));
         boolean shouldContinue = true;
         while (shouldContinue) {
             calculateRecordForSiteStat(currentDay);

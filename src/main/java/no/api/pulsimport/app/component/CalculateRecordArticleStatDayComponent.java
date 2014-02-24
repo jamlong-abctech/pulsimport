@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class CalculateRecordArticleStatDayComponent {
@@ -34,34 +36,35 @@ public class CalculateRecordArticleStatDayComponent {
         Long lastDayInLong = articleStatDao.findLastDateTime();
         DateTime firstDay = new DateTime(firstDayInLong);
         DateTime lastDay = new DateTime(lastDayInLong);
-        DateTime currentDay = firstDay;
-        boolean shouldContinue = true;
-        while (shouldContinue) {
-            calculateRecordForArticleStat(currentDay);
-            currentDay = currentDay.plusDays(1);
-            if (currentDay.getMillis() == lastDay.toDateMidnight().toDateTime().getMillis()) {
-                shouldContinue = false;
-            }
-        }
+        calculateRecordForArticleStat(lastDay.plusDays(1));
+//        DateTime currentDay = firstDay;
+//        boolean shouldContinue = true;
+//        while (shouldContinue) {
+//            calculateRecordForArticleStat(currentDay);
+//            currentDay = currentDay.plusDays(1);
+//            if (currentDay.getMillis() == lastDay.toDateMidnight().toDateTime().getMillis()) {
+//                shouldContinue = false;
+//            }
+//        }
         log.debug("calculateArticleStatDauRecord finished");
     }
 
-    public void calculateRecordForArticleStat(DateTime aDay){
+    public void calculateRecordForArticleStat(DateTime aDay) {
         List<SiteModel> siteModelList = siteDao.findAllSite();
-
-        for(SiteModel siteModel: siteModelList){
-        //for(int i=0;i<=3; i++){
+        Map<String, ArticleStatModel> recordMap = null;
+        for (SiteModel siteModel : siteModelList) {
+            //for(int i=0;i<=3; i++){
             //SiteModel siteModel = siteModelList.get(i);
-            ArticleStatModel uniqueVisitorModel = articleStatDao.findHighestUniqueVisitorByDateAndSite(
+            ArticleStatModel uniqueVisitorModel = articleStatDao.findHighestUniqueVisitorOlderDateAndSite(
                     siteModel.getId(), aDay);
-            ArticleStatModel pageViewModel = articleStatDao.findHighestPageViewByDateAndSite(
+            ArticleStatModel pageViewModel = articleStatDao.findHighestPageViewOlderByDateAndSite(
                     siteModel.getId(), aDay);
-            ArticleStatModel visitModel = articleStatDao.findHighestVisitByDateAndSite(
+            ArticleStatModel visitModel = articleStatDao.findHighestVisitOlderByDateAndSite(
                     siteModel.getId(), aDay);
 
             boolean isHighestArticleModelsFound = uniqueVisitorModel != null && pageViewModel != null && visitModel != null;
 
-            if (! isHighestArticleModelsFound) {
+            if (!isHighestArticleModelsFound) {
                 log.warn("There is no highest article models found for siteCode = {}, skipped", siteModel.getCode());
                 continue;
             }
@@ -79,8 +82,8 @@ public class CalculateRecordArticleStatDayComponent {
                     visitModel.getVisit(), visitModel.getArticleUrl(), visitModel.getArticleTitle(),
                     visitModel.getArticleId());
 
-            if(recordArticleStatDay!=null){
-                if(visitModel.getVisit() > recordArticleStatDay.getVisit()){
+            if (recordArticleStatDay != null) {
+                if (visitModel.getVisit() > recordArticleStatDay.getVisit()) {
                     log.info("Found higher record for article stat day for 'visit'");
                     recordArticleStatDay.setVisit(visitModel.getVisit());
                     recordArticleStatDay.setVisitDate(aDay);
@@ -88,7 +91,7 @@ public class CalculateRecordArticleStatDayComponent {
                     recordArticleStatDay.setVisitArticleTitle(visitModel.getArticleTitle());
                     recordArticleStatDay.setVisitArticleId(visitModel.getArticleId());
                 }
-                if(pageViewModel.getPageView() > recordArticleStatDay.getPageView()){
+                if (pageViewModel.getPageView() > recordArticleStatDay.getPageView()) {
                     log.info("Found higher record for article stat day for 'pageView'");
                     recordArticleStatDay.setPageView(pageViewModel.getPageView());
                     recordArticleStatDay.setPageViewDate(aDay);
@@ -96,7 +99,7 @@ public class CalculateRecordArticleStatDayComponent {
                     recordArticleStatDay.setPageViewArticleTitle(pageViewModel.getArticleTitle());
                     recordArticleStatDay.setPageViewArticleId(pageViewModel.getArticleId());
                 }
-                if(uniqueVisitorModel.getUniqueVisitor() > recordArticleStatDay.getUniqueVisitor()){
+                if (uniqueVisitorModel.getUniqueVisitor() > recordArticleStatDay.getUniqueVisitor()) {
                     log.info("Found higher record for article stat day for 'uniqueVisitor'");
                     recordArticleStatDay.setUniqueVisitor(uniqueVisitorModel.getUniqueVisitor());
                     recordArticleStatDay.setUniqueVisitorDate(aDay);
@@ -107,22 +110,22 @@ public class CalculateRecordArticleStatDayComponent {
 
                 log.info("Save recordArticleStatDay for siteCode = {}", siteModel.getCode());
                 recordArticleStatDayDao.save(recordArticleStatDay);
-            }else {
+            } else {
                 log.info("No existing record found, will insert one");
 
                 RecordArticleStatDayModel newRecordArticleStat = new RecordArticleStatDayModel();
                 newRecordArticleStat.setUniqueVisitor(uniqueVisitorModel.getUniqueVisitor());
-                newRecordArticleStat.setUniqueVisitorDate(aDay);
+                newRecordArticleStat.setUniqueVisitorDate(uniqueVisitorModel.getDate());
                 newRecordArticleStat.setUniqueVisitorArticleUrl(uniqueVisitorModel.getArticleUrl());
                 newRecordArticleStat.setUniqueVisitorArticleTitle(uniqueVisitorModel.getArticleTitle());
                 newRecordArticleStat.setUniqueVisitorArticleId(uniqueVisitorModel.getArticleId());
                 newRecordArticleStat.setVisit(visitModel.getVisit());
-                newRecordArticleStat.setVisitDate(aDay);
+                newRecordArticleStat.setVisitDate(visitModel.getDate());
                 newRecordArticleStat.setVisitArticleUrl(visitModel.getArticleUrl());
                 newRecordArticleStat.setVisitArticleTitle(visitModel.getArticleTitle());
                 newRecordArticleStat.setVisitArticleId(visitModel.getArticleId());
                 newRecordArticleStat.setPageView(pageViewModel.getPageView());
-                newRecordArticleStat.setPageViewDate(aDay);
+                newRecordArticleStat.setPageViewDate(pageViewModel.getDate());
                 newRecordArticleStat.setPageViewArticleUrl(pageViewModel.getArticleUrl());
                 newRecordArticleStat.setPageViewArticleTitle(pageViewModel.getArticleTitle());
                 newRecordArticleStat.setPageViewArticleId(pageViewModel.getArticleId());
