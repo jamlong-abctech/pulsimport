@@ -12,9 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Component
 public class CalculateRecordArticleStatDayComponent {
@@ -32,26 +30,14 @@ public class CalculateRecordArticleStatDayComponent {
 
     public void calculateArticleStatDauRecord() {
         log.debug("Starting calculateArticleStatDauRecord");
-        Long firstDayInLong = articleStatDao.findFirstDateTime();
         Long lastDayInLong = articleStatDao.findLastDateTime();
-        DateTime firstDay = new DateTime(firstDayInLong);
         DateTime lastDay = new DateTime(lastDayInLong);
         calculateRecordForArticleStat(lastDay.plusDays(1));
-//        DateTime currentDay = firstDay;
-//        boolean shouldContinue = true;
-//        while (shouldContinue) {
-//            calculateRecordForArticleStat(currentDay);
-//            currentDay = currentDay.plusDays(1);
-//            if (currentDay.getMillis() == lastDay.toDateMidnight().toDateTime().getMillis()) {
-//                shouldContinue = false;
-//            }
-//        }
         log.debug("calculateArticleStatDauRecord finished");
     }
 
     public void calculateRecordForArticleStat(DateTime aDay) {
         List<SiteModel> siteModelList = siteDao.findAllSite();
-        Map<String, ArticleStatModel> recordMap = null;
         for (SiteModel siteModel : siteModelList) {
             //for(int i=0;i<=3; i++){
             //SiteModel siteModel = siteModelList.get(i);

@@ -43,12 +43,11 @@ public class Main {
             }
         }
         try {
-            //importRecordComponent.importRecords(exportedFileLocation);
-            //siteStatImportComponent.importSiteStat(exportedFileLocation);
-            //articleComponent.importArticleStat(exportedFileLocation);
-            //calculateRecordSiteStatComponent.calculateSiteStatRecord();
+            siteStatImportComponent.importSiteStat(exportedFileLocation);
+            articleComponent.importArticleStat(exportedFileLocation);
+            calculateRecordSiteStatComponent.calculateSiteStatRecord();
             calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
-            //articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
+            articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
         } catch (Exception e) {
             log.error("Importing error ", e);
         }
