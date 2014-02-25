@@ -33,7 +33,7 @@ public class Main {
         CalculateRecordSiteStatComponent calculateRecordSiteStatComponent = (CalculateRecordSiteStatComponent) context.getBean("calculateRecordSiteStatComponent");
         CalculateRecordArticleStatAllTimeComponent articleRecordArticleAllTimeComponent = (CalculateRecordArticleStatAllTimeComponent) context.getBean("calculateRecordArticleStatAllTimeComponent");
         CalculateRecordArticleStatDayComponent calculateRecordArticleStatDayComponent = (CalculateRecordArticleStatDayComponent) context.getBean("calculateRecordArticleStatDayComponent");
-        ImportRecordComponent importRecordComponent = (ImportRecordComponent) context.getBean("importRecordComponent");
+        //ImportRecordComponent importRecordComponent = (ImportRecordComponent) context.getBean("importRecordComponent");
         if (args == null || args.length == 0) {
             exportedFileLocation = defaultExportedPath;
         } else {

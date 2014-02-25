@@ -55,7 +55,6 @@ public class SiteStatImportComponent {
     @Autowired
     private ReportSiteDao reportSiteDao;
 
-    //@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void importSiteStat(String exportFileLocation) throws IOException {
         log.debug("Import siteStat started");
         DateTime startTime = DateTime.now();
