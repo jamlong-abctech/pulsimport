@@ -47,19 +47,13 @@ public class ArticleImportComponent {
     @Autowired
     private ReportSiteDao reportSiteDao;
 
-    //@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
     public void importArticleStat(String exportFileLocation) throws IOException {
         log.debug("Import Article Stat Started");
         DateTime startTime = DateTime.now();
 
         List<SiteModel> sites = siteDao.findByDevice(SiteDeviceEnum.DESKTOP);
 
-//        sites.clear();
-//        sites.add(siteDao.findByCode("varden")); //This site has duplicate key
-
-        //int rows=0;
         for (SiteModel site : sites) {
-            //    if(rows<=10){
             log.debug("Importing articlestat for {}", site.getCode());
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode() + "+");
