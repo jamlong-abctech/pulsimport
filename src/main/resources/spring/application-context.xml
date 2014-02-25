@@ -15,9 +15,9 @@
     <bean id="pulsDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl"
-                  value="jdbc:mysql://localhost/puls?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true"/>
-        <property name="user" value="puls"/>
-        <property name="password" value="pingu123"/>
+                  value="#{systemProperties['db.jdbcUrl']}"/>
+        <property name="user" value="#{systemProperties['db.user']}"/>
+        <property name="password" value="#{systemProperties['db.password']}"/>
         <property name="maxIdleTime" value="3600"/>
         <property name="checkoutTimeout" value="2000"/>
     </bean>

@@ -16,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.List;
 
 @Repository
 public class RecordArticleStatAllTimeDao {
@@ -76,15 +75,6 @@ public class RecordArticleStatAllTimeDao {
         return model;
     }
 
-
-    public RecordArticleStatAllTimeModel findById(Long id)  {
-        String sql = "SELECT  id ,uniquevisitor , uniquevisitorarticleid , uniquevisitorarticletitle , uniquevisitorarticleurl , pageview," +
-                " pageviewarticleid , pageviewarticletitle , pageviewarticleurl , visit , visitarticleid , visitarticletitle , visitarticleurl , site_id FROM recordarticlestatalltime   WHERE id = ?";
-
-        RowMapper<RecordArticleStatAllTimeModel> mapper = new RecordArticleStatAllTimeRowMapper();
-        return  jdbcTemplate.queryForObject(sql,mapper,id);
-    }
-
     public RecordArticleStatAllTimeModel findBySiteId(Long siteId) {
       String sql =   "SELECT  id ,uniquevisitor , uniquevisitorarticleid , uniquevisitorarticletitle , uniquevisitorarticleurl , pageview," +
               " pageviewarticleid , pageviewarticletitle , pageviewarticleurl , visit , visitarticleid , visitarticletitle , visitarticleurl , site_id   FROM recordarticlestatalltime  WHERE site_id = ?";
@@ -95,30 +85,6 @@ public class RecordArticleStatAllTimeDao {
             return null;
         }
 
-    }
-
-    public List<RecordArticleStatAllTimeModel> findBySiteDeviceNameSortUniqueVisitorDesc(String siteDevice) {
-        return findBySiteDeviceNameSortBy(siteDevice, "uniquevisitor");
-    }
-
-    public List<RecordArticleStatAllTimeModel> findBySiteDeviceNameSortPageViewDesc(String siteDevice) {
-        return findBySiteDeviceNameSortBy(siteDevice, "pageview");
-    }
-
-    public List<RecordArticleStatAllTimeModel> findBySiteDeviceNameSortVisitDesc(String siteDevice) {
-        return findBySiteDeviceNameSortBy(siteDevice, "visit");
-    }
-
-    private List<RecordArticleStatAllTimeModel> findBySiteDeviceNameSortBy(String siteDevice, String sortColumnName) {
-        String sql = "SELECT a.id, a.uniquevisitor, a.uniquevisitorarticleid, a.uniquevisitorarticletitle, a.uniquevisitorarticleurl, " +
-                "a.pageview, a.pageviewarticleid, a.pageviewarticletitle, a.pageviewarticleurl, " +
-                "a.visit, a.visitarticleid, a.visitarticletitle, a.visitarticleurl, a.site_id " +
-                " FROM recordarticlestatalltime a JOIN site b ON a.site_id = b.id " +
-                " WHERE b.device = ? ORDER BY a." + sortColumnName + " DESC";
-
-        List<RecordArticleStatAllTimeModel> recordStatList =
-                jdbcTemplate.query(sql, new Object[]{siteDevice}, new RecordArticleStatAllTimeRowMapper());
-        return recordStatList;
     }
 
     private static final class RecordArticleStatAllTimePrepareStatementCreator implements PreparedStatementCreator {

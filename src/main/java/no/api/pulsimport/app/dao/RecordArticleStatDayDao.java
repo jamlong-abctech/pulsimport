@@ -80,15 +80,6 @@ public class RecordArticleStatDayDao {
         return recordArticleStatDayModel;
     }
 
-    public RecordArticleStatDayModel findById(Long id) {
-        String sql = "SELECT id, uniquevisitor, uniquevisitorarticleid, uniquevisitorarticletitle, uniquevisitorarticleurl, uniquevisitordate," +
-                " pageview, pageviewarticleid, pageviewarticletitle, pageviewarticleurl, pageviewdate," +
-                " visit, visitarticleid, visitarticletitle, visitarticleurl, visitdate, site_id" +
-                " FROM recordarticlestatday WHERE id = ?";
-        RecordArticleStatDayModel recordArticleStatDayModel = jdbcTemplate.queryForObject(sql, new Object[]{id}, new RecordArticleStatDayRowMapper());
-        return recordArticleStatDayModel;
-    }
-
     public RecordArticleStatDayModel findBySiteId(Long siteId) {
 
         String sql = "SELECT id, uniquevisitor, uniquevisitorarticleid, uniquevisitorarticletitle, uniquevisitorarticleurl, uniquevisitordate," +
@@ -102,18 +93,6 @@ public class RecordArticleStatDayDao {
             log.debug("RecordArticleStatDayModel not found for siteId : {}", siteId);
             return null;
         }
-    }
-
-    public List<RecordArticleStatDayModel> findBySiteDeviceSortUniqueVisitorDesc(String siteDevice) {
-        return findBySiteDeviceSortByDesc(siteDevice, "uniquevisitor");
-    }
-
-    public List<RecordArticleStatDayModel> findBySiteDeviceSortPageViewDesc(String siteDevice) {
-        return findBySiteDeviceSortByDesc(siteDevice, "pageview");
-    }
-
-    public List<RecordArticleStatDayModel> findBySiteDeviceSortVisitDesc(String siteDevice) {
-        return findBySiteDeviceSortByDesc(siteDevice, "visit");
     }
 
     private List<RecordArticleStatDayModel> findBySiteDeviceSortByDesc(String siteDevice, String columnName) {

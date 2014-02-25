@@ -40,14 +40,6 @@ public class ArticleStatDao {
     @Autowired
     private SiteDao siteDao;
 
-    public ArticleStatModel save(ArticleStatModel model) {
-        if (model.getId() != null) {
-            return update(model);
-        } else {
-            return insert(model);
-        }
-    }
-
     @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
     public void batchInsert(final List<ArticleStatModel> articleStatModelList) {
         String sql = "INSERT INTO articlestat (uniquevisitor, pageview, visit, date,articleid, articletitle,articleurl,site_id) VALUES (?, ?, ?, ?,?, ?,?,?)";
@@ -72,28 +64,9 @@ public class ArticleStatDao {
         });
     }
 
-    public Long findFirstDateTime() {
-        String sql = "SELECT MIN(date) FROM articlestat ";
-        return jdbcTemplate.queryForObject(sql, Long.class);
-    }
-
     public Long findLastDateTime() {
         String sql = "SELECT MAX(date) FROM articlestat ";
         return jdbcTemplate.queryForObject(sql, Long.class);
-    }
-
-    public ArticleStatModel findByDateArticleIdAndSiteId(DateTime date, String articleId, Long siteId) {
-        String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
-                " FROM articlestat WHERE date = ? AND articleid = ? AND site_id = ?";
-
-
-        try {
-            return  jdbcTemplate
-                    .queryForObject(sql, new Object[]{date.getMillis(), articleId, siteId}, new ArticleStatRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            return null;
-
-        }
     }
 
     /*
@@ -112,27 +85,6 @@ public class ArticleStatDao {
         return model;
     }
 
-    public ArticleStatModel findById(Long id)  {
-        String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
-                " FROM articlestat WHERE id = ?";
-        ArticleStatModel model =
-                jdbcTemplate.queryForObject(sql, new Object[]{id}, new ArticleStatRowMapper());
-
-        return model;
-    }
-
-    public ArticleStatModel findHighestUniqueVisitorByDateAndSite(long siteId, DateTime uniqueDate) {
-        String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
-                " FROM articlestat WHERE site_id = ? AND date >= ? AND date < ? ORDER BY uniquevisitor DESC LIMIT 1";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, uniqueDate.getMillis(), uniqueDate.plusDays(1).getMillis()}, new ArticleStatRowMapper());
-        }catch (EmptyResultDataAccessException e) {
-            log.debug("ArticleStatModel not found for siteId : {}", siteId);
-            return null;
-        }
-
-    }
-
     public ArticleStatModel findHighestUniqueVisitorOlderDateAndSite(long siteId, DateTime uniqueDate) {
         String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
                 " FROM articlestat WHERE site_id = ?  AND date < ? ORDER BY uniquevisitor DESC LIMIT 1";
@@ -143,17 +95,6 @@ public class ArticleStatDao {
             return null;
         }
 
-    }
-
-    public ArticleStatModel findHighestPageViewByDateAndSite(long siteId, DateTime pageViewDate) {
-        String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id" +
-                " FROM articlestat WHERE site_id = ? AND date >= ? AND date < ? ORDER BY pageview DESC LIMIT 1";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, pageViewDate.getMillis(), pageViewDate.plusDays(1).getMillis()}, new ArticleStatRowMapper());
-        }catch (EmptyResultDataAccessException e) {
-            log.debug("ArticleStatModel not found for siteId : {}", siteId);
-            return null;
-        }
     }
 
     public ArticleStatModel findHighestPageViewOlderByDateAndSite(long siteId, DateTime pageViewDate) {
@@ -178,20 +119,6 @@ public class ArticleStatDao {
         }
     }
 
-    public ArticleStatModel update(ArticleStatModel model) {
-        String sql = "UPDATE articlestat SET uniquevisitor = ?, pageview = ?, visit = ?, date = ?, articleid = ?," +
-                " articletitle = ?, site_id = ? WHERE id = ?";
-
-        int rowEffect = jdbcTemplate.update(sql, new Object[]{model.getUniqueVisitor(), model.getPageView(),
-                model.getVisit(), model.getDate().getMillis(), model.getArticleId(), model.getArticleTitle(),
-                model.getSite().getId(), model.getId()});
-
-        if (rowEffect != 1) {
-            //log.warn("No articlestat id = {} found to be updated", model.getId());
-        }
-
-        return model;
-    }
 
     private ArticleStatModel insert(ArticleStatModel model) {
         GeneratedKeyHolder key = new GeneratedKeyHolder();
@@ -200,64 +127,6 @@ public class ArticleStatDao {
         model.setId(id);
 
         return model;
-    }
-
-
-    public List<ArticleStatModel> findByDateAndSiteIdSortPageViewDesc(DateTime date, Long siteId, int limit) {
-        String sql = "SELECT id, uniquevisitor, pageview, visit, date, articleid, articletitle, articleurl, site_id " +
-                " FROM articlestat WHERE date = ? AND site_id = ? ORDER BY pageview DESC LIMIT " + limit;
-
-        List<ArticleStatModel> res =
-                jdbcTemplate.query(sql, new Object[]{date.getMillis(), siteId}, new ArticleStatRowMapper());
-
-        return res;
-    }
-
-
-    /**
-     * see {@link #findByDateAndSiteIdSortPageViewDesc} but no siteId specified
-     */
-    public List<ArticleStatModel> findByDateAndSiteDeviceSortPageViewDesc(DateTime date, String device, int limit) {
-        //log.debug("Device : : :{} " , device);
-        String sql = "SELECT article.id, article.uniquevisitor, article.pageview, article.visit, " +
-                "article.date, article.articleid, " +
-                "article.articletitle, article.articleurl, article.site_id " +
-                "FROM articlestat article LEFT JOIN site s ON article.site_id = s.id " +
-                "WHERE date = ? AND s.device = ? ORDER BY pageview DESC LIMIT " + limit;
-
-        List<ArticleStatModel> res =
-                jdbcTemplate.query(sql, new Object[]{date.getMillis(), device}, new ArticleStatRowMapper());
-
-        return res;
-    }
-
-    public List<ArticleStatModel> findTopPageViewArticleBy
-            (DateTime date, String device, String totalReportCode, int limit) {
-        String sql = "SELECT article.id, article.uniquevisitor, article.pageview, article.visit, " +
-                "article.date, article.articleid, " +
-                "article.articletitle, article.articleurl, article.site_id " +
-                "FROM articlestat article " +
-                "INNER JOIN site ON site.id = article.site_id and site.id  IN  " +
-                "(SELECT site_id FROM report_site INNER JOIN report ON report.id = report_site.report_id  " +
-                "WHERE report.name = ?) WHERE site.device= ? " +
-                "AND article.date = ? ORDER BY pageview DESC limit ?";
-
-        return jdbcTemplate.query (
-                sql, new Object[]{totalReportCode, device, date.getMillis(), limit}, new ArticleStatRowMapper());
-    }
-
-
-    public List<ArticleStatModel> findByDateWithDesktopAndMobileDeviceSortPageViewDesc(DateTime date, int limit) {
-        String sql = "SELECT article.id, article.uniquevisitor, article.pageview, article.visit, article.date, article.articleid, " +
-                "article.articletitle, article.articleurl, article.site_id " +
-                " FROM articlestat article LEFT JOIN site s ON article.site_id = s.id " +
-                " WHERE date = ? AND (s.device = ? OR s.device = ?) ORDER BY pageview DESC LIMIT " + limit;
-
-        List<ArticleStatModel> res =
-                jdbcTemplate.query(sql, new Object[]{date.getMillis(), SiteDeviceEnum.DESKTOP.toTextValue(),
-                        SiteDeviceEnum.MOBILE.toTextValue()}, new ArticleStatRowMapper());
-
-        return res;
     }
 
     public TotalOfArticleBean getTotalOfUniqueVisitor(Long siteId) {

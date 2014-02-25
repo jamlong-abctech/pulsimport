@@ -41,11 +41,6 @@ public class SiteDao {
         return siteModel;
     }
 
-    public List<SiteModel> findByName(String name){
-        List<SiteModel> siteModel = jdbcTemplate.query("SELECT id, code, device, name FROM site WHERE name = ?",
-                new Object[]{name}, new SiteRowMapper());
-        return siteModel;
-    }
 
     public List<SiteModel> findAllSite(){
         return jdbcTemplate.query("SELECT id, code, device, name FROM site", new SiteRowMapper());

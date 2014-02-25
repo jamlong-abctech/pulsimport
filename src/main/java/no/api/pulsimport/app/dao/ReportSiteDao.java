@@ -29,12 +29,6 @@ public class ReportSiteDao {
         return reportList;
     }
 
-    public ReportSiteModel findBySiteIdAndReportId(Long siteId, Long reportId){
-        String sql = "SELECT id,report_id,site_id FROM report_site WHERE site_id = ? and report_id = ?" ;
-        ReportSiteModel reportSiteModel = jdbcTemplate.queryForObject(sql,new Object[]{siteId , reportId},new ReportSiteRowMapper());
-        return reportSiteModel;
-    }
-
 
     private  class ReportSiteRowMapper implements RowMapper<ReportSiteModel> {
 

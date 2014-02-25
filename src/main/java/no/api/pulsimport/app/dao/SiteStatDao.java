@@ -23,7 +23,7 @@ import java.sql.Statement;
 import java.util.List;
 
 /**
- * Created by tum on 2/9/2014 AD.
+ *
  */
 @Repository
 public class SiteStatDao {
@@ -66,20 +66,6 @@ public class SiteStatDao {
         });
     }
 
-    public SiteStatModel findByHourAndSiteCodeId(DateTime hour, long siteCodeId) {
-        String sql = "SELECT id, uniquevisitor, pageview, visit, hour, video,site_id FROM sitestat WHERE hour = ? AND site_id = ?";
-        SiteStatModel model =
-                jdbcTemplate.queryForObject(sql, new Object[]{hour.getMillis(), siteCodeId}, new SiteStatRowMapper());
-
-        return model;
-    }
-
-    public List<SiteStatModel> findByHourPeriodAndSiteId(DateTime from, DateTime to, long siteCodeId) {
-        String sql = "SELECT id, uniquevisitor, pageview, visit, hour,video, site_id FROM sitestat " +
-                "WHERE hour BETWEEN ? AND ? AND site_id = ?";
-        return jdbcTemplate.query(sql, new Object[]{from.getMillis(), to.getMillis(), siteCodeId}, new SiteStatRowMapper());
-    }
-
     public SiteStatModel findLatestHourByDate(long siteId, DateTime asOf){
         String sql = "SELECT id, uniquevisitor, pageview, visit, hour, video,site_id FROM sitestat WHERE site_id = ? AND hour >= ? AND hour < ? ORDER BY hour DESC LIMIT 1";
         try {
@@ -89,22 +75,6 @@ public class SiteStatDao {
             log.debug("SiteStatModel not found for siteId : {}, date : {}", siteId, asOf);
             return null;
         }
-    }
-
-    public SiteStatModel findLatestHourOlderByDate(long siteId, DateTime asOf){
-        String sql = "SELECT id, uniquevisitor, pageview, visit, hour, video,site_id FROM sitestat WHERE site_id = ? AND hour < ? ORDER BY hour DESC LIMIT 1";
-        try {
-            return jdbcTemplate.queryForObject(sql, new Object[]{siteId, asOf.getMillis()},
-                    new SiteStatRowMapper());
-        } catch (EmptyResultDataAccessException e) {
-            log.debug("SiteStatModel not found for siteId : {}, date : {}", siteId, asOf);
-            return null;
-        }
-    }
-
-    public List<SiteStatModel>findPreviousDate(long siteId,DateTime asOf){
-        String sql = "SELECT id, uniquevisitor, pageview, visit, hour, video,site_id FROM sitestat WHERE site_id = ? and hour<=?";
-        return jdbcTemplate.query(sql, new Object[]{siteId,asOf.minusDays(1).getMillis()}, new SiteStatRowMapper());
     }
 
     //TODO Tone.3/26/13, add unit test
