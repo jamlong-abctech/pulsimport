@@ -75,6 +75,11 @@ public class RecordArticleStatAllTimeDao {
         return model;
     }
 
+    public int deleteAll() {
+        String sql = "DELETE FROM recordarticlestatalltime";
+        return jdbcTemplate.update(sql);
+    }
+
     public RecordArticleStatAllTimeModel findBySiteId(Long siteId) {
       String sql =   "SELECT  id ,uniquevisitor , uniquevisitorarticleid , uniquevisitorarticletitle , uniquevisitorarticleurl , pageview," +
               " pageviewarticleid , pageviewarticletitle , pageviewarticleurl , visit , visitarticleid , visitarticletitle , visitarticleurl , site_id   FROM recordarticlestatalltime  WHERE site_id = ?";

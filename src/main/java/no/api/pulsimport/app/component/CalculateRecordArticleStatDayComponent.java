@@ -30,6 +30,7 @@ public class CalculateRecordArticleStatDayComponent {
 
     public void calculateArticleStatDauRecord() {
         log.debug("Starting calculateArticleStatDauRecord");
+        recordArticleStatDayDao.deleteAll();
         Long lastDayInLong = articleStatDao.findLastDateTime();
         DateTime lastDay = new DateTime(lastDayInLong);
         calculateRecordForArticleStat(lastDay.plusDays(1));

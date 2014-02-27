@@ -31,6 +31,7 @@ public class CalculateRecordArticleStatAllTimeComponent {
 
     public void calculateRecordForArticleStatAllTime() {
         log.info("Starting calculateRecordForArticleStatAllTime");
+        recordArticleStatAllTimeDao.deleteAll();
         List<SiteModel> siteModelList = siteDao.findAllSite();
 
         for (SiteModel siteModel : siteModelList) {

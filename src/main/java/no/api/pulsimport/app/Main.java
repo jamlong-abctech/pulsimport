@@ -30,6 +30,14 @@ public class Main {
             System.err.println("Need 4 parameter for running import (exported file location, db host, db name, db user, db password)");
             System.exit(1);
         }
+        if (!args[0].endsWith(File.separator)) {
+            args[0] = args[0] + File.separator;
+        }
+        File exportedDir = new File(args[0]);
+        if(!exportedDir.isDirectory()) {
+            System.err.println("First parameter need to be a directory");
+            System.exit(1);
+        }
 
         String exportedFileLocation = args[0];
         Properties props = System.getProperties();
@@ -46,7 +54,6 @@ public class Main {
         CalculateRecordSiteStatComponent calculateRecordSiteStatComponent = (CalculateRecordSiteStatComponent) context.getBean("calculateRecordSiteStatComponent");
         CalculateRecordArticleStatAllTimeComponent articleRecordArticleAllTimeComponent = (CalculateRecordArticleStatAllTimeComponent) context.getBean("calculateRecordArticleStatAllTimeComponent");
         CalculateRecordArticleStatDayComponent calculateRecordArticleStatDayComponent = (CalculateRecordArticleStatDayComponent) context.getBean("calculateRecordArticleStatDayComponent");
-        //ImportRecordComponent importRecordComponent = (ImportRecordComponent) context.getBean("importRecordComponent");
 
         try {
             siteStatImportComponent.importSiteStat(exportedFileLocation);

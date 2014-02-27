@@ -38,6 +38,11 @@ public class RecordArticleStatDayDao {
         }
     }
 
+    public int deleteAll() {
+        String sql = "DELETE FROM recordarticlestatday";
+        return jdbcTemplate.update(sql);
+    }
+
     private RecordArticleStatDayModel insertRecordArticleStatDay(RecordArticleStatDayModel recordArticleStatDayModel){
         GeneratedKeyHolder key = new GeneratedKeyHolder();
         jdbcTemplate.update(new RecordArticleStatDayInsertStatementCreator(recordArticleStatDayModel), key);

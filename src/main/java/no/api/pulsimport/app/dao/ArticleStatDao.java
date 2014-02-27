@@ -40,6 +40,18 @@ public class ArticleStatDao {
     @Autowired
     private SiteDao siteDao;
 
+
+    public long countArticleStat() {
+        String sql = "SELECT COUNT(*) FROM articlestat";
+        return  jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
+    public DateTime fineMinTimeFromArticleStat() {
+        String sql = "SELECT MIN(hour) FROM articlestat ";
+        long maxdateInLong = jdbcTemplate.queryForObject(sql, Long.class);
+        return new DateTime(maxdateInLong);
+    }
+
     @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
     public void batchInsert(final List<ArticleStatModel> articleStatModelList) {
         String sql = "INSERT INTO articlestat (uniquevisitor, pageview, visit, date,articleid, articletitle,articleurl,site_id) VALUES (?, ?, ?, ?,?, ?,?,?)";

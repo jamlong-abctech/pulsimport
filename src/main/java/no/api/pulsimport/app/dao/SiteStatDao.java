@@ -44,6 +44,17 @@ public class SiteStatDao {
         }
     }
 
+    public long countSiteStat() {
+        String sql = "SELECT COUNT(*) FROM sitestat";
+        return  jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
+    public DateTime fineMinTimeFromSiteStat() {
+        String sql = "SELECT MIN(hour) FROM sitestat ";
+        long maxdateInLong = jdbcTemplate.queryForObject(sql, Long.class);
+        return new DateTime(maxdateInLong);
+    }
+
     @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
     public void batchInsert(final List<SiteStatModel> siteStatModelList) {
         String sql = "INSERT INTO sitestat (uniquevisitor, pageview, visit, hour,video, site_id) VALUES (?, ?, ?, ?,?, ?)";

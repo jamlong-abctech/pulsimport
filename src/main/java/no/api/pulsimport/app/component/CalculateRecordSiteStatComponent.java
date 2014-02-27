@@ -40,6 +40,8 @@ public class CalculateRecordSiteStatComponent {
         DateTime firstDay = new DateTime(firstDayInLong);
         DateTime lastDay = new DateTime(lastDayInLong);
         DateTime currentDay = firstDay;
+        int deleted = recordSiteStatDao.deleteAllSiteStatRecord();
+        log.info("Clear all data in sitestatrecord deleted {} records", deleted);
         calculateRecordForSiteStat(lastDay.plusDays(1));
         boolean shouldContinue = true;
         while (shouldContinue) {

@@ -52,6 +52,10 @@ public class ArticleImportComponent {
         DateTime startTime = DateTime.now();
 
         List<SiteModel> sites = siteDao.findByDevice(SiteDeviceEnum.DESKTOP);
+        DateTime timeLimit = DateTime.now();
+        if(articleStatDao.countArticleStat() > 0) {
+            timeLimit = articleStatDao.fineMinTimeFromArticleStat();
+        }
 
         for (SiteModel site : sites) {
             log.debug("Importing articlestat for {}", site.getCode());
@@ -72,18 +76,20 @@ public class ArticleImportComponent {
                 StatResultSet resultSetMobile = parser.parseStat(mobileExportedName);
 
                 log.info("Mapping xml object to data model for desktopSite");
-                List<ArticleStatModel> articleStatDesktopModels = mapper.map(resultSetDesktop, desktopSite);
+                List<ArticleStatModel> articleStatDesktopModels = mapper.map(resultSetDesktop, desktopSite, timeLimit);
                 log.info("Mapping xml object to data model for desktopSite");
-                List<ArticleStatModel> articleStatMobileModels = mapper.map(resultSetMobile, mobileSite);
+                List<ArticleStatModel> articleStatMobileModels = mapper.map(resultSetMobile, mobileSite, timeLimit);
 
                 log.info("Calculating combine site");
                 List<ArticleStatModel> combineStats = calculateCombineStat(articleStatDesktopModels, articleStatMobileModels, combineSite);
 
                 log.info("Inserting desktop article statistic size {}", articleStatDesktopModels.size());
                 articleStatDao.batchInsert(articleStatDesktopModels);
-                log.info("Inserting mobile article statistic size {}", articleStatDesktopModels.size());
+
+                log.info("Inserting mobile article statistic size {}", articleStatMobileModels.size());
                 articleStatDao.batchInsert(articleStatMobileModels);
-                log.info("Inserting combine article statistic size {}", articleStatDesktopModels.size());
+
+                log.info("Inserting combine article statistic size {}", combineStats.size());
                 articleStatDao.batchInsert(combineStats);
 
                 // Case of this site has paid content
@@ -91,16 +97,18 @@ public class ArticleImportComponent {
                     StatResultSet resultSetDesktopPlus = parser.parseStat(desktopPlusExportName);
                     StatResultSet resultSetMobilePlus = parser.parseStat(mobilePlusExportedName);
 
-                    List<ArticleStatModel> articleStatDesktopPlusModels = mapper.map(resultSetDesktopPlus, desktopPlusSite);
-                    List<ArticleStatModel> articleStatMobilePlusModels = mapper.map(resultSetMobilePlus, mobilePlusSite);
+                    List<ArticleStatModel> articleStatDesktopPlusModels = mapper.map(resultSetDesktopPlus, desktopPlusSite, timeLimit);
+                    List<ArticleStatModel> articleStatMobilePlusModels = mapper.map(resultSetMobilePlus, mobilePlusSite, timeLimit);
 
                     List<ArticleStatModel> combinePlusStats = calculateCombineStat(articleStatDesktopPlusModels, articleStatMobilePlusModels, combinePlusSite);
 
-                    log.info("Inserting paid desktop article statistic size {}", articleStatDesktopModels.size());
+                    log.info("Inserting paid desktop article statistic size {}", articleStatDesktopPlusModels.size());
                     articleStatDao.batchInsert(articleStatDesktopPlusModels);
-                    log.info("Inserting paid mobile article statistic size {}", articleStatDesktopModels.size());
+
+                    log.info("Inserting paid mobile article statistic size {}", articleStatMobilePlusModels.size());
                     articleStatDao.batchInsert(articleStatMobilePlusModels);
-                    log.info("Inserting paid combine article statistic size {}", articleStatDesktopModels.size());
+
+                    log.info("Inserting paid combine article statistic size {}", combinePlusStats.size());
                     articleStatDao.batchInsert(combinePlusStats);
                 }
             } catch (ExportedDataNotFoundException e) {
@@ -148,5 +156,15 @@ public class ArticleImportComponent {
             }
         }
         return combinedStat;
+    }
+
+    private DateTime findLastedDateTime(List<ArticleStatModel> articleStatModels) {
+        DateTime lastedTime = new DateTime(1);
+        for (ArticleStatModel each : articleStatModels) {
+            if(each.getDate().getMillis() > lastedTime.getMillis()) {
+                lastedTime = each.getDate();
+            }
+        }
+        return lastedTime;
     }
 }

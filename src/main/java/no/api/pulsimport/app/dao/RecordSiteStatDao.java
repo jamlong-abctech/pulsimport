@@ -86,10 +86,9 @@ public class RecordSiteStatDao {
         });
     }
 
-    public RecordSiteStatModel findById(Long id) {
-        String sql = "SELECT id, uniquevisitor, uniquevisitordate, pageview, pageviewdate, visit, visitdate, site_id FROM recordsitestat WHERE id = ?";
-        RecordSiteStatModel recordSiteStatModel = jdbcTemplate.queryForObject(sql, new Object[]{id}, new RecordSiteStatRowMapper());
-        return recordSiteStatModel;
+    public int deleteAllSiteStatRecord() {
+        String sql = "DELETE FROM recordsitestat";
+        return jdbcTemplate.update(sql);
     }
 
     public RecordSiteStatModel findBySiteId(Long siteId) {

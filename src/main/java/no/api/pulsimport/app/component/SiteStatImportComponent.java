@@ -59,6 +59,11 @@ public class SiteStatImportComponent {
         log.debug("Import siteStat started");
         DateTime startTime = DateTime.now();
 
+        DateTime minDateInDb = DateTime.now();
+        if(siteStatDao.countSiteStat() > 0) {
+            minDateInDb = siteStatDao.fineMinTimeFromSiteStat();
+        }
+
         Map<Long, SiteStatModel> amediaTotalDesktopMap = new HashMap<>();
         Map<Long, SiteStatModel> amediaTotalMobileMap = new HashMap<>();
 
@@ -93,9 +98,9 @@ public class SiteStatImportComponent {
                 StatResultSet resultSetMobile = parser.parseStat(mobileExportedName);
 
                 log.info("Mapping xml object to data model for desktopSite");
-                List<SiteStatModel> siteStatDesktopModels =  mapper.map(resultSetDesktop, desktopSite);
+                List<SiteStatModel> siteStatDesktopModels =  mapper.map(resultSetDesktop, desktopSite, minDateInDb);
                 log.info("Mapping xml object to data model for mobileSite");
-                List<SiteStatModel> siteStatMobileModels =  mapper.map(resultSetMobile, mobileSite);
+                List<SiteStatModel> siteStatMobileModels =  mapper.map(resultSetMobile, mobileSite, minDateInDb);
 
                 log.info("Calculating combine site");
                 List<SiteStatModel> combineStats = calculateCombineStat(siteStatDesktopModels, siteStatMobileModels, combineSite);
@@ -199,8 +204,8 @@ public class SiteStatImportComponent {
                     StatResultSet resultSetDesktopPlus = parser.parseStat(desktopPlusExportName);
                     StatResultSet resultSetMobilePlus = parser.parseStat(mobilePlusExportedName);
 
-                    List<SiteStatModel> siteStatDesktopPlusModels =  mapper.map(resultSetDesktopPlus, desktopPlusSite);
-                    List<SiteStatModel> siteStatMobilePlusModels =  mapper.map(resultSetMobilePlus, mobilePlusSite);
+                    List<SiteStatModel> siteStatDesktopPlusModels =  mapper.map(resultSetDesktopPlus, desktopPlusSite, minDateInDb);
+                    List<SiteStatModel> siteStatMobilePlusModels =  mapper.map(resultSetMobilePlus, mobilePlusSite, minDateInDb);
 
                     List<SiteStatModel> combinePlusStats = calculateCombineStat(siteStatDesktopPlusModels, siteStatMobilePlusModels, combinePlusSite);
 
@@ -231,11 +236,11 @@ public class SiteStatImportComponent {
         log.info("Inserting puls total combine site statistic size {}", pulsTotalCombineStatList.size());
         siteStatDao.batchInsert(pulsTotalCombineStatList);
 
-        log.info("Inserting amedia total desktop site statistic size {}", pulsTotalDesktopStatList.size());
+        log.info("Inserting amedia total desktop site statistic size {}", amediaTotalDesktopStatList.size());
         siteStatDao.batchInsert(amediaTotalDesktopStatList);
-        log.info("Inserting amedia total mobile site statistic size {}", pulsTotalDesktopStatList.size());
+        log.info("Inserting amedia total mobile site statistic size {}", amediaTotalMobileStatList.size());
         siteStatDao.batchInsert(amediaTotalMobileStatList);
-        log.info("Inserting amedia total combine site statistic size {}", pulsTotalDesktopStatList.size());
+        log.info("Inserting amedia total combine site statistic size {}", amediaTotalCombineStatList.size());
         siteStatDao.batchInsert(amediaTotalCombineStatList);
 
         log.debug("import sitestat finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
