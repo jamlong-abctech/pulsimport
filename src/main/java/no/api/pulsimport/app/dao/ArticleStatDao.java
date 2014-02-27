@@ -47,7 +47,7 @@ public class ArticleStatDao {
     }
 
     public DateTime fineMinTimeFromArticleStat() {
-        String sql = "SELECT MIN(hour) FROM articlestat ";
+        String sql = "SELECT MIN(date) FROM articlestat ";
         long maxdateInLong = jdbcTemplate.queryForObject(sql, Long.class);
         return new DateTime(maxdateInLong);
     }
