@@ -41,13 +41,13 @@ public class ArticleStatDao {
     private SiteDao siteDao;
 
 
-    public long countArticleStat() {
-        String sql = "SELECT COUNT(*) FROM articlestat";
+    public long countArticleStat(Long siteId) {
+        String sql = "SELECT COUNT(*) FROM articlestat WHERE site_id = "+siteId;
         return  jdbcTemplate.queryForObject(sql, Long.class);
     }
 
-    public DateTime fineMinTimeFromArticleStat() {
-        String sql = "SELECT MIN(date) FROM articlestat ";
+    public DateTime fineMinTimeFromArticleStat(Long siteId) {
+        String sql = "SELECT MIN(date) FROM articlestat WHERE site_id = "+siteId;
         long maxdateInLong = jdbcTemplate.queryForObject(sql, Long.class);
         return new DateTime(maxdateInLong);
     }

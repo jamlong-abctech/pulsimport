@@ -52,12 +52,12 @@ public class ArticleImportComponent {
         DateTime startTime = DateTime.now();
 
         List<SiteModel> sites = siteDao.findByDevice(SiteDeviceEnum.DESKTOP);
-        DateTime timeLimit = DateTime.now();
-        if(articleStatDao.countArticleStat() > 0) {
-            timeLimit = articleStatDao.fineMinTimeFromArticleStat();
-        }
 
         for (SiteModel site : sites) {
+            DateTime timeLimit = DateTime.now();
+            if(articleStatDao.countArticleStat(site.getId()) > 0) {
+                timeLimit = articleStatDao.fineMinTimeFromArticleStat(site.getId());
+            }
             log.debug("Importing articlestat for {}", site.getCode());
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode() + "+");
