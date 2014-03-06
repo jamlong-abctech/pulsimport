@@ -59,11 +59,6 @@ public class SiteStatImportComponent {
         log.debug("Import siteStat started");
         DateTime startTime = DateTime.now();
 
-        DateTime minDateInDb = DateTime.now();
-        if(siteStatDao.countSiteStat() > 0) {
-            minDateInDb = siteStatDao.fineMinTimeFromSiteStat();
-        }
-
         Map<Long, SiteStatModel> amediaTotalDesktopMap = new HashMap<>();
         Map<Long, SiteStatModel> amediaTotalMobileMap = new HashMap<>();
 
@@ -82,6 +77,12 @@ public class SiteStatImportComponent {
 
         for(SiteModel site : sites) {
             log.debug("Importing sitestat for {}", site.getCode());
+
+            DateTime minDateInDb = DateTime.now();
+            if(siteStatDao.countSiteStat(site.getId()) > 0) {
+                minDateInDb = siteStatDao.fineMinTimeFromSiteStat(site.getId());
+            }
+
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
             SiteModel mobileSite = siteDao.findByCode("m-"+site.getCode());

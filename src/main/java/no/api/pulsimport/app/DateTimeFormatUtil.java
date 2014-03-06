@@ -1,9 +1,15 @@
 package no.api.pulsimport.app;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.LocalDateTime;
+import org.joda.time.chrono.ISOChronology;
+import org.joda.time.chrono.LenientChronology;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
+
+import java.util.Locale;
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 
@@ -30,10 +36,16 @@ public final class DateTimeFormatUtil {
             return null;
         }
     }
-    public static DateTime parseDateTime(String dateText){
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-        DateTime dateTime = formatter.parseDateTime(dateText);
+//    public static DateTime parseDateTime(String dateText){
+//        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+//        DateTime dateTime = formatter.parseDateTime(dateText);
+//
+//        return dateTime;
+//    }
 
-        return dateTime;
+    public static DateTime parseDateTime(String dateText) {
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withLocale(Locale.getDefault()).withZone(DateTimeZone.UTC);
+        formatter = formatter.withChronology(LenientChronology.getInstance(ISOChronology.getInstance(DateTimeZone.UTC)));
+        return formatter.parseDateTime(dateText);
     }
 }
