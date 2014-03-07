@@ -75,13 +75,18 @@ public class SiteStatImportComponent {
         SiteModel amediaTotalMobileSite = siteDao.findByCode(amediaTotalMobileSiteCode);
         SiteModel amediaTotalCombineleSite = siteDao.findByCode(amediaTotalCombineSiteCode);
 
+        DateTime minDateInDb = DateTime.now();
+        if(siteStatDao.countSiteStat() > 0) {
+            minDateInDb = siteStatDao.fineMinTimeFromSiteStat();
+        }
+
         for(SiteModel site : sites) {
             log.debug("Importing sitestat for {}", site.getCode());
 
-            DateTime minDateInDb = DateTime.now();
-            if(siteStatDao.countSiteStat(site.getId()) > 0) {
-                minDateInDb = siteStatDao.fineMinTimeFromSiteStat(site.getId());
-            }
+//            DateTime minDateInDb = DateTime.now();
+//            if(siteStatDao.countSiteStat(site.getId()) > 0) {
+//                minDateInDb = siteStatDao.fineMinTimeFromSiteStat(site.getId());
+//            }
 
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
