@@ -7,6 +7,7 @@ import no.api.pulsimport.app.dao.ReportSiteDao;
 import no.api.pulsimport.app.dao.SiteDao;
 import no.api.pulsimport.app.enumeration.SiteDeviceEnum;
 import no.api.pulsimport.app.exception.ExportedDataNotFoundException;
+import no.api.pulsimport.app.exception.MoveFileException;
 import no.api.pulsimport.app.mapper.ArticleStatMapper;
 import no.api.pulsimport.app.model.ArticleStatModel;
 import no.api.pulsimport.app.model.SiteModel;
@@ -16,7 +17,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,7 +60,7 @@ public class ArticleImportComponent {
 
         for (SiteModel site : sites) {
             DateTime timeLimit = DateTime.now();
-            if(articleStatDao.countArticleStat(site.getId()) > 0) {
+            if (articleStatDao.countArticleStat(site.getId()) > 0) {
                 timeLimit = articleStatDao.fineMinTimeFromArticleStat(site.getId());
             }
             log.debug("Importing articlestat for {}", site.getCode());
@@ -65,15 +70,15 @@ public class ArticleImportComponent {
             SiteModel mobilePlusSite = siteDao.findByCode("m-" + site.getCode() + "+");
             SiteModel combineSite = siteDao.findByCode("c-" + site.getCode());
             SiteModel combinePlusSite = siteDao.findByCode("c-" + site.getCode() + "+");
+
+            String desktopExportName = "stats_article_" + site.getCode() + ".xml";
+            String desktopPlusExportName = "stats_article_" + site.getCode() + "+" + ".xml";
+            String mobileExportedName = "stats_article_m-" + site.getCode() + ".xml";
+            String mobilePlusExportedName = "stats_article_m-" + site.getCode() + "+" + ".xml";
             try {
-                String desktopExportName = exportFileLocation + "stats_article_" + site.getCode() + ".xml";
-                String desktopPlusExportName = exportFileLocation + "stats_article_" + site.getCode() + "+" + ".xml";
-                String mobileExportedName = exportFileLocation + "stats_article_m-" + site.getCode() + ".xml";
-                String mobilePlusExportedName = exportFileLocation + "stats_article_m-" + site.getCode() + "+" + ".xml";
 
-
-                StatResultSet resultSetDesktop = parser.parseStat(desktopExportName);
-                StatResultSet resultSetMobile = parser.parseStat(mobileExportedName);
+                StatResultSet resultSetDesktop = parser.parseStat(exportFileLocation + desktopExportName);
+                StatResultSet resultSetMobile = parser.parseStat(exportFileLocation + mobileExportedName);
 
                 log.info("Mapping xml object to data model for desktopSite");
                 List<ArticleStatModel> articleStatDesktopModels = mapper.map(resultSetDesktop, desktopSite, timeLimit);
@@ -94,8 +99,8 @@ public class ArticleImportComponent {
 
                 // Case of this site has paid content
                 if (desktopPlusSite != null) {
-                    StatResultSet resultSetDesktopPlus = parser.parseStat(desktopPlusExportName);
-                    StatResultSet resultSetMobilePlus = parser.parseStat(mobilePlusExportedName);
+                    StatResultSet resultSetDesktopPlus = parser.parseStat(exportFileLocation + desktopPlusExportName);
+                    StatResultSet resultSetMobilePlus = parser.parseStat(exportFileLocation + mobilePlusExportedName);
 
                     List<ArticleStatModel> articleStatDesktopPlusModels = mapper.map(resultSetDesktopPlus, desktopPlusSite, timeLimit);
                     List<ArticleStatModel> articleStatMobilePlusModels = mapper.map(resultSetMobilePlus, mobilePlusSite, timeLimit);
@@ -114,10 +119,37 @@ public class ArticleImportComponent {
             } catch (ExportedDataNotFoundException e) {
                 log.warn("Not found exported data for site {} ", site.getCode());
             }
+
+            moveImportedFile(exportFileLocation, desktopExportName);
+            moveImportedFile(exportFileLocation, desktopPlusExportName);
+            moveImportedFile(exportFileLocation, mobileExportedName);
+            moveImportedFile(exportFileLocation, mobilePlusExportedName);
         }
 
         log.debug("import articlestat finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
 
+
+    }
+
+    private void moveImportedFile(String exportFileLocation, String fileName) {
+        try {
+            File doneFolder = new File(exportFileLocation + "article_done");
+            if(!doneFolder.exists()) {
+                doneFolder.mkdir();
+            }
+            String sourceFilePath = exportFileLocation + fileName;
+            String doneLocation = exportFileLocation + "done" + File.separator + fileName;
+            File sourceFile = new File(sourceFilePath);
+            if (sourceFile.exists()) {
+                if (sourceFile.renameTo(new File(doneLocation))) {
+                    log.debug("Import done move file {} to done dir", fileName);
+                } else {
+                    throw new MoveFileException("Can not move finish article file to done folder");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private List<ArticleStatModel> calculateCombineStat(List<ArticleStatModel> desktopList, List<ArticleStatModel> mobileList,
@@ -161,7 +193,7 @@ public class ArticleImportComponent {
     private DateTime findLastedDateTime(List<ArticleStatModel> articleStatModels) {
         DateTime lastedTime = new DateTime(1);
         for (ArticleStatModel each : articleStatModels) {
-            if(each.getDate().getMillis() > lastedTime.getMillis()) {
+            if (each.getDate().getMillis() > lastedTime.getMillis()) {
                 lastedTime = each.getDate();
             }
         }

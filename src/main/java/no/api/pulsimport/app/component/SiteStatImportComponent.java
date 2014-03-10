@@ -16,6 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,23 +86,19 @@ public class SiteStatImportComponent {
         for(SiteModel site : sites) {
             log.debug("Importing sitestat for {}", site.getCode());
 
-//            DateTime minDateInDb = DateTime.now();
-//            if(siteStatDao.countSiteStat(site.getId()) > 0) {
-//                minDateInDb = siteStatDao.fineMinTimeFromSiteStat(site.getId());
-//            }
-
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
             SiteModel mobileSite = siteDao.findByCode("m-"+site.getCode());
             SiteModel mobilePlusSite = siteDao.findByCode("m-"+site.getCode()+"+");
             SiteModel combineSite = siteDao.findByCode("c-"+site.getCode());
             SiteModel combinePlusSite = siteDao.findByCode("c-"+site.getCode()+"+");
-            try {
-                String desktopExportName = exportFileLocation + "stats_total_" + site.getCode() + ".xml";
-                String desktopPlusExportName = exportFileLocation + "stats_total_" + site.getCode()+"+" + ".xml";
-                String mobileExportedName = exportFileLocation + "stats_total_m-" + site.getCode() + ".xml";
-                String mobilePlusExportedName = exportFileLocation + "stats_total_m-" + site.getCode()+"+" + ".xml";
 
+            String desktopExportName = exportFileLocation + "stats_total_" + site.getCode() + ".xml";
+            String desktopPlusExportName = exportFileLocation + "stats_total_" + site.getCode()+"+" + ".xml";
+            String mobileExportedName = exportFileLocation + "stats_total_m-" + site.getCode() + ".xml";
+            String mobilePlusExportedName = exportFileLocation + "stats_total_m-" + site.getCode()+"+" + ".xml";
+
+            try {
                 StatResultSet resultSetDesktop = parser.parseStat(desktopExportName);
                 StatResultSet resultSetMobile = parser.parseStat(mobileExportedName);
 

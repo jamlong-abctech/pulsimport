@@ -63,6 +63,7 @@ public class Main {
             articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
         } catch (Exception e) {
             log.error("Importing error ", e);
+            e.printStackTrace();
         }
         log.info("Import ALL data finished in {} mil", DateTime.now().getMillis() - startTime.getMillis());
     }
