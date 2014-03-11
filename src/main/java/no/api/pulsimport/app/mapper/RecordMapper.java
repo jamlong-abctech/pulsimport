@@ -17,8 +17,8 @@ import java.util.Map;
 @Component
 public class RecordMapper {
 
-    public Map<String, List<RecordBean>> map(StatResultSet statResultSet, Map<String, String> siteMap) {
-        Map<String , List<RecordBean>> result = new HashMap<>();
+    public Map<String, Map<String, RecordBean>> map(StatResultSet statResultSet, Map<String, String> siteMap) {
+        Map<String , Map<String, RecordBean>> result = new HashMap<>();
         List<StatRow> rows = statResultSet.getRows();
         for(StatRow eachRow : rows) {
             String siteCode = siteMap.get(eachRow.getField().get(7));
@@ -38,11 +38,11 @@ public class RecordMapper {
             recordBean.setSiteCode(siteCode);
 
             if(result.get(siteCode) == null) {
-                List<RecordBean> recordBeans = new ArrayList<>();
-                recordBeans.add(recordBean);
+                Map<String, RecordBean> recordBeans = new HashMap<>();
+                recordBeans.put(type ,recordBean);
                 result.put(siteCode, recordBeans);
             } else {
-                result.get(siteCode).add(recordBean);
+                result.get(siteCode).put(type, recordBean);
             }
         }
         return result;
