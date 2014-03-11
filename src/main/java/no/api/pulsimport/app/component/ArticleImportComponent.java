@@ -138,7 +138,7 @@ public class ArticleImportComponent {
                 doneFolder.mkdir();
             }
             String sourceFilePath = exportFileLocation + fileName;
-            String doneLocation = exportFileLocation + "done" + File.separator + fileName;
+            String doneLocation = exportFileLocation + "article_done" + File.separator + fileName;
             File sourceFile = new File(sourceFilePath);
             if (sourceFile.exists()) {
                 if (sourceFile.renameTo(new File(doneLocation))) {

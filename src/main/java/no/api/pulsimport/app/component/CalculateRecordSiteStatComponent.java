@@ -47,7 +47,7 @@ public class CalculateRecordSiteStatComponent {
         while (shouldContinue) {
             calculateRecordForSiteStat(currentDay);
             currentDay = currentDay.plusDays(1);
-            if (currentDay.getMillis() == lastDay.toDateMidnight().toDateTime().getMillis()) {
+            if (currentDay.getMillis() > lastDay.toDateMidnight().toDateTime().getMillis()) {
                 shouldContinue = false;
             }
         }
