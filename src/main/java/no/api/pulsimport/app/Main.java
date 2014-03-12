@@ -61,8 +61,8 @@ public class Main {
         SiteStatImportComponent siteStatImportComponent = (SiteStatImportComponent) context.getBean("siteStatImportComponent");
         ArticleImportComponent articleComponent = (ArticleImportComponent) context.getBean("articleImportComponent");
 //        CalculateRecordSiteStatComponent calculateRecordSiteStatComponent = (CalculateRecordSiteStatComponent) context.getBean("calculateRecordSiteStatComponent");
-//        CalculateRecordArticleStatAllTimeComponent articleRecordArticleAllTimeComponent = (CalculateRecordArticleStatAllTimeComponent) context.getBean("calculateRecordArticleStatAllTimeComponent");
-//        CalculateRecordArticleStatDayComponent calculateRecordArticleStatDayComponent = (CalculateRecordArticleStatDayComponent) context.getBean("calculateRecordArticleStatDayComponent");
+        CalculateRecordArticleStatAllTimeComponent articleRecordArticleAllTimeComponent = (CalculateRecordArticleStatAllTimeComponent) context.getBean("calculateRecordArticleStatAllTimeComponent");
+        CalculateRecordArticleStatDayComponent calculateRecordArticleStatDayComponent = (CalculateRecordArticleStatDayComponent) context.getBean("calculateRecordArticleStatDayComponent");
         ImportRecordComponent importRecordComponent = (ImportRecordComponent) context.getBean("importRecordComponent");
 
         try {
@@ -70,8 +70,8 @@ public class Main {
             articleComponent.importArticleStat(exportedFileLocation);
 //            calculateRecordSiteStatComponent.calculateSiteStatRecord();
             importRecordComponent.importRecord(exportedFileLocation);
-            //calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
-            //articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
+            calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
+            articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
         } catch (Exception e) {
             log.error("Importing error ", e);
             e.printStackTrace();
