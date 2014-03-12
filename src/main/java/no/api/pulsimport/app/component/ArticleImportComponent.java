@@ -68,8 +68,8 @@ public class ArticleImportComponent {
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode() + "+");
             SiteModel mobileSite = siteDao.findByCode("m-" + site.getCode());
             SiteModel mobilePlusSite = siteDao.findByCode("m-" + site.getCode() + "+");
-            SiteModel combineSite = siteDao.findByCode("c-" + site.getCode());
-            SiteModel combinePlusSite = siteDao.findByCode("c-" + site.getCode() + "+");
+//            SiteModel combineSite = siteDao.findByCode("c-" + site.getCode());
+//            SiteModel combinePlusSite = siteDao.findByCode("c-" + site.getCode() + "+");
 
             String desktopExportName = "stats_article_" + site.getCode() + ".xml";
             String desktopPlusExportName = "stats_article_" + site.getCode() + "+" + ".xml";
@@ -85,8 +85,8 @@ public class ArticleImportComponent {
                 log.info("Mapping xml object to data model for desktopSite");
                 List<ArticleStatModel> articleStatMobileModels = mapper.map(resultSetMobile, mobileSite, timeLimit);
 
-                log.info("Calculating combine site");
-                List<ArticleStatModel> combineStats = calculateCombineStat(articleStatDesktopModels, articleStatMobileModels, combineSite);
+//                log.info("Calculating combine site");
+//                List<ArticleStatModel> combineStats = calculateCombineStat(articleStatDesktopModels, articleStatMobileModels, combineSite);
 
                 log.info("Inserting desktop article statistic size {}", articleStatDesktopModels.size());
                 articleStatDao.batchInsert(articleStatDesktopModels);
@@ -94,8 +94,8 @@ public class ArticleImportComponent {
                 log.info("Inserting mobile article statistic size {}", articleStatMobileModels.size());
                 articleStatDao.batchInsert(articleStatMobileModels);
 
-                log.info("Inserting combine article statistic size {}", combineStats.size());
-                articleStatDao.batchInsert(combineStats);
+//                log.info("Inserting combine article statistic size {}", combineStats.size());
+//                articleStatDao.batchInsert(combineStats);
 
                 // Case of this site has paid content
                 if (desktopPlusSite != null) {
@@ -105,7 +105,7 @@ public class ArticleImportComponent {
                     List<ArticleStatModel> articleStatDesktopPlusModels = mapper.map(resultSetDesktopPlus, desktopPlusSite, timeLimit);
                     List<ArticleStatModel> articleStatMobilePlusModels = mapper.map(resultSetMobilePlus, mobilePlusSite, timeLimit);
 
-                    List<ArticleStatModel> combinePlusStats = calculateCombineStat(articleStatDesktopPlusModels, articleStatMobilePlusModels, combinePlusSite);
+//                    List<ArticleStatModel> combinePlusStats = calculateCombineStat(articleStatDesktopPlusModels, articleStatMobilePlusModels, combinePlusSite);
 
                     log.info("Inserting paid desktop article statistic size {}", articleStatDesktopPlusModels.size());
                     articleStatDao.batchInsert(articleStatDesktopPlusModels);
@@ -113,8 +113,8 @@ public class ArticleImportComponent {
                     log.info("Inserting paid mobile article statistic size {}", articleStatMobilePlusModels.size());
                     articleStatDao.batchInsert(articleStatMobilePlusModels);
 
-                    log.info("Inserting paid combine article statistic size {}", combinePlusStats.size());
-                    articleStatDao.batchInsert(combinePlusStats);
+//                    log.info("Inserting paid combine article statistic size {}", combinePlusStats.size());
+//                    articleStatDao.batchInsert(combinePlusStats);
                 }
             } catch (ExportedDataNotFoundException e) {
                 log.warn("Not found exported data for site {} ", site.getCode());

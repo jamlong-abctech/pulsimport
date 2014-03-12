@@ -4,17 +4,17 @@ import org.joda.time.DateTime;
 
 public class RecordArticleStatDayModel {
     private Long id;
-    private Integer uniqueVisitor;
+    private Integer uniqueVisitor = 0;
     private String uniqueVisitorArticleId;
     private String uniqueVisitorArticleTitle;
     private String uniqueVisitorArticleUrl;
     private DateTime uniqueVisitorDate;
-    private Integer pageView;
+    private Integer pageView = 0;
     private String pageViewArticleId;
     private String pageViewArticleTitle;
     private String pageViewArticleUrl;
     private DateTime pageViewDate;
-    private Integer visit;
+    private Integer visit = 0;
     private String visitArticleId;
     private String visitArticleTitle;
     private String visitArticleUrl;
