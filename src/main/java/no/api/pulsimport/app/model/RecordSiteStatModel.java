@@ -4,11 +4,11 @@ import org.joda.time.DateTime;
 
 public class RecordSiteStatModel {
     private Long id;
-    private Integer uniqueVisitor;
+    private Integer uniqueVisitor = 0;
     private DateTime uniqueVisitorDate;
-    private Integer pageView;
+    private Integer pageView = 0;
     private DateTime pageViewDate;
-    private Integer visit;
+    private Integer visit = 0;
     private DateTime visitDate;
     private SiteModel site;
 

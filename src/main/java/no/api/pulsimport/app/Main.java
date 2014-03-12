@@ -26,36 +26,36 @@ public class Main {
 
         DateTime startTime = DateTime.now();
         log.info("Starting main class for importing puls data");
-//        if(args == null || args.length != 5) {
-//            System.err.println("Need 4 parameter for running import (exported file location, db host, db name, db user, db password)");
-//            System.exit(1);
-//        }
-//        if (!args[0].endsWith(File.separator)) {
-//            args[0] = args[0] + File.separator;
-//        }
-//        File exportedDir = new File(args[0]);
-//        if(!exportedDir.isDirectory()) {
-//            System.err.println("First parameter need to be a directory");
-//            System.exit(1);
-//        }
+        if(args == null || args.length != 5) {
+            System.err.println("Need 4 parameter for running import (exported file location, db host, db name, db user, db password)");
+            System.exit(1);
+        }
+        if (!args[0].endsWith(File.separator)) {
+            args[0] = args[0] + File.separator;
+        }
+        File exportedDir = new File(args[0]);
+        if(!exportedDir.isDirectory()) {
+            System.err.println("First parameter need to be a directory");
+            System.exit(1);
+        }
 
-//        String exportedFileLocation = args[0];
-//        Properties props = System.getProperties();
-//        String host = args[1];
-//        String daName = args[2];
-//        props.setProperty("db.user", args[3]);
-//        props.setProperty("db.password", args[4]);
-//        String jdbcUrl = "jdbc:mysql://"+host+"/"+daName+"?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true";
-//        props.setProperty("db.jdbcUrl", jdbcUrl);
-
-        String exportedFileLocation = "/opt/puls/exported/";
+        String exportedFileLocation = args[0];
         Properties props = System.getProperties();
-        String host = "localhost";
-        String daName = "puls";
-        props.setProperty("db.user", "puls");
-        props.setProperty("db.password", "pingu123");
+        String host = args[1];
+        String daName = args[2];
+        props.setProperty("db.user", args[3]);
+        props.setProperty("db.password", args[4]);
         String jdbcUrl = "jdbc:mysql://"+host+"/"+daName+"?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true";
         props.setProperty("db.jdbcUrl", jdbcUrl);
+
+//        String exportedFileLocation = "/opt/puls/exported/";
+//        Properties props = System.getProperties();
+//        String host = "localhost";
+//        String daName = "puls";
+//        props.setProperty("db.user", "puls");
+//        props.setProperty("db.password", "pingu123");
+//        String jdbcUrl = "jdbc:mysql://"+host+"/"+daName+"?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true";
+//        props.setProperty("db.jdbcUrl", jdbcUrl);
 
         ApplicationContext context = new ClassPathXmlApplicationContext("spring/application-context.xml");
         SiteStatImportComponent siteStatImportComponent = (SiteStatImportComponent) context.getBean("siteStatImportComponent");
@@ -66,12 +66,12 @@ public class Main {
         ImportRecordComponent importRecordComponent = (ImportRecordComponent) context.getBean("importRecordComponent");
 
         try {
-//            siteStatImportComponent.importSiteStat(exportedFileLocation);
-//            articleComponent.importArticleStat(exportedFileLocation);
+            siteStatImportComponent.importSiteStat(exportedFileLocation);
+            articleComponent.importArticleStat(exportedFileLocation);
 //            calculateRecordSiteStatComponent.calculateSiteStatRecord();
-//            calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
-//            articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
             importRecordComponent.importRecord(exportedFileLocation);
+            calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
+            articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
         } catch (Exception e) {
             log.error("Importing error ", e);
             e.printStackTrace();
