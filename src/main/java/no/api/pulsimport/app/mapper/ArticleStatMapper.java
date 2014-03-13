@@ -25,6 +25,9 @@ public class ArticleStatMapper {
         Map<String, ArticleStatModel> statRowMap = new HashMap<>();
         for (StatRow eachRow : articleStatRows) {
             DateTime hour = DateTimeFormatUtil.parseDateTime(eachRow.getField().get(4));
+            if(hour == null) {
+                continue;
+            }
             if (hour.getMillis() < timeLimit.getMillis()) {
                 ArticleStatModel articleStatModel = new ArticleStatModel();
 

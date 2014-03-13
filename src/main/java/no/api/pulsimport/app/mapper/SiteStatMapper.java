@@ -25,6 +25,9 @@ public class SiteStatMapper {
         Map<Long, SiteStatModel> siteStatModelMap = new HashMap<>();
         for (StatRow eachRow : statRows) {
             DateTime hour = DateTimeFormatUtil.parseDateTime(eachRow.getField().get(4));
+            if(hour == null) {
+                continue;
+            }
             if (hour.getMillis() < timeLimit.getMillis()) {
                 SiteStatModel siteStatModel = new SiteStatModel();
                 siteStatModel.setUniqueVisitor(Integer.parseInt(eachRow.getField().get(1)));

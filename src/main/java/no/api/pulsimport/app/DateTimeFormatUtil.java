@@ -44,8 +44,12 @@ public final class DateTimeFormatUtil {
 //    }
 
     public static DateTime parseDateTime(String dateText) {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withLocale(Locale.getDefault()).withZone(DateTimeZone.UTC);
-        formatter = formatter.withChronology(LenientChronology.getInstance(ISOChronology.getInstance(DateTimeZone.UTC)));
-        return formatter.parseDateTime(dateText);
+        try{
+            DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZone(DateTimeZone.forID("Europe/Oslo"));
+       // formatter = formatter.withChronology(LenientChronology.getInstance(ISOChronology.getInstance(DateTimeZone.UTC)));
+            return formatter.parseDateTime(dateText);
+        } catch (IllegalArgumentException e) {
+            return null;
+        }
     }
 }
