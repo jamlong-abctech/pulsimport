@@ -66,11 +66,7 @@ public class DateTimeFormatUtilTest {
 
     @Test
     public void test() {
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withLocale(Locale.getDefault()).withZone(DateTimeZone.UTC);
-        formatter = formatter.withChronology(LenientChronology.getInstance(ISOChronology.getInstance(DateTimeZone.UTC)));
-        DateTime dateTime = formatter.parseDateTime("2012-03-25 02:00:00");
-        System.out.println(dateTime);
-        DateTime dt = new LocalDateTime(dateTime).toDateTime(DateTimeZone.forID("Europe/Oslo"));
-        System.out.println(dt);
+        DateTime output = DateTimeFormatUtil.parseDateTime("2014-01-05 00:00:00");
+        log.info(">>>>>>>>>>>>>>> result : "+output.getMillis());
     }
 }

@@ -79,7 +79,7 @@ public class SiteStatDao {
 
    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
     public void batchInsert(final List<SiteStatModel> siteStatModelList) {
-        String sql = "INSERT INTO sitestat (uniquevisitor, pageview, visit, hour,video, site_id) VALUES (?, ?, ?, ?,?, ?)";
+        String sql = "INSERT IGNORE INTO sitestat (uniquevisitor, pageview, visit, hour,video, site_id) VALUES (?, ?, ?, ?,?, ?)";
         jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
             @Override
             public void setValues(PreparedStatement ps, int i) throws SQLException {
