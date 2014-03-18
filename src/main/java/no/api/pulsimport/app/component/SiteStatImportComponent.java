@@ -87,9 +87,9 @@ public class SiteStatImportComponent {
             log.debug("Importing sitestat for {}", site.getCode());
 
             DateTime minDateInDb = DateTime.now();
-            if(siteStatDao.countSiteStat(site.getId()) > 0) {
-                minDateInDb = siteStatDao.fineMinTimeFromSiteStat(site.getId());
-            }
+//            if(siteStatDao.countSiteStat(site.getId()) > 0) {
+//                minDateInDb = siteStatDao.fineMinTimeFromSiteStat(site.getId());
+//            }
 
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
