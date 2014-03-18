@@ -78,13 +78,18 @@ public class SiteStatImportComponent {
 //        SiteModel amediaTotalMobileSite = siteDao.findByCode(amediaTotalMobileSiteCode);
 //        SiteModel amediaTotalCombineleSite = siteDao.findByCode(amediaTotalCombineSiteCode);
 
-        DateTime minDateInDb = DateTime.now();
-        if(siteStatDao.countSiteStat() > 0) {
-            minDateInDb = siteStatDao.fineMinTimeFromSiteStat();
-        }
+//        DateTime minDateInDb = DateTime.now();
+//        if(siteStatDao.countSiteStat() > 0) {
+//            minDateInDb = siteStatDao.fineMinTimeFromSiteStat();
+//        }
 
         for(SiteModel site : sites) {
             log.debug("Importing sitestat for {}", site.getCode());
+
+            DateTime minDateInDb = DateTime.now();
+            if(siteStatDao.countSiteStat(site.getId()) > 0) {
+                minDateInDb = siteStatDao.fineMinTimeFromSiteStat(site.getId());
+            }
 
             SiteModel desktopSite = siteDao.findByCode(site.getCode());
             SiteModel desktopPlusSite = siteDao.findByCode(site.getCode()+"+");
@@ -234,10 +239,10 @@ public class SiteStatImportComponent {
 //        List<SiteStatModel> amediaTotalMobileStatList = new ArrayList<>(amediaTotalMobileMap.values());
 //        List<SiteStatModel> amediaTotalCombineStatList = calculateCombineStat(amediaTotalDesktopStatList, amediaTotalMobileStatList, amediaTotalCombineleSite);
 
-        log.info("Inserting puls total desktop site statistic size {}", pulsTotalDesktopStatList.size());
-        siteStatDao.batchInsert(pulsTotalDesktopStatList);
-        log.info("Inserting puls total mobile site statistic size {}", pulsTotalMobileStatList.size());
-        siteStatDao.batchInsert(pulsTotalMobileStatList);
+//        log.info("Inserting puls total desktop site statistic size {}", pulsTotalDesktopStatList.size());
+//        siteStatDao.batchInsert(pulsTotalDesktopStatList);
+//        log.info("Inserting puls total mobile site statistic size {}", pulsTotalMobileStatList.size());
+//        siteStatDao.batchInsert(pulsTotalMobileStatList);
 //        log.info("Inserting puls total combine site statistic size {}", pulsTotalCombineStatList.size());
 //        siteStatDao.batchInsert(pulsTotalCombineStatList);
 

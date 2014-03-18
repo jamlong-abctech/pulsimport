@@ -68,8 +68,7 @@ public class Main {
         try {
             siteStatImportComponent.importSiteStat(exportedFileLocation);
             articleComponent.importArticleStat(exportedFileLocation);
-//            calculateRecordSiteStatComponent.calculateSiteStatRecord();
-            importRecordComponent.importRecord(exportedFileLocation);
+            //importRecordComponent.importRecord(exportedFileLocation);
             calculateRecordArticleStatDayComponent.calculateArticleStatDauRecord();
             articleRecordArticleAllTimeComponent.calculateRecordForArticleStatAllTime();
         } catch (Exception e) {

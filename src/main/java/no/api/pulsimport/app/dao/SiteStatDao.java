@@ -49,8 +49,19 @@ public class SiteStatDao {
         return  jdbcTemplate.queryForObject(sql, Long.class);
     }
 
+    public long countSiteStat(Long siteId) {
+        String sql = "SELECT COUNT(*) FROM sitestat WHERE site_id = "+siteId ;
+        return  jdbcTemplate.queryForObject(sql, Long.class);
+    }
+
     public DateTime fineMinTimeFromSiteStat() {
         String sql = "SELECT MIN(hour) FROM sitestat";
+        long maxdateInLong = jdbcTemplate.queryForObject(sql, Long.class);
+        return new DateTime(maxdateInLong);
+    }
+
+    public DateTime fineMinTimeFromSiteStat(Long siteId) {
+        String sql = "SELECT MIN(hour) FROM sitestat WHERE site_id = "+siteId;
         long maxdateInLong = jdbcTemplate.queryForObject(sql, Long.class);
         return new DateTime(maxdateInLong);
     }
